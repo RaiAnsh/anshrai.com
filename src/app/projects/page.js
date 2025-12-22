@@ -18,7 +18,7 @@ const projects = [
 
 export default function ProjectsPage() {
   return (
-    <main>
+    <main className="container">
       <h1>Projects</h1>
       <p>Some projects are in progress — more coming soon.</p>
 
