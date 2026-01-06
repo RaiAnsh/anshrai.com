@@ -123,3 +123,21 @@ article h3 {
   opacity: 0.92;
   max-width: 650px;
 }
+
+/* Ensure site content sits above the starfield canvas */
+header,
+main,
+footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Make cards more readable (less transparent) */
+article {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(11, 15, 25, 0.72);
+  border-radius: 14px;
+  padding: 18px;
+  margin-top: 16px;
+  backdrop-filter: blur(10px);
+}
