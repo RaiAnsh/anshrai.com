@@ -1,20 +1,4 @@
-const projects = [
-  {
-    title: "Project Placeholder #1",
-    desc: "A full-stack app with Next.js + API + database.",
-    tags: ["Next.js", "Node", "DB"],
-  },
-  {
-    title: "Project Placeholder #2",
-    desc: "A React-based business site with polished UI and responsive layout.",
-    tags: ["React", "UI", "Responsive"],
-  },
-  {
-    title: "Project Placeholder #3",
-    desc: "A utility app showcasing state, forms, and clean logic.",
-    tags: ["Forms", "State", "UX"],
-  },
-];
+import { projects } from "../../data/projects";
 
 export default function ProjectsPage() {
   return (
@@ -24,10 +8,12 @@ export default function ProjectsPage() {
 
       <section>
         {projects.map((p) => (
-          <article key={p.title}>
+          <article key={p.slug}>
             <h2>{p.title}</h2>
             <p>{p.desc}</p>
             <p>{p.tags.join(" • ")}</p>
+            <p>Status: {p.status}</p>
+            {p.href && <a href={p.href}>Open</a>}
           </article>
         ))}
       </section>
