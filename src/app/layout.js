@@ -14,7 +14,12 @@ export default function RootLayout({ children }) {
 
         <header>
           <nav>
-            <a href="/">Ansh Rai</a>
+              <a className="brand" href="/" aria-label="Home">
+                <span className="logoWrap">
+                <img className="logoImg" src="/logo.png" alt="AR logo" width="28" height="28" />
+                </span>
+                <span className="brandText">Ansh Rai</span>
+              </a>  
             <div>
               <a href="/projects">Projects</a>
               <a href="/about">About</a>

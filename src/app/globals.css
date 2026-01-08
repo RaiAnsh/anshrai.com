@@ -141,3 +141,79 @@ article {
   margin-top: 16px;
   backdrop-filter: blur(10px);
 }
+
+
+/* Better type scale + spacing */
+h1 {
+  font-size: clamp(44px, 6vw, 72px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+h2 {
+  font-size: 22px;
+  letter-spacing: -0.01em;
+}
+
+/* Gradient headline effect */
+.heroTitle {
+  background: linear-gradient(90deg, rgba(168,85,247,1), rgba(56,189,248,1), rgba(244,114,182,1));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 40px rgba(168, 85, 247, 0.18);
+}
+
+/* Subtitle more “designed” */
+.heroSubtitle {
+  font-size: 18px;
+  opacity: 0.9;
+  max-width: 720px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brandText {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  opacity: 0.95;
+}
+
+.logoWrap {
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(11, 15, 25, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(10px);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  will-change: transform;
+}
+
+.logoImg {
+  display: block;
+  filter: drop-shadow(0 0 14px rgba(168, 85, 247, 0.35));
+  transition: transform 180ms ease, filter 180ms ease;
+}
+
+.brand:hover .logoWrap {
+  transform: translateY(-1px) scale(1.03);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 0 0 6px rgba(168, 85, 247, 0.08);
+}
+
+.brand:hover .logoImg {
+  transform: rotate(-6deg) scale(1.06);
+  filter: drop-shadow(0 0 18px rgba(56, 189, 248, 0.35))
+          drop-shadow(0 0 18px rgba(168, 85, 247, 0.22));
+}
+
+.brand:active .logoWrap {
+  transform: translateY(0px) scale(0.98);
+}
