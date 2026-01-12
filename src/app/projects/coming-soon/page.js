@@ -1,40 +1,44 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { projects } from "../../../data/projects";
-import Link from "next/link";
 
-export default function ComingSoon() {
+export default function ComingSoonPage() {
   const params = useSearchParams();
-  const slug = params.get("project");
-
-  const project = projects.find((p) => p.slug === slug);
+  const project = params.get("project") || "This project";
 
   return (
     <main className="container">
-      <section className="sectionCard">
-        <h1 style={{ marginBottom: 8 }}>
-          {project ? project.title : "This project"}
-        </h1>
+      <h1>{project}</h1>
+      <p style={{ maxWidth: 700, opacity: 0.9 }}>
+        This project page is being built right now. I’ll publish the full case
+        study soon — including screenshots, tech details, and results.
+      </p>
 
-        <p style={{ opacity: 0.9 }}>
-          This project page is still in progress.
-        </p>
+      <div style={{ marginTop: 18, display: "flex", gap: 12, flexWrap: "wrap" }}>
+        <a
+          href="/projects"
+          style={{
+            padding: "10px 14px",
+            borderRadius: 12,
+            border: "1px solid rgba(255,255,255,0.14)",
+            background: "rgba(255,255,255,0.04)",
+          }}
+        >
+          ← Back to Projects
+        </a>
 
-        <p style={{ opacity: 0.85 }}>
-          I’m currently building this project. Check back soon for a full
-          write-up, screenshots, and a live demo.
-        </p>
-
-        <div className="btnRow">
-          <Link className="btnPrimary" href="/projects">
-            ← Back to Projects
-          </Link>
-          <Link className="btnGhost" href="/">
-            Home
-          </Link>
-        </div>
-      </section>
+        <a
+          href="/"
+          style={{
+            padding: "10px 14px",
+            borderRadius: 12,
+            border: "1px solid rgba(255,255,255,0.14)",
+            background: "rgba(255,255,255,0.04)",
+          }}
+        >
+          ← Back to Home
+        </a>
+      </div>
     </main>
   );
 }
