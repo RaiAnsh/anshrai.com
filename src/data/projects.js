@@ -29,7 +29,7 @@ export const projects = [
     tags: ["Next.js", "React", "Discrete Math"],
     status: "In progress",
     featured: true,
-    href: "/projects/coming-soon?project=discrete-visualizer",
+    href: null,
   },
   {
     slug: "business-rebuild",
@@ -39,7 +39,7 @@ export const projects = [
     tags: ["React", "Responsive", "UI"],
     status: "Planned",
     featured: true,
-    href: "/projects/coming-soon?project=business-rebuild",
+    href: null,
   },
   {
     slug: "utility-app",
@@ -49,6 +49,6 @@ export const projects = [
     tags: ["State", "Forms", "UX"],
     status: "Planned",
     featured: false,
-    href: "/projects/utility-app",
+    href: null,
   },
 ];
