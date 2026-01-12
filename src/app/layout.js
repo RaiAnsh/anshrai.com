@@ -3,8 +3,8 @@ import Starfield from "../components/Starfield";
 
 export const metadata = {
   title: "Ansh Rai",
-  description: "Personal website and projects",
-};
+  description:
+      "Ansh Rai — Computer Science student focused on data analytics, SQL/Python, and dashboards. Projects, case studies, and client work.",};
 
 export default function RootLayout({ children }) {
   return (

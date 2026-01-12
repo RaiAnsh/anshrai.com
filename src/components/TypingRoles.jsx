@@ -5,10 +5,12 @@ import { useEffect, useMemo, useState } from "react";
 export default function TypingRoles() {
   const roles = useMemo(
     () => [
-      "UI Designer",
-      "Full-Stack Developer",
-      "Computer Science Student",
       "Data Analyst",
+      "Analytics Builder",
+      "SQL & Python Developer",
+      "Dashboard Designer",
+      "Business-Focused CS Student",
+      "Turning Data Into Insights",
     ],
     []
   );

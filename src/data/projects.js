@@ -1,14 +1,16 @@
 export const projects = [
   {
-    slug: "discrete-visualizer",
-    title: "Discrete Structures Visualizer",
-    desc:
-      "An interactive web tool for exploring foundational discrete mathematics concepts such as set operations.",
-    tags: ["Next.js", "React", "Discrete Math"],
-    status: "In progress",
-    featured: true,
-    href: "/projects/discrete-visualizer",
-  },
+  slug: "ecommerce-dbms",
+  title: "E-Commerce Database Management System",
+  desc:
+    "End-to-end DBMS with a normalized schema (3NF/BCNF), admin dashboard, full CRUD across entities, and analytics queries via a web interface.",
+  tags: ["SQL", "DB Design", "Normalization", "CRUD", "Analytics", "Web UI"],
+  status: "Completed",
+  featured: true,
+  href: "/projects/ecommerce-dbms",
+  thumb: "/projects/ecommerce-dbms/dashboard.png",
+},
+  
   {
     slug: "broadview-preview",
     title: "Broadview Barber Salon — Client Preview",
@@ -20,6 +22,16 @@ export const projects = [
     thumb: "/broadview/preview.png",
   },
   {
+    slug: "discrete-visualizer",
+    title: "Discrete Structures Visualizer",
+    desc:
+      "An interactive web tool for exploring foundational discrete mathematics concepts such as set operations.",
+    tags: ["Next.js", "React", "Discrete Math"],
+    status: "In progress",
+    featured: true,
+    href: "/projects/coming-soon?project=discrete-visualizer",
+  },
+  {
     slug: "business-rebuild",
     title: "Business Website Rebuild",
     desc:
@@ -27,7 +39,7 @@ export const projects = [
     tags: ["React", "Responsive", "UI"],
     status: "Planned",
     featured: true,
-    href: "/projects/business-rebuild",
+    href: "/projects/coming-soon?project=business-rebuild",
   },
   {
     slug: "utility-app",
