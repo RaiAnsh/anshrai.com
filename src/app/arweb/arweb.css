@@ -1,0 +1,347 @@
+/* ════════════════════════════════
+   ARWEB.CO — Landing Page Styles
+════════════════════════════════ */
+
+.aw {
+  --gold: #c9a84c;
+  --gold-light: #e2c170;
+  --gold-dim: rgba(201, 168, 76, 0.15);
+  --bg: #0a0b0e;
+  --surface: rgba(255, 255, 255, 0.03);
+  --border: rgba(255, 255, 255, 0.08);
+  --text: #e8e9ec;
+  --muted: rgba(232, 233, 236, 0.65);
+
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+.awNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 40px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: rgba(10, 11, 14, 0.90);
+  backdrop-filter: blur(16px);
+  z-index: 100;
+}
+
+.awBrand {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: -0.01em;
+}
+
+.awNavCta {
+  font-size: 13px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  background: transparent;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease;
+  text-decoration: none;
+  display: inline-block;
+}
+.awNavCta:hover {
+  background: var(--gold);
+  color: #0a0b0e;
+}
+
+.awWrap {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── Hero ── */
+.awHero {
+  padding: 90px 0 70px;
+  text-align: center;
+}
+
+.awKicker {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  border-radius: 999px;
+  padding: 5px 14px;
+  margin-bottom: 28px;
+}
+
+.awHero h1 {
+  font-size: clamp(38px, 6vw, 66px);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  margin: 0 0 20px;
+  font-weight: 700;
+}
+
+.awHero h1 span {
+  color: var(--gold-light);
+}
+
+.awHero p {
+  font-size: 17px;
+  color: var(--muted);
+  max-width: 520px;
+  margin: 0 auto 36px;
+}
+
+.awHeroCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: var(--gold);
+  color: #0a0b0e;
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: transform 150ms ease, background 150ms ease;
+}
+.awHeroCta:hover {
+  transform: translateY(-2px);
+  background: var(--gold-light);
+}
+
+.awHeroDivider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 70px 0 0;
+}
+
+/* ── Section Headers ── */
+.awSectionLabel {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.awSection {
+  padding: 60px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.awSection h2 {
+  font-size: clamp(24px, 3.5vw, 36px);
+  letter-spacing: -0.025em;
+  margin: 0 0 40px;
+  font-weight: 700;
+}
+
+/* ── Pricing ── */
+.awPackages {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 760px) {
+  .awPackages { grid-template-columns: 1fr; }
+  .awNav { padding: 16px 20px; }
+  .awWrap { padding: 0 16px; }
+  .awHero { padding: 60px 0 50px; }
+  .awAddons { grid-template-columns: 1fr; }
+  .awWhy { grid-template-columns: 1fr; }
+}
+
+.awPkg {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 24px;
+  background: var(--surface);
+  position: relative;
+  transition: border-color 160ms ease, background 160ms ease;
+}
+
+.awPkg:hover {
+  border-color: rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.05);
+}
+
+.awPkgPopular {
+  border-color: rgba(201, 168, 76, 0.45);
+  background: rgba(201, 168, 76, 0.04);
+}
+
+.awPkgPopular:hover {
+  border-color: rgba(201, 168, 76, 0.65);
+}
+
+.awPopularBadge {
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gold);
+  color: #0a0b0e;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 0 0 8px 8px;
+}
+
+.awPkgName {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.awPkgPrice {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--gold-light);
+  line-height: 1;
+}
+
+.awPkgSub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 20px;
+  margin-top: 4px;
+}
+
+.awPkgFeatures {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.awPkgFeatures li {
+  font-size: 13.5px;
+  color: var(--muted);
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+}
+
+.awPkgFeatures li::before {
+  content: "·";
+  color: var(--gold);
+  font-size: 18px;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+/* ── Add-ons ── */
+.awAddons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.awAddon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  background: var(--surface);
+}
+
+.awAddonName {
+  font-size: 14px;
+  color: var(--text);
+}
+
+.awAddonPrice {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gold-light);
+}
+
+.awAddonSoon {
+  font-size: 12px;
+  color: var(--gold);
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 999px;
+  padding: 2px 10px;
+}
+
+/* ── Why ── */
+.awWhy {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.awWhyItem {
+  padding: 28px 26px;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.awWhyItem:nth-child(2n) { border-right: none; }
+.awWhyItem:nth-last-child(-n+2) { border-bottom: none; }
+
+.awWhyTitle {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+
+.awWhyDesc {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ── Footer ── */
+.awFooter {
+  padding: 48px 40px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.awFooterBrand {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.awFooterLinks {
+  text-align: right;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+.awFooterLinks a {
+  color: var(--gold-light);
+  text-decoration: none;
+}
+.awFooterLinks a:hover { text-decoration: underline; }
