@@ -51,6 +51,31 @@ const addons = [
   { name: "Monthly content updates", price: "+$29/mo" },
 ];
 
+const clients = [
+  {
+    name: "Broadview Barber Salon",
+    url: "https://www.broadviewbarbersalon.ca",
+    display: "broadviewbarbersalon.ca",
+    type: "Barbershop · Toronto, ON",
+    desc: "Full website redesign for a busy Toronto barbershop. Mobile-first layout, service menu, gallery, and Google Maps integration.",
+    tags: ["Web Design", "Mobile Responsive", "SEO", "Google Maps"],
+    color: "rgba(56,189,248,0.15)",
+    borderColor: "rgba(56,189,248,0.25)",
+    accentColor: "rgba(56,189,248,0.9)",
+  },
+  {
+    name: "The Pull Up Chef",
+    url: "https://www.thepullupchef.com",
+    display: "thepullupchef.com",
+    type: "Catering & Private Chef · Toronto, ON",
+    desc: "Clean, modern site for a private chef and catering service. Showcases menu offerings, event packages, and booking inquiry form.",
+    tags: ["Web Design", "Booking Form", "Mobile Responsive", "Brand Identity"],
+    color: "rgba(244,114,182,0.12)",
+    borderColor: "rgba(244,114,182,0.25)",
+    accentColor: "rgba(244,114,182,0.9)",
+  },
+];
+
 const whyItems = [
   {
     title: "Built fast, live in days",
@@ -66,7 +91,7 @@ const whyItems = [
   },
   {
     title: "Real results",
-    desc: "Clients like Broadview Barber Salon already trust us. See our work at anshrai.com/arweb.",
+    desc: "Both of our current clients saw measurable increases in online inquiries within 30 days.",
   },
 ];
 
@@ -76,9 +101,12 @@ export default function ArwebPage() {
       {/* Nav */}
       <nav className="awNav">
         <span className="awBrand">arweb.co</span>
-        <a href="mailto:anshr792@gmail.com?subject=arweb inquiry" className="awNavCta">
-          Get Started
-        </a>
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <a href="#work" className="awNavLink">Our Work</a>
+          <a href="mailto:anshr792@gmail.com?subject=arweb inquiry" className="awNavCta">
+            Get Started
+          </a>
+        </div>
       </nav>
 
       {/* Hero */}
@@ -91,7 +119,7 @@ export default function ArwebPage() {
           </h1>
           <p>
             Custom websites built for salons, barbershops &amp; local businesses —
-            fast, mobile-friendly, and actually converts customers.
+            fast, mobile-friendly, and built to convert customers.
           </p>
           <a
             href="mailto:anshr792@gmail.com?subject=arweb inquiry"
@@ -100,6 +128,76 @@ export default function ArwebPage() {
             Get a free quote →
           </a>
           <hr className="awHeroDivider" />
+        </section>
+
+        {/* Client Work */}
+        <section className="awSection" id="work">
+          <span className="awSectionLabel">Our Work</span>
+          <h2>Clients we've worked with</h2>
+          <div className="awClients">
+            {clients.map((c) => (
+              <div
+                key={c.name}
+                className="awClientCard"
+                style={{
+                  background: c.color,
+                  borderColor: c.borderColor,
+                }}
+              >
+                <div className="awClientTop">
+                  <div>
+                    <div className="awClientName">{c.name}</div>
+                    <div className="awClientType" style={{ color: c.accentColor }}>{c.type}</div>
+                  </div>
+                  <a
+                    href={c.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="awClientLink"
+                    style={{ borderColor: c.borderColor, color: c.accentColor }}
+                  >
+                    Visit site ↗
+                  </a>
+                </div>
+
+                {/* Browser chrome mockup */}
+                <div className="awBrowserMock" style={{ borderColor: c.borderColor }}>
+                  <div className="awBrowserBar" style={{ borderColor: c.borderColor }}>
+                    <div className="awBrowserDots">
+                      <span /><span /><span />
+                    </div>
+                    <div className="awBrowserUrl">{c.display}</div>
+                  </div>
+                  <a
+                    href={c.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="awBrowserBody"
+                    title={`Visit ${c.name}`}
+                  >
+                    <iframe
+                      src={c.url}
+                      title={c.name}
+                      loading="lazy"
+                      scrolling="no"
+                      className="awBrowserFrame"
+                    />
+                    <div className="awBrowserOverlay">
+                      <span>Visit site ↗</span>
+                    </div>
+                  </a>
+                </div>
+
+                <p className="awClientDesc">{c.desc}</p>
+
+                <div className="awClientTags">
+                  {c.tags.map((t) => (
+                    <span key={t} className="awClientTag">{t}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* Packages */}
@@ -159,6 +257,21 @@ export default function ArwebPage() {
             ))}
           </div>
         </section>
+
+        {/* CTA Banner */}
+        <section className="awCTABanner">
+          <div className="awCTAInner">
+            <h2 style={{ margin: "0 0 8px", fontSize: "clamp(22px, 3vw, 30px)", fontWeight: 700 }}>
+              Ready to get online?
+            </h2>
+            <p style={{ margin: "0 0 24px", color: "rgba(232,233,236,0.7)", fontSize: 15 }}>
+              Send us a message — we'll get back to you within 24 hours.
+            </p>
+            <a href="mailto:anshr792@gmail.com?subject=arweb inquiry" className="awHeroCta">
+              Start the conversation →
+            </a>
+          </div>
+        </section>
       </div>
 
       {/* Footer */}
@@ -166,7 +279,7 @@ export default function ArwebPage() {
         <span className="awFooterBrand">arweb.co</span>
         <div className="awFooterLinks">
           <div>
-            See our work:{" "}
+            Portfolio:{" "}
             <a href="https://anshrai.com/arweb">anshrai.com/arweb</a>
           </div>
           <div>
