@@ -42,7 +42,7 @@ export const projects = [
   {
     slug: "web-analytics-report",
     title: "Small Business Web Analytics",
-    desc: "Built client websites under arweb.co (barbershop & catering). Implemented Google Analytics, pulled and cleaned GA export data in Python, and delivered monthly performance reports with traffic and conversion recommendations.",
+    desc: "Built client websites under arweb.co (3 clients: barbershop, catering, lounge). Implemented Google Analytics, pulled and cleaned GA export data in Python, and delivered monthly performance reports with traffic and conversion recommendations.",
     tags: ["Google Analytics", "Python", "Flask", "arweb.co"],
     status: "Completed",
     featured: false,

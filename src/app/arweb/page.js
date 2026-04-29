@@ -74,6 +74,17 @@ const clients = [
     borderColor: "rgba(244,114,182,0.25)",
     accentColor: "rgba(244,114,182,0.9)",
   },
+  {
+    name: "KK Fade Lounge",
+    url: "https://www.kkfadelounge.com",
+    display: "kkfadelounge.com",
+    type: "Barbershop · Toronto, ON",
+    desc: "Modern website for a Toronto barbershop featuring service listings, gallery, and an online booking integration to drive appointments.",
+    tags: ["Web Design", "Online Booking", "Mobile Responsive", "SEO"],
+    color: "rgba(168,85,247,0.10)",
+    borderColor: "rgba(168,85,247,0.25)",
+    accentColor: "rgba(168,85,247,0.9)",
+  },
 ];
 
 const whyItems = [
