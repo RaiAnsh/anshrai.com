@@ -162,6 +162,14 @@
   gap: 20px;
 }
 
+/* Third card spans full width when odd */
+.awClientCard:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  max-width: 520px;
+  justify-self: center;
+  width: 100%;
+}
+
 .awClientCard {
   border: 1px solid;
   border-radius: 18px;
