@@ -162,13 +162,15 @@
   gap: 20px;
 }
 
-/* Third card spans full width when odd */
+/* If an odd number of cards, center the last one */
 .awClientCard:last-child:nth-child(odd) {
   grid-column: 1 / -1;
   max-width: 520px;
   justify-self: center;
   width: 100%;
 }
+
+/* With 4 cards (even), last two fill naturally — no override needed */
 
 .awClientCard {
   border: 1px solid;

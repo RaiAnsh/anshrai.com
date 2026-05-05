@@ -1,4 +1,5 @@
 import "./arweb.css";
+import { clients } from "../../data/clients";
 
 const packages = [
   {
@@ -51,41 +52,7 @@ const addons = [
   { name: "Monthly content updates", price: "+$29/mo" },
 ];
 
-const clients = [
-  {
-    name: "Broadview Barber Salon",
-    url: "https://www.broadviewbarbersalon.ca",
-    display: "broadviewbarbersalon.ca",
-    type: "Barbershop · Toronto, ON",
-    desc: "Full website redesign for a busy Toronto barbershop. Mobile-first layout, service menu, gallery, and Google Maps integration.",
-    tags: ["Web Design", "Mobile Responsive", "SEO", "Google Maps"],
-    color: "rgba(56,189,248,0.15)",
-    borderColor: "rgba(56,189,248,0.25)",
-    accentColor: "rgba(56,189,248,0.9)",
-  },
-  {
-    name: "The Pull Up Chef",
-    url: "https://www.thepullupchef.com",
-    display: "thepullupchef.com",
-    type: "Catering & Private Chef · Toronto, ON",
-    desc: "Clean, modern site for a private chef and catering service. Showcases menu offerings, event packages, and booking inquiry form.",
-    tags: ["Web Design", "Booking Form", "Mobile Responsive", "Brand Identity"],
-    color: "rgba(244,114,182,0.12)",
-    borderColor: "rgba(244,114,182,0.25)",
-    accentColor: "rgba(244,114,182,0.9)",
-  },
-  {
-    name: "KK Fade Lounge",
-    url: "https://www.kkfadelounge.com",
-    display: "kkfadelounge.com",
-    type: "Barbershop · Toronto, ON",
-    desc: "Modern website for a Toronto barbershop featuring service listings, gallery, and an online booking integration to drive appointments.",
-    tags: ["Web Design", "Online Booking", "Mobile Responsive", "SEO"],
-    color: "rgba(168,85,247,0.10)",
-    borderColor: "rgba(168,85,247,0.25)",
-    accentColor: "rgba(168,85,247,0.9)",
-  },
-];
+// clients imported from shared data file
 
 const whyItems = [
   {
@@ -102,7 +69,7 @@ const whyItems = [
   },
   {
     title: "Real results",
-    desc: "Both of our current clients saw measurable increases in online inquiries within 30 days.",
+    desc: "4 live client websites delivered — barbershops, catering, and esports. See our work at anshrai.com/arweb.",
   },
 ];
 
@@ -151,21 +118,21 @@ export default function ArwebPage() {
                 key={c.name}
                 className="awClientCard"
                 style={{
-                  background: c.color,
-                  borderColor: c.borderColor,
+                  background: c.bg,
+                  borderColor: c.border,
                 }}
               >
                 <div className="awClientTop">
                   <div>
                     <div className="awClientName">{c.name}</div>
-                    <div className="awClientType" style={{ color: c.accentColor }}>{c.type}</div>
+                    <div className="awClientType" style={{ color: c.accent }}>{c.type}</div>
                   </div>
                   <a
                     href={c.url}
                     target="_blank"
                     rel="noreferrer"
                     className="awClientLink"
-                    style={{ borderColor: c.borderColor, color: c.accentColor }}
+                    style={{ borderColor: c.border, color: c.accent }}
                   >
                     Visit site ↗
                   </a>
