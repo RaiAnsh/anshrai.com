@@ -59,7 +59,7 @@ export default function Contact() {
             anshr792@gmail.com →
           </a>
           <a
-            href="https://www.linkedin.com/in/anshrai"
+            href="https://www.linkedin.com/in/raiansh/"
             target="_blank"
             rel="noreferrer"
             className="px-6 py-3 rounded-full text-sm font-semibold border transition-all hover:-translate-y-0.5"
