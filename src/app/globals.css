@@ -102,3 +102,9 @@ button { border: none; background: none; font: inherit; }
   0%, 100% { transform: translate(0, 0) scale(1); }
   50%       { transform: translate(7vw, -9vh) scale(1.12); }
 }
+
+/* ─── Marquee (triple-duped, starts at 0, no offset glitch) ─── */
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-33.333%); }
+}
