@@ -23,86 +23,113 @@ export default function Hero() {
 
         {/* Availability badge */}
         <motion.div
-          className="inline-flex items-center gap-2 mb-10"
+          className="inline-flex items-center gap-2.5 mb-10 px-4 py-2 rounded-full border"
+          style={{ borderColor: "rgba(212,168,75,0.25)", background: "rgba(212,168,75,0.07)" }}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "#706c69" }}>
-            Available for new projects
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="text-xs font-semibold tracking-widest uppercase" style={{ color: "#d4a84b" }}>
+            Open for internships & new projects
           </span>
         </motion.div>
 
         {/* Headline */}
         <h1
-          className="font-serif text-fg overflow-hidden mb-8"
-          style={{ fontSize: "clamp(56px, 10vw, 140px)", lineHeight: 0.92, letterSpacing: "-0.04em" }}
+          className="font-serif text-fg mb-8"
+          style={{ fontSize: "clamp(54px, 10.5vw, 148px)", lineHeight: 0.9, letterSpacing: "-0.045em" }}
         >
-          {["Websites", "businesses", "love."].map((word, i) => (
-            <div className="overflow-hidden" key={word}>
+          {[
+            { text: "Websites", color: "#f0ede5" },
+            { text: "businesses", color: "#d4c8b8" },
+            { text: "love.", color: "#d4a84b" },
+          ].map(({ text, color }, i) => (
+            <div className="overflow-hidden" key={text}>
               <motion.span
                 className="block"
-                style={{ color: i === 2 ? "#d4a84b" : "#f0ede5" }}
+                style={{ color }}
                 initial={{ y: "110%", opacity: 0 }}
                 animate={{ y: "0%", opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.25 + i * 0.1, ease }}
+                transition={{ duration: 0.85, delay: 0.25 + i * 0.1, ease }}
               >
-                {word}
+                {text}
               </motion.span>
             </div>
           ))}
         </h1>
 
-        {/* Subheadline */}
+        {/* Subtext */}
         <motion.p
-          className="text-lg md:text-xl max-w-lg leading-relaxed mb-12"
-          style={{ color: "#706c69" }}
+          className="text-lg md:text-xl max-w-lg leading-relaxed mb-4"
+          style={{ color: "#9a9490" }}
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.65, ease }}
         >
-          I design and build fast, modern websites for local businesses — and data systems for teams that run on insights.
+          Web designer & database developer. I build sites for local businesses and data systems for teams — and I'm actively seeking data analyst & IT roles.
         </motion.p>
+
+        {/* Role chips */}
+        <motion.div
+          className="flex flex-wrap gap-2 mb-10"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.8 }}
+        >
+          {["Web Design", "Database Dev", "Data Analytics", "IT Operations"].map((r) => (
+            <span
+              key={r}
+              className="text-xs px-3 py-1.5 rounded-full border font-medium"
+              style={{ borderColor: "rgba(212,168,75,0.2)", color: "#a09890", background: "rgba(212,168,75,0.05)" }}
+            >
+              {r}
+            </span>
+          ))}
+        </motion.div>
 
         {/* CTAs */}
         <motion.div
           className="flex flex-wrap gap-4 mb-16"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8, ease }}
+          transition={{ duration: 0.6, delay: 0.88, ease }}
         >
           <a
             href="#work"
-            className="group relative px-7 py-3.5 rounded-full text-sm font-semibold text-bg overflow-hidden transition-transform hover:-translate-y-0.5"
+            className="px-7 py-3.5 rounded-full text-sm font-semibold text-bg transition-all hover:-translate-y-0.5 hover:brightness-110"
             style={{ background: "#d4a84b" }}
           >
             See my work →
           </a>
           <a
             href="#contact"
-            className="px-7 py-3.5 rounded-full text-sm font-semibold border transition-all hover:-translate-y-0.5 hover:border-fg/30"
-            style={{ borderColor: "rgba(240,237,229,0.12)", color: "#706c69" }}
+            className="px-7 py-3.5 rounded-full text-sm font-semibold border transition-all hover:-translate-y-0.5 hover:border-fg/30 hover:text-fg"
+            style={{ borderColor: "rgba(240,237,229,0.14)", color: "#706c69" }}
           >
             Get in touch
           </a>
         </motion.div>
 
-        {/* Stats strip */}
+        {/* Stats */}
         <motion.div
-          className="flex flex-wrap gap-8 md:gap-12"
+          className="flex flex-wrap gap-10 md:gap-14"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.0 }}
+          transition={{ duration: 0.8, delay: 1.05 }}
         >
           {[
-            { n: "6+", label: "Websites built" },
+            { n: "8+", label: "Websites delivered" },
             { n: "100%", label: "On-time delivery" },
             { n: "Toronto", label: "Based" },
           ].map((s) => (
             <div key={s.label}>
-              <div className="font-serif text-fg" style={{ fontSize: "clamp(26px, 4vw, 40px)", letterSpacing: "-0.03em" }}>{s.n}</div>
-              <div className="text-xs tracking-widest uppercase mt-1" style={{ color: "#706c69" }}>{s.label}</div>
+              <div className="font-serif" style={{ fontSize: "clamp(26px, 4vw, 42px)", letterSpacing: "-0.03em", color: "#f0ede5" }}>
+                {s.n}
+              </div>
+              <div className="text-xs tracking-widest uppercase mt-1" style={{ color: "#706c69" }}>
+                {s.label}
+              </div>
             </div>
           ))}
         </motion.div>
@@ -114,7 +141,7 @@ export default function Hero() {
         style={{ color: "#706c69" }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.3, duration: 0.8 }}
+        transition={{ delay: 1.4, duration: 0.8 }}
       >
         Scroll
         <div className="w-px h-12 bg-current opacity-30" />
