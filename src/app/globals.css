@@ -108,3 +108,15 @@ button { border: none; background: none; font: inherit; }
   0%   { transform: translateX(0); }
   100% { transform: translateX(-33.333%); }
 }
+
+/* ─── Desk hero: terminal cursor blink ─── */
+@keyframes termBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ─── Desk hero: RGB strip colour shift ─── */
+@keyframes rgbShift {
+  0%   { filter: blur(7px) hue-rotate(0deg); }
+  100% { filter: blur(7px) hue-rotate(360deg); }
+}
