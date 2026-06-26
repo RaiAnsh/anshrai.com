@@ -1,6 +1,6 @@
 import Nav from "../components/Nav";
 import CustomCursor from "../components/CustomCursor";
-import DeskHero from "../components/sections/DeskHero";
+import SpaceHero from "../components/sections/SpaceHero";
 import BusinessCardSection from "../components/sections/BusinessCardSection";
 import About from "../components/sections/About";
 import SelectedWork from "../components/sections/SelectedWork";
@@ -14,7 +14,7 @@ export default function Home() {
       <CustomCursor />
       <Nav />
       <main>
-        <DeskHero />
+        <SpaceHero />
         <BusinessCardSection />
         <About />
         <SelectedWork />
