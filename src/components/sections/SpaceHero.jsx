@@ -90,46 +90,27 @@ function Earth({ layerRef }) {
         position: "absolute",
         inset: "-14%",
         borderRadius: "50%",
-        boxShadow: "0 0 40px 24px rgba(60,140,240,0.18), 0 0 90px 50px rgba(40,100,200,0.08)",
+        boxShadow: "0 0 40px 24px rgba(60,140,240,0.22), 0 0 90px 50px rgba(40,100,200,0.12)",
         pointerEvents: "none",
       }} />
-      {/* Planet body */}
-      <div style={{
-        position: "absolute", inset: 0,
-        borderRadius: "50%",
-        background: `
-          radial-gradient(circle at 34% 30%, rgba(255,255,255,0.16) 0%, transparent 26%),
-          radial-gradient(circle at 70% 22%, rgba(255,255,255,0.09) 0%, transparent 16%),
-          radial-gradient(circle at 50% 62%, rgba(255,255,255,0.05) 0%, transparent 20%),
-          linear-gradient(135deg,
-            #1e6090 0%,  #2880b0 10%,
-            #1a4a38 20%, #2d6b4f 32%,
-            #3a8060 38%, #2877a8 46%,
-            #1e5a88 54%, #2d6b4f 62%,
-            #1a4a38 70%, #1e6090 80%,
-            #2877a8 90%, #1e5a88 100%
-          )
-        `,
-        boxShadow: `
-          inset -70px -35px 130px rgba(0,0,20,0.88),
-          inset 20px 10px 60px rgba(60,140,240,0.1),
-          0 0 80px rgba(40,110,200,0.30),
-          0 0 180px rgba(40,100,200,0.12)
-        `,
-        overflow: "hidden",
-      }}>
-        {/* Cloud streaks */}
-        <div style={{
-          position: "absolute", top: "18%", left: "5%", width: "55%", height: "12%",
-          background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.12) 30%, rgba(255,255,255,0.18) 60%, transparent)",
-          filter: "blur(4px)",
-        }} />
-        <div style={{
-          position: "absolute", top: "42%", left: "30%", width: "45%", height: "8%",
-          background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.09) 40%, rgba(255,255,255,0.13) 70%, transparent)",
-          filter: "blur(3px)",
-        }} />
-      </div>
+      {/* Planet image */}
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg"
+        alt="Earth from space"
+        style={{
+          position: "absolute", inset: 0,
+          width: "100%", height: "100%",
+          borderRadius: "50%",
+          objectFit: "cover",
+          boxShadow: `
+            inset -70px -35px 130px rgba(0,0,20,0.5),
+            0 0 80px rgba(40,110,200,0.35),
+            0 0 180px rgba(40,100,200,0.15)
+          `,
+          userSelect: "none",
+          pointerEvents: "none",
+        }}
+      />
     </div>
   );
 }
