@@ -1,5 +1,4 @@
 import Nav from "../components/Nav";
-import Intro from "../components/Intro";
 import CustomCursor from "../components/CustomCursor";
 import DeskHero from "../components/sections/DeskHero";
 import BusinessCardSection from "../components/sections/BusinessCardSection";
@@ -13,7 +12,6 @@ export default function Home() {
   return (
     <>
       <CustomCursor />
-      <Intro />
       <Nav />
       <main>
         <DeskHero />
