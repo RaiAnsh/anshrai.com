@@ -4,24 +4,26 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        bg: "#0a0909",
-        fg: "#f0ede5",
-        muted: "#706c69",
-        gold: "#d4a84b",
-        "gold-light": "#e8c070",
-        blue: "#2563eb",
-        "blue-dim": "rgba(37,99,235,0.15)",
-        purple: "#7c3aed",
-        "purple-dim": "rgba(124,58,237,0.15)",
-        accent: "#2563eb",
+        bg:        "#090909",
+        card:      "#111111",
+        secondary: "#171717",
+        fg:        "#ffffff",
+        muted:     "#888888",
+        accent:    "#2563eb",
+        // legacy aliases (used in remaining components)
+        gold:      "#2563eb",
+        blue:      "#2563eb",
+        purple:    "#2563eb",
       },
       fontFamily: {
-        serif: ["var(--font-serif)", "Georgia", "serif"],
-        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        sans:    ["var(--font-body)", "system-ui", "sans-serif"],
+        heading: ["var(--font-heading)", "system-ui", "sans-serif"],
+        // legacy alias
+        serif:   ["var(--font-heading)", "system-ui", "sans-serif"],
       },
       letterSpacing: {
         tightest: "-0.05em",
-        tighter: "-0.035em",
+        tighter:  "-0.035em",
       },
     },
   },

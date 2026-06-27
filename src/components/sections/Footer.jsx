@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 const socials = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/raiansh/" },
   { label: "GitHub",   href: "https://github.com/RaiAnsh" },
@@ -9,22 +7,18 @@ const socials = [
 export default function Footer() {
   return (
     <footer
-      className="px-6 md:px-12 py-12 border-t"
-      style={{ borderColor: "rgba(240,237,229,0.07)" }}
+      className="relative px-6 md:px-16 py-10 border-t"
+      style={{ borderColor: "rgba(255,255,255,0.05)", zIndex: 10 }}
     >
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-        {/* Left */}
-        <div>
-          <p className="font-serif text-fg text-base" style={{ letterSpacing: "-0.02em" }}>
-            Ansh Rai
-          </p>
-          <p className="text-xs mt-1" style={{ color: "#706c69" }}>
-            Toronto, ON · CS Student · Founder
-          </p>
-        </div>
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-5">
+        <p className="font-heading font-semibold text-fg" style={{ fontSize: 15, letterSpacing: "-0.02em" }}>
+          anshrai.{" "}
+          <span className="font-normal text-sm" style={{ color: "#555555" }}>
+            Toronto, ON
+          </span>
+        </p>
 
-        {/* Links */}
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-7">
           {socials.map((s) => (
             <a
               key={s.label}
@@ -32,15 +26,14 @@ export default function Footer() {
               target={s.href.startsWith("http") ? "_blank" : undefined}
               rel={s.href.startsWith("http") ? "noreferrer" : undefined}
               className="text-xs font-medium transition-colors duration-150 hover:text-fg"
-              style={{ color: "#706c69" }}
+              style={{ color: "#555555" }}
             >
               {s.label} ↗
             </a>
           ))}
         </div>
 
-        {/* Copyright */}
-        <p className="text-xs" style={{ color: "rgba(112,108,105,0.5)" }}>
+        <p className="text-xs" style={{ color: "rgba(85,85,85,0.6)" }}>
           © {new Date().getFullYear()} Ansh Rai
         </p>
       </div>

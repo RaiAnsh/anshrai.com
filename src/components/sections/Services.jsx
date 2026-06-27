@@ -2,159 +2,143 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import Link from "next/link";
+
+const ease = [0.16, 1, 0.3, 1];
 
 const services = [
   {
-    title: "Web Design & Development",
-    desc: "Modern, high-performance websites for local businesses and founders. Mobile-first, fast-loading, and built to convert visitors into clients. 8 live sites and counting.",
+    num: "01",
+    title: "Web Development",
+    desc: "Modern, high-performance websites for local businesses and founders. Mobile-first, SEO-optimized, and built to convert visitors into clients. 8 live sites delivered through arweb.co.",
     tags: ["Next.js", "React", "Tailwind CSS", "SEO", "Mobile-First"],
-    accent: "#2563eb",
-    stat: "8 live sites delivered",
+    stat: "8 live sites",
     href: "/arweb",
-    hrefLabel: "See arweb.co ↗",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-      </svg>
-    ),
+    cta: "See arweb.co ↗",
   },
   {
-    title: "Database Development",
-    desc: "End-to-end relational database design: normalized schemas, Python ETL pipelines, and 20+ analytical SQL queries. Built for data integrity and query performance.",
-    tags: ["PostgreSQL", "Python", "ETL", "Star Schema", "SQLAlchemy"],
-    accent: "#7c3aed",
-    stat: "4 data projects",
-    href: "#projects",
-    hrefLabel: "See projects ↓",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <ellipse cx="12" cy="5" rx="9" ry="3" />
-        <path d="M21 12c0 1.66-4.03 3-9 3S3 13.66 3 12" />
-        <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" />
-      </svg>
-    ),
+    num: "02",
+    title: "Software & Systems",
+    desc: "Custom software, automation, and backend solutions. From normalized PostgreSQL schemas and ETL pipelines to full-stack web apps — I build for performance and maintainability.",
+    tags: ["PostgreSQL", "Python", "Node.js", "REST APIs", "MongoDB"],
+    stat: "4+ projects",
+    href: "#work",
+    cta: "See projects ↓",
   },
   {
-    title: "Data Analytics",
-    desc: "Turn raw data into actionable insights. Tableau KPI dashboards, BigQuery analysis, and Python-powered churn analysis — designed for non-technical stakeholders.",
-    tags: ["Tableau", "BigQuery", "pandas", "scikit-learn", "SQL"],
-    accent: "#0ea5e9",
-    stat: "10K+ row datasets analyzed",
-    href: "#projects",
-    hrefLabel: "See projects ↓",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <line x1="18" y1="20" x2="18" y2="10" />
-        <line x1="12" y1="20" x2="12" y2="4" />
-        <line x1="6" y1="20" x2="6" y2="14" />
-        <line x1="2" y1="20" x2="22" y2="20" />
-      </svg>
-    ),
+    num: "03",
+    title: "Data & Analytics",
+    desc: "Turn raw data into actionable insights. SQL-powered ETL pipelines, Tableau KPI dashboards, and Python-driven analysis — designed for decision-makers, not just engineers.",
+    tags: ["SQL", "Python", "Tableau", "BigQuery", "pandas"],
+    stat: "10K+ rows analyzed",
+    href: "#work",
+    cta: "See projects ↓",
   },
 ];
 
 export default function Services() {
-  const ref = useRef(null);
+  const ref    = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section className="px-6 md:px-12 py-28" ref={ref}>
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
+    <section id="services" className="relative py-32 px-6 md:px-16 lg:px-24" style={{ zIndex: 10 }} ref={ref}>
+      <div className="max-w-7xl mx-auto">
+
         <motion.p
-          className="text-xs font-semibold tracking-widest uppercase mb-4"
+          className="text-xs font-semibold tracking-[0.18em] uppercase mb-8"
           style={{ color: "#2563eb" }}
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5 }}
         >
-          What I Build
+          What I Do
         </motion.p>
 
         <motion.h2
-          className="font-serif text-fg mb-16"
-          style={{ fontSize: "clamp(32px, 5vw, 60px)", letterSpacing: "-0.035em", lineHeight: 1 }}
+          className="font-heading font-bold mb-16"
+          style={{
+            fontSize: "clamp(32px, 5vw, 62px)",
+            letterSpacing: "-0.03em",
+            lineHeight: 1.0,
+            color: "#ffffff",
+          }}
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.7, delay: 0.1, ease }}
         >
-          Three ways I can<br />
-          <span style={{ color: "#2563eb" }}>add value.</span>
+          Technology that solves
+          <br />
+          <span style={{ color: "#2563eb" }}>real business problems.</span>
         </motion.h2>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {/* Service rows — horizontal premium layout */}
+        <div className="flex flex-col">
           {services.map((s, i) => (
             <motion.div
-              key={s.title}
-              className="group relative rounded-2xl p-8 flex flex-col transition-all duration-300"
-              style={{
-                border: `1px solid ${s.accent}22`,
-                background: "rgba(240,237,229,0.02)",
-              }}
-              initial={{ opacity: 0, y: 32 }}
+              key={s.num}
+              className="group flex flex-col md:flex-row items-start md:items-center gap-8 py-10 border-t last:border-b transition-all duration-300"
+              style={{ borderColor: "rgba(255,255,255,0.05)" }}
+              initial={{ opacity: 0, y: 24 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.15 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -4, transition: { duration: 0.2 } }}
+              transition={{ duration: 0.6, delay: 0.15 + i * 0.12, ease }}
             >
-              {/* Top gradient border */}
-              <div
-                className="absolute inset-x-0 top-0 h-px rounded-t-2xl"
-                style={{ background: `linear-gradient(90deg, transparent, ${s.accent}, transparent)` }}
-              />
-
-              {/* Glow on hover */}
-              <div
-                className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                style={{ boxShadow: `inset 0 0 60px ${s.accent}0a, 0 0 40px ${s.accent}10` }}
-              />
-
-              {/* Icon */}
-              <div
-                className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 flex-shrink-0"
-                style={{ background: `${s.accent}12`, color: s.accent }}
+              {/* Number */}
+              <span
+                className="text-xs font-semibold tabular-nums flex-shrink-0 w-8 pt-1"
+                style={{ color: "rgba(37,99,235,0.5)" }}
               >
-                {s.icon}
-              </div>
+                {s.num}
+              </span>
 
-              {/* Content */}
+              {/* Title */}
               <h3
-                className="font-semibold text-fg text-lg mb-3 leading-snug"
-                style={{ letterSpacing: "-0.02em" }}
+                className="font-heading font-semibold flex-shrink-0 transition-colors duration-200 group-hover:text-accent"
+                style={{
+                  fontSize: "clamp(22px, 2.5vw, 32px)",
+                  letterSpacing: "-0.02em",
+                  color: "#ffffff",
+                  minWidth: "clamp(180px, 22vw, 280px)",
+                }}
               >
                 {s.title}
               </h3>
-              <p className="text-sm leading-relaxed mb-6 flex-1" style={{ color: "#706c69" }}>
+
+              {/* Description */}
+              <p
+                className="flex-1 leading-relaxed text-sm md:text-base"
+                style={{ color: "#888888", maxWidth: 420 }}
+              >
                 {s.desc}
               </p>
 
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2 mb-6">
-                {s.tags.map((t) => (
-                  <span
-                    key={t}
-                    className="text-xs px-2.5 py-1 rounded-full border"
-                    style={{ borderColor: `${s.accent}22`, color: "#706c69" }}
-                  >
-                    {t}
+              {/* Tags + CTA */}
+              <div className="flex-shrink-0 flex flex-col items-start md:items-end gap-4">
+                <div className="flex flex-wrap gap-2">
+                  {s.tags.slice(0, 3).map((t) => (
+                    <span
+                      key={t}
+                      className="text-xs px-2.5 py-1 rounded-full"
+                      style={{
+                        background: "rgba(37,99,235,0.08)",
+                        border: "1px solid rgba(37,99,235,0.15)",
+                        color: "#888888",
+                      }}
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex items-center justify-between gap-8">
+                  <span className="text-xs font-semibold" style={{ color: "#2563eb" }}>
+                    {s.stat}
                   </span>
-                ))}
-              </div>
-
-              {/* Footer */}
-              <div className="flex items-center justify-between pt-5 border-t" style={{ borderColor: `${s.accent}18` }}>
-                <span className="text-xs font-semibold" style={{ color: s.accent }}>
-                  {s.stat}
-                </span>
-                <a
-                  href={s.href}
-                  className="text-xs font-semibold transition-colors duration-150 hover:opacity-80"
-                  style={{ color: s.accent }}
-                >
-                  {s.hrefLabel}
-                </a>
+                  <a
+                    href={s.href}
+                    className="text-xs font-semibold transition-colors hover:text-fg"
+                    style={{ color: "#888888" }}
+                  >
+                    {s.cta}
+                  </a>
+                </div>
               </div>
             </motion.div>
           ))}
