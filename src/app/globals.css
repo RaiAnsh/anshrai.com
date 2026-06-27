@@ -61,8 +61,8 @@ button { border: none; background: none; font: inherit; }
 .blob-gold {
   width: 85vmax;
   height: 85vmax;
-  background: radial-gradient(circle, #d4a84b 0%, #a87832 60%, transparent 80%);
-  opacity: 0.20;
+  background: radial-gradient(circle, #2563eb 0%, #1d4ed8 60%, transparent 80%);
+  opacity: 0.12;
   top: -30%;
   left: -20%;
   animation: blobA 18s ease-in-out infinite;
@@ -71,8 +71,8 @@ button { border: none; background: none; font: inherit; }
 .blob-purple {
   width: 65vmax;
   height: 65vmax;
-  background: radial-gradient(circle, #9333ea 0%, #6d28d9 50%, transparent 75%);
-  opacity: 0.15;
+  background: radial-gradient(circle, #7c3aed 0%, #5b21b6 50%, transparent 75%);
+  opacity: 0.13;
   top: 5%;
   right: -22%;
   animation: blobB 22s ease-in-out infinite;
@@ -81,8 +81,8 @@ button { border: none; background: none; font: inherit; }
 .blob-rose {
   width: 55vmax;
   height: 55vmax;
-  background: radial-gradient(circle, #e11d48 0%, #9f1239 55%, transparent 75%);
-  opacity: 0.11;
+  background: radial-gradient(circle, #2563eb 0%, #7c3aed 55%, transparent 75%);
+  opacity: 0.08;
   bottom: -15%;
   left: 28%;
   animation: blobC 16s ease-in-out infinite;
