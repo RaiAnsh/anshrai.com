@@ -19,19 +19,19 @@ const cards = [
     label: "Education",
     value: "B.Sc. Computer Science",
     sub: "Toronto Metropolitan University · 2027",
-    accent: "#d4a84b",
+    accent: "#2563eb",
   },
   {
     label: "Seeking",
     value: "Internship / Co-op",
     sub: "Data Analyst · DB Developer · IT Operations",
-    accent: "#9333ea",
+    accent: "#7c3aed",
   },
   {
     label: "Business",
     value: "arweb.co",
     sub: "8 live client websites delivered",
-    accent: "#e11d48",
+    accent: "#0ea5e9",
   },
 ];
 
@@ -59,7 +59,9 @@ export default function About() {
 
   return (
     <section className="px-6 md:px-12 py-28 max-w-6xl mx-auto" ref={containerRef}>
-      <p className="text-xs font-semibold tracking-widest uppercase text-gold mb-10">About</p>
+      <p className="text-xs font-semibold tracking-widest uppercase mb-10" style={{ color: "#2563eb" }}>
+        About
+      </p>
 
       <p
         className="font-serif leading-tight mb-16"
@@ -76,15 +78,18 @@ export default function About() {
         {cards.map((item) => (
           <div
             key={item.label}
-            className="border rounded-2xl p-6 transition-colors duration-200 group"
+            className="rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 group"
             style={{
-              borderColor: `${item.accent}22`,
+              border: `1px solid ${item.accent}22`,
               background: `${item.accent}08`,
+              boxShadow: `0 0 0 0 ${item.accent}00`,
             }}
+            onMouseEnter={e => e.currentTarget.style.boxShadow = `0 0 32px ${item.accent}18`}
+            onMouseLeave={e => e.currentTarget.style.boxShadow = `0 0 0 0 ${item.accent}00`}
           >
             <div
               className="w-8 h-1 rounded-full mb-4"
-              style={{ background: item.accent }}
+              style={{ background: `linear-gradient(90deg, ${item.accent}, ${item.accent}88)` }}
             />
             <p className="text-xs tracking-widest uppercase mb-3 font-semibold" style={{ color: item.accent }}>
               {item.label}

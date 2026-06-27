@@ -9,6 +9,11 @@ module.exports = {
         muted: "#706c69",
         gold: "#d4a84b",
         "gold-light": "#e8c070",
+        blue: "#2563eb",
+        "blue-dim": "rgba(37,99,235,0.15)",
+        purple: "#7c3aed",
+        "purple-dim": "rgba(124,58,237,0.15)",
+        accent: "#2563eb",
       },
       fontFamily: {
         serif: ["var(--font-serif)", "Georgia", "serif"],
