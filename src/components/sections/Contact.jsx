@@ -3,76 +3,122 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
+const ease = [0.16, 1, 0.3, 1];
+
+const links = [
+  {
+    label: "Work Together",
+    href: "mailto:anshr792@gmail.com",
+    primary: true,
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/raiansh/",
+    primary: false,
+  },
+  {
+    label: "GitHub",
+    href: "https://github.com/RaiAnsh",
+    primary: false,
+  },
+  {
+    label: "arweb.co ↗",
+    href: "/arweb",
+    primary: false,
+  },
+];
+
 export default function Contact() {
-  const ref = useRef(null);
+  const ref    = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="contact" className="px-6 md:px-10 py-32 max-w-5xl mx-auto" ref={ref}>
+    <section
+      id="contact"
+      className="relative py-40 px-6 md:px-16 lg:px-24"
+      style={{ zIndex: 10 }}
+      ref={ref}
+    >
+      {/* Fade-to-solid overlay: makes background calmer near the end */}
       <div
-        className="relative rounded-3xl p-10 md:p-16 overflow-hidden"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          border: "1px solid rgba(212,168,75,0.2)",
-          background: "radial-gradient(ellipse at 50% 0%, rgba(212,168,75,0.07) 0%, transparent 65%)",
+          background: "radial-gradient(ellipse 80% 60% at 50% 100%, rgba(9,9,9,0.85) 0%, transparent 70%)",
         }}
-      >
+      />
+
+      <div className="max-w-4xl mx-auto text-center relative">
+
         <motion.p
-          className="text-xs font-semibold tracking-widest uppercase text-gold mb-6"
+          className="text-xs font-semibold tracking-[0.18em] uppercase mb-8"
+          style={{ color: "#2563eb" }}
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5 }}
         >
-          Let's talk
+          Let's Work Together
         </motion.p>
 
         <motion.h2
-          className="font-serif text-fg mb-4"
-          style={{ fontSize: "clamp(32px, 5vw, 64px)", letterSpacing: "-0.04em", lineHeight: 1.05 }}
-          initial={{ opacity: 0, y: 24 }}
+          className="font-heading font-bold mb-7"
+          style={{
+            fontSize: "clamp(38px, 6vw, 82px)",
+            letterSpacing: "-0.04em",
+            lineHeight: 1.02,
+            color: "#ffffff",
+          }}
+          initial={{ opacity: 0, y: 28 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.8, delay: 0.1, ease }}
         >
-          Open to internships<br />& new clients.
+          Let's build something
+          <br />
+          <span style={{ color: "#2563eb" }}>meaningful.</span>
         </motion.h2>
 
         <motion.p
-          className="text-base mb-10 max-w-md leading-relaxed"
-          style={{ color: "#706c69" }}
+          className="text-base leading-relaxed mb-12 max-w-lg mx-auto"
+          style={{ color: "#888888" }}
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.7, delay: 0.22, ease }}
         >
-          Whether you need a database developer for a team or a website built for your business — get in touch. I reply within 24 hours.
+          Whether you need a developer for your team or a website for your business — let's build something great. I reply within 24 hours.
         </motion.p>
 
         <motion.div
-          className="flex flex-wrap gap-4"
+          className="flex flex-wrap items-center justify-center gap-4"
           initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.32 }}
+          transition={{ duration: 0.6, delay: 0.34, ease }}
         >
-          <a
-            href="mailto:anshr792@gmail.com"
-            className="px-6 py-3 rounded-full text-sm font-semibold text-bg transition-all hover:-translate-y-0.5"
-            style={{ background: "#d4a84b" }}
-          >
-            anshr792@gmail.com →
-          </a>
-          <a
-            href="https://www.linkedin.com/in/raiansh/"
-            target="_blank"
-            rel="noreferrer"
-            className="px-6 py-3 rounded-full text-sm font-semibold border transition-all hover:-translate-y-0.5"
-            style={{ borderColor: "rgba(240,237,229,0.15)", color: "#706c69" }}
-          >
-            LinkedIn ↗
-          </a>
+          {links.map((l) => (
+            <a
+              key={l.label}
+              href={l.href}
+              target={l.href.startsWith("http") ? "_blank" : undefined}
+              rel={l.href.startsWith("http") ? "noreferrer" : undefined}
+              className="px-7 py-3.5 rounded-full text-sm font-semibold transition-all duration-200 hover:-translate-y-px"
+              style={
+                l.primary
+                  ? { background: "#2563eb", color: "#ffffff" }
+                  : { border: "1px solid rgba(255,255,255,0.09)", color: "#888888" }
+              }
+            >
+              {l.label}
+            </a>
+          ))}
         </motion.div>
 
-        {/* Footer note */}
-        <p className="mt-12 text-xs" style={{ color: "rgba(112,108,105,0.5)" }}>
-          Based in Toronto, ON · anshrai.com
-        </p>
+        <motion.p
+          className="mt-16 text-xs"
+          style={{ color: "rgba(136,136,136,0.35)" }}
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.5 }}
+        >
+          Based in Toronto, ON · Open to remote
+        </motion.p>
       </div>
     </section>
   );

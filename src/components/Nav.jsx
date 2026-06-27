@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 
 const links = [
-  { label: "Work", href: "#work" },
-  { label: "Projects", href: "#projects" },
-  { label: "Contact", href: "#contact" },
+  { label: "Work",     href: "#work" },
+  { label: "About",    href: "#about" },
+  { label: "Services", href: "#services" },
+  { label: "Contact",  href: "#contact" },
 ];
 
 export default function Nav() {
@@ -20,34 +20,51 @@ export default function Nav() {
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-10 py-4 transition-all duration-300"
+      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-16 py-5 transition-all duration-300"
       style={{
-        background: scrolled ? "rgba(10,9,9,0.88)" : "transparent",
+        background: scrolled ? "rgba(9,9,9,0.85)" : "transparent",
         backdropFilter: scrolled ? "blur(20px)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(240,237,229,0.07)" : "1px solid transparent",
+        borderBottom: scrolled ? "1px solid rgba(255,255,255,0.05)" : "1px solid transparent",
       }}
     >
-      <a href="#" className="font-serif text-lg text-fg tracking-tight">
-        Ansh Rai
+      <a
+        href="#"
+        className="font-heading font-semibold text-fg"
+        style={{ fontSize: 17, letterSpacing: "-0.02em" }}
+      >
+        anshrai.
       </a>
 
-      <div className="flex items-center gap-6">
+      <div className="hidden md:flex items-center gap-7">
         {links.map((l) => (
           <a
             key={l.href}
             href={l.href}
-            className="text-sm text-muted hover:text-fg transition-colors duration-150"
+            className="text-sm font-medium transition-colors duration-150"
+            style={{ color: "#888888" }}
+            onMouseEnter={(e) => (e.target.style.color = "#ffffff")}
+            onMouseLeave={(e) => (e.target.style.color = "#888888")}
           >
             {l.label}
           </a>
         ))}
-        <Link
-          href="/arweb"
-          className="text-sm px-4 py-1.5 rounded-full border border-gold/40 text-gold hover:bg-gold hover:text-bg transition-all duration-150"
+        <a
+          href="mailto:anshr792@gmail.com"
+          className="text-sm px-4 py-2 rounded-full font-semibold transition-all duration-150 hover:brightness-110"
+          style={{ background: "#2563eb", color: "#ffffff" }}
         >
-          arweb.co ↗
-        </Link>
+          Let's talk
+        </a>
       </div>
+
+      {/* Mobile: just email CTA */}
+      <a
+        href="mailto:anshr792@gmail.com"
+        className="md:hidden text-sm px-4 py-2 rounded-full font-semibold"
+        style={{ background: "#2563eb", color: "#ffffff" }}
+      >
+        Let's talk
+      </a>
     </nav>
   );
 }
