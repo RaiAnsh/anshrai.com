@@ -1,5 +1,6 @@
 import "./arweb.css";
 import { clients } from "../../data/clients";
+import QuoteModal from "./QuoteModal";
 
 const packages = [
   {
@@ -81,9 +82,9 @@ export default function ArwebPage() {
         <span className="awBrand">arweb.co</span>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <a href="#work" className="awNavLink">Our Work</a>
-          <a href="mailto:anshr792@gmail.com?subject=arweb inquiry" className="awNavCta">
-            Get Started
-          </a>
+          <QuoteModal className="awGetQuoteBtn">
+            Get a Free Quote
+          </QuoteModal>
         </div>
       </nav>
 
@@ -99,12 +100,9 @@ export default function ArwebPage() {
             Custom websites built for salons, barbershops &amp; local businesses —
             fast, mobile-friendly, and built to convert customers.
           </p>
-          <a
-            href="mailto:anshr792@gmail.com?subject=arweb inquiry"
-            className="awHeroCta"
-          >
+          <QuoteModal className="awHeroCta">
             Get a free quote →
-          </a>
+          </QuoteModal>
           <hr className="awHeroDivider" />
         </section>
 
@@ -245,9 +243,9 @@ export default function ArwebPage() {
             <p style={{ margin: "0 0 24px", color: "rgba(232,233,236,0.7)", fontSize: 15 }}>
               Send us a message — we'll get back to you within 24 hours.
             </p>
-            <a href="mailto:anshr792@gmail.com?subject=arweb inquiry" className="awHeroCta">
+            <QuoteModal className="awHeroCta">
               Start the conversation →
-            </a>
+            </QuoteModal>
           </div>
         </section>
       </div>

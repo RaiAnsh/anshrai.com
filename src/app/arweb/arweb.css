@@ -512,6 +512,234 @@
 .awFooterLinks a { color: var(--gold-light); text-decoration: none; }
 .awFooterLinks a:hover { text-decoration: underline; }
 
+/* ── Quote Modal ── */
+.awModalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(6px);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.awModal {
+  background: #0f1014;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px;
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
+}
+
+.awModalClose {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: rgba(232, 233, 236, 0.45);
+  font-size: 18px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px;
+  transition: color 140ms ease;
+}
+.awModalClose:hover { color: var(--text); }
+
+.awModalHeader {
+  margin-bottom: 28px;
+}
+
+.awModalKicker {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.awModalTitle {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin: 0 0 8px;
+  color: var(--text);
+}
+
+.awModalSub {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.awModalForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.awFormRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.awFormField {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.awFormField label {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(232, 233, 236, 0.7);
+  letter-spacing: 0.02em;
+}
+
+.awFormOptional {
+  font-weight: 400;
+  color: rgba(232, 233, 236, 0.4);
+}
+
+.awFormField input,
+.awFormField select,
+.awFormField textarea {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 11px 14px;
+  font-size: 14px;
+  color: var(--text);
+  font-family: inherit;
+  transition: border-color 140ms ease;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.awFormField input::placeholder,
+.awFormField textarea::placeholder {
+  color: rgba(232, 233, 236, 0.25);
+}
+
+.awFormField input:focus,
+.awFormField select:focus,
+.awFormField textarea:focus {
+  border-color: rgba(201, 168, 76, 0.45);
+}
+
+.awFormField select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='rgba(232,233,236,0.4)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+.awFormField select option {
+  background: #0f1014;
+  color: var(--text);
+}
+
+.awFormField textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.awFormError {
+  font-size: 13px;
+  color: #f87171;
+  margin: 0;
+}
+
+.awModalSubmit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: var(--gold);
+  color: #0a0b0e;
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  transition: transform 150ms ease, background 150ms ease, opacity 150ms ease;
+  width: 100%;
+  margin-top: 4px;
+  font-family: inherit;
+}
+.awModalSubmit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: var(--gold-light);
+}
+.awModalSubmit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.awModalSuccess {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.awModalSuccessIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(201, 168, 76, 0.1);
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  color: var(--gold);
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.awModalSuccess h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+
+.awModalSuccess p {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0 0 28px;
+}
+
+/* ── Get Quote button (nav variant) ── */
+.awGetQuoteBtn {
+  font-size: 13px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: none;
+  background: var(--gold);
+  color: #0a0b0e;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 150ms ease, transform 150ms ease;
+  font-family: inherit;
+  white-space: nowrap;
+}
+.awGetQuoteBtn:hover {
+  background: var(--gold-light);
+  transform: translateY(-1px);
+}
+
 /* ── Responsive ── */
 @media (max-width: 760px) {
   .awPackages { grid-template-columns: 1fr; }
@@ -525,4 +753,6 @@
   .awFooter { padding: 36px 20px; }
   .awFooterLinks { text-align: left; }
   .awBrowserBody { height: 160px; }
+  .awFormRow { grid-template-columns: 1fr; }
+  .awModal { padding: 28px 22px; }
 }
