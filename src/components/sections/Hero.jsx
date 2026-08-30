@@ -1,16 +1,19 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { track, Events } from "../../lib/analytics";
 
 const ease = [0.16, 1, 0.3, 1];
 
-const logos = [
-  "Broadview Barber",
-  "Pull Up Chef",
-  "K&K Fade Lounge",
-  "Mapcan",
+const CLIENT_LOGOS = [
+  "RL Contracting",
+  "MAP Canada",
+  "K Group Ltd",
+  "KK Fade Lounge",
+  "Five Star Detailing",
   "Sunder Wellness",
   "Delmar Contracting",
+  "+4 more",
 ];
 
 export default function Hero() {
@@ -21,19 +24,19 @@ export default function Hero() {
     >
       <div className="max-w-7xl mx-auto w-full">
 
-        {/* ── Main content grid ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-16 items-center">
+        {/* ── Main grid ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-16 items-center">
 
-          {/* Left: headline + CTAs */}
+          {/* Left: copy + CTAs */}
           <div>
             <motion.p
               className="text-xs font-semibold tracking-[0.18em] uppercase mb-7"
               style={{ color: "#2563eb" }}
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15, ease }}
             >
-              Toronto, Canada
+              Toronto, Canada · Canada-wide projects
             </motion.p>
 
             <motion.h1
@@ -47,80 +50,94 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.28, ease }}
             >
-              I build digital
+              Websites built to
               <br />
-              experiences that
+              turn visitors into
               <br />
-              <span style={{ color: "#2563eb" }}>drive results.</span>
+              <span style={{ color: "#2563eb" }}>customers.</span>
             </motion.h1>
 
             <motion.p
-              className="leading-relaxed mb-10 max-w-lg"
+              className="leading-relaxed mb-10 max-w-xl"
               style={{ color: "#888888", fontSize: "clamp(15px, 1.6vw, 18px)" }}
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.42, ease }}
             >
-              Computer Science student at TMU. Founder of{" "}
-              <a href="/arweb" style={{ color: "#ffffff", fontWeight: 500 }}>arweb.co</a>
-              . Building websites, software, and data-driven systems for businesses that want to grow.
+              I design and build custom websites and digital systems for businesses.
+              You work directly with the developer building your project from start to launch.
             </motion.p>
 
             <motion.div
-              className="flex flex-wrap gap-4"
+              className="flex flex-wrap items-center gap-4 mb-8"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.56, ease }}
             >
               <a
-                href="#work"
+                href="/quote"
+                onClick={() => track(Events.QUOTE_STARTED)}
                 className="px-7 py-3.5 rounded-full text-sm font-semibold transition-all duration-200 hover:brightness-110 hover:-translate-y-px"
                 style={{ background: "#2563eb", color: "#ffffff" }}
               >
-                View my work
+                Get an Instant Quote
               </a>
               <a
-                href="#contact"
-                className="px-7 py-3.5 rounded-full text-sm font-semibold transition-all duration-200 hover:-translate-y-px"
-                style={{ border: "1px solid rgba(255,255,255,0.1)", color: "#888888" }}
+                href="/#work"
+                className="text-sm font-semibold transition-colors duration-200 hover:text-fg"
+                style={{ color: "#888888" }}
               >
-                Let's connect
+                View My Work →
               </a>
             </motion.div>
+
+            <motion.p
+              className="text-xs"
+              style={{ color: "rgba(136,136,136,0.45)" }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.72, ease }}
+            >
+              Developer or recruiter?{" "}
+              <a
+                href="/technical"
+                className="underline underline-offset-2 transition-colors hover:text-fg"
+                style={{ color: "rgba(136,136,136,0.6)" }}
+              >
+                View Technical Work →
+              </a>
+            </motion.p>
           </div>
 
-          {/* Right: abstract concentric rings visual */}
+          {/* Right: concentric rings visual — desktop only */}
           <motion.div
             className="hidden lg:flex items-center justify-center"
             initial={{ opacity: 0, scale: 0.88 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, delay: 0.5, ease }}
           >
-            <div style={{ position: "relative", width: 320, height: 320 }}>
-              <div style={{ position: "absolute", inset: 0, borderRadius: "50%", border: "1px solid rgba(37,99,235,0.18)" }} />
-              <div style={{ position: "absolute", inset: "18%", borderRadius: "50%", border: "1px solid rgba(37,99,235,0.12)" }} />
-              <div style={{ position: "absolute", inset: "36%", borderRadius: "50%", border: "1px solid rgba(37,99,235,0.07)" }} />
+            <div style={{ position: "relative", width: 280, height: 280 }}>
+              <div style={{ position: "absolute", inset: 0, borderRadius: "50%", border: "1px solid rgba(37,99,235,0.16)" }} />
+              <div style={{ position: "absolute", inset: "18%", borderRadius: "50%", border: "1px solid rgba(37,99,235,0.1)" }} />
+              <div style={{ position: "absolute", inset: "36%", borderRadius: "50%", border: "1px solid rgba(37,99,235,0.06)" }} />
               <div style={{
                 position: "absolute", inset: "28%",
                 borderRadius: "50%",
-                background: "radial-gradient(circle, rgba(37,99,235,0.14) 0%, transparent 70%)",
-                boxShadow: "0 0 90px rgba(37,99,235,0.18), 0 0 200px rgba(37,99,235,0.06)",
+                background: "radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%)",
               }} />
-              {/* Center dot */}
               <div style={{
                 position: "absolute", top: "50%", left: "50%",
                 transform: "translate(-50%,-50%)",
                 width: 7, height: 7, borderRadius: "50%",
                 background: "#2563eb",
-                boxShadow: "0 0 20px rgba(37,99,235,0.9), 0 0 50px rgba(37,99,235,0.4)",
+                boxShadow: "0 0 20px rgba(37,99,235,0.9), 0 0 50px rgba(37,99,235,0.35)",
               }} />
-              {/* Orbit dots */}
               {[0, 72, 144, 216, 288].map((deg, i) => (
                 <div key={i} style={{
                   position: "absolute", top: "50%", left: "50%",
                   width: 3, height: 3, borderRadius: "50%",
                   background: `rgba(37,99,235,${0.5 - i * 0.07})`,
-                  transform: `translate(-50%,-50%) rotate(${deg}deg) translateX(${80 + (i % 2) * 56}px)`,
+                  transform: `translate(-50%,-50%) rotate(${deg}deg) translateX(${72 + (i % 2) * 50}px)`,
                 }} />
               ))}
             </div>
@@ -129,20 +146,20 @@ export default function Hero() {
 
         {/* ── Client logos strip ── */}
         <motion.div
-          className="mt-24 md:mt-32"
+          className="mt-24 md:mt-28"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.85 }}
+          transition={{ duration: 0.8, delay: 0.9 }}
         >
-          <p className="text-xs tracking-[0.16em] uppercase mb-5" style={{ color: "rgba(136,136,136,0.38)" }}>
-            Trusted by local businesses to deliver real results
+          <p className="text-xs tracking-[0.16em] uppercase mb-5" style={{ color: "rgba(136,136,136,0.3)" }}>
+            Trusted by local businesses across Canada
           </p>
-          <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
-            {logos.map((name) => (
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            {CLIENT_LOGOS.map((name) => (
               <span
                 key={name}
-                className="text-sm font-medium transition-colors duration-200 hover:text-fg"
-                style={{ color: "rgba(136,136,136,0.32)", letterSpacing: "-0.01em" }}
+                className="text-sm font-medium"
+                style={{ color: "rgba(136,136,136,0.28)", letterSpacing: "-0.01em" }}
               >
                 {name}
               </span>
@@ -151,16 +168,16 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Scroll indicator line */}
+      {/* Scroll indicator */}
       <motion.div
         className="absolute bottom-10 left-1/2 -translate-x-1/2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.6 }}
+        transition={{ delay: 1.6, duration: 0.6 }}
       >
         <div style={{
-          width: 1, height: 52,
-          background: "linear-gradient(to bottom, rgba(37,99,235,0.7), transparent)",
+          width: 1, height: 48,
+          background: "linear-gradient(to bottom, rgba(37,99,235,0.6), transparent)",
         }} />
       </motion.div>
     </section>

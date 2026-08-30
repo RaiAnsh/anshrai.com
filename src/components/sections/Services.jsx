@@ -7,31 +7,28 @@ const ease = [0.16, 1, 0.3, 1];
 
 const services = [
   {
-    num: "01",
-    title: "Web Development",
-    desc: "Modern, high-performance websites for local businesses and founders. Mobile-first, SEO-optimized, and built to convert visitors into clients. 8 live sites delivered through arweb.co.",
-    tags: ["Next.js", "React", "Tailwind CSS", "SEO", "Mobile-First"],
-    stat: "8 live sites",
-    href: "/arweb",
-    cta: "See arweb.co ↗",
+    num:    "01",
+    title:  "Website Design & Development",
+    desc:   "A professional website that represents your business and brings in customers. Custom-built around your brand — designed to load fast, look great on every device, and turn visitors into leads.",
+    price:  "Starting from $299",
+    cta:    "Get a quote →",
+    href:   "/quote",
   },
   {
-    num: "02",
-    title: "Software & Systems",
-    desc: "Custom software, automation, and backend solutions. From normalized PostgreSQL schemas and ETL pipelines to full-stack web apps — I build for performance and maintainability.",
-    tags: ["PostgreSQL", "Python", "Node.js", "REST APIs", "MongoDB"],
-    stat: "4+ projects",
-    href: "#work",
-    cta: "See projects ↓",
+    num:    "02",
+    title:  "Digital Business Systems",
+    desc:   "Go beyond a basic website. Lead capture forms, AI chat assistants, automated follow-ups, booking systems, and custom integrations — built to work for your business around the clock.",
+    price:  "Starting from $599",
+    cta:    "Get a quote →",
+    href:   "/quote",
   },
   {
-    num: "03",
-    title: "Data & Analytics",
-    desc: "Turn raw data into actionable insights. SQL-powered ETL pipelines, Tableau KPI dashboards, and Python-driven analysis — designed for decision-makers, not just engineers.",
-    tags: ["SQL", "Python", "Tableau", "BigQuery", "pandas"],
-    stat: "10K+ rows analyzed",
-    href: "#work",
-    cta: "See projects ↓",
+    num:    "03",
+    title:  "Ongoing Support & Management",
+    desc:   "Hosting, security, updates, and technical support — handled. You focus on running your business; I keep your website performing.",
+    price:  "From $15/month",
+    cta:    "Get a quote →",
+    href:   "/quote",
   },
 ];
 
@@ -50,7 +47,7 @@ export default function Services() {
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5 }}
         >
-          What I Do
+          Services
         </motion.p>
 
         <motion.h2
@@ -65,26 +62,25 @@ export default function Services() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.1, ease }}
         >
-          Technology that solves
+          What I build
           <br />
-          <span style={{ color: "#2563eb" }}>real business problems.</span>
+          <span style={{ color: "#2563eb" }}>for your business.</span>
         </motion.h2>
 
-        {/* Service rows — horizontal premium layout */}
         <div className="flex flex-col">
           {services.map((s, i) => (
             <motion.div
               key={s.num}
-              className="group flex flex-col md:flex-row items-start md:items-center gap-8 py-10 border-t last:border-b transition-all duration-300"
+              className="group flex flex-col md:flex-row md:items-center gap-6 md:gap-8 py-10 border-t last:border-b"
               style={{ borderColor: "rgba(255,255,255,0.05)" }}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.15 + i * 0.12, ease }}
+              transition={{ duration: 0.6, delay: 0.15 + i * 0.1, ease }}
             >
               {/* Number */}
               <span
-                className="text-xs font-semibold tabular-nums flex-shrink-0 w-8 pt-1"
-                style={{ color: "rgba(37,99,235,0.5)" }}
+                className="text-xs font-semibold tabular-nums flex-shrink-0 w-8"
+                style={{ color: "rgba(37,99,235,0.45)" }}
               >
                 {s.num}
               </span>
@@ -93,10 +89,10 @@ export default function Services() {
               <h3
                 className="font-heading font-semibold flex-shrink-0 transition-colors duration-200 group-hover:text-accent"
                 style={{
-                  fontSize: "clamp(22px, 2.5vw, 32px)",
+                  fontSize: "clamp(20px, 2.2vw, 28px)",
                   letterSpacing: "-0.02em",
                   color: "#ffffff",
-                  minWidth: "clamp(180px, 22vw, 280px)",
+                  minWidth: "clamp(180px, 24vw, 300px)",
                 }}
               >
                 {s.title}
@@ -105,44 +101,45 @@ export default function Services() {
               {/* Description */}
               <p
                 className="flex-1 leading-relaxed text-sm md:text-base"
-                style={{ color: "#888888", maxWidth: 420 }}
+                style={{ color: "#888888", maxWidth: 440 }}
               >
                 {s.desc}
               </p>
 
-              {/* Tags + CTA */}
-              <div className="flex-shrink-0 flex flex-col items-start md:items-end gap-4">
-                <div className="flex flex-wrap gap-2">
-                  {s.tags.slice(0, 3).map((t) => (
-                    <span
-                      key={t}
-                      className="text-xs px-2.5 py-1 rounded-full"
-                      style={{
-                        background: "rgba(37,99,235,0.08)",
-                        border: "1px solid rgba(37,99,235,0.15)",
-                        color: "#888888",
-                      }}
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-                <div className="flex items-center justify-between gap-8">
-                  <span className="text-xs font-semibold" style={{ color: "#2563eb" }}>
-                    {s.stat}
-                  </span>
-                  <a
-                    href={s.href}
-                    className="text-xs font-semibold transition-colors hover:text-fg"
-                    style={{ color: "#888888" }}
-                  >
-                    {s.cta}
-                  </a>
-                </div>
+              {/* Price + CTA */}
+              <div className="flex-shrink-0 flex flex-col items-start md:items-end gap-3">
+                <span
+                  className="font-heading font-semibold text-sm"
+                  style={{ color: "#ffffff" }}
+                >
+                  {s.price}
+                </span>
+                <a
+                  href={s.href}
+                  className="text-xs font-semibold transition-colors hover:text-fg"
+                  style={{ color: "#2563eb" }}
+                >
+                  {s.cta}
+                </a>
               </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Note */}
+        <motion.p
+          className="mt-8 text-xs"
+          style={{ color: "#555" }}
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        >
+          Prices are estimates and vary by project scope. Use the{" "}
+          <a href="/quote" className="underline underline-offset-2 transition-colors hover:text-fg" style={{ color: "#888" }}>
+            instant quote tool
+          </a>{" "}
+          for a personalized estimate.
+        </motion.p>
       </div>
     </section>
   );
