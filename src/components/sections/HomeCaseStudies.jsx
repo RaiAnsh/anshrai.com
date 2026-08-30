@@ -211,17 +211,27 @@ function CaseStudyEntry({ cs, index }) {
             )}
           </div>
 
-          {/* CTA */}
-          <a
-            href={cs.url}
-            target="_blank"
-            rel="noreferrer"
-            onClick={() => track(Events.CLIENT_SITE_VISITED, { client: cs.client })}
-            className="inline-flex items-center gap-2 text-sm font-semibold transition-colors hover:text-fg"
-            style={{ color: cs.accentColor }}
-          >
-            Visit {cs.display} ↗
-          </a>
+          {/* CTAs */}
+          <div className="flex items-center gap-6 flex-wrap">
+            <a
+              href={`/work/${cs.slug}`}
+              onClick={() => track(Events.CASE_STUDY_VIEWED, { client: cs.client })}
+              className="inline-flex items-center gap-2 text-sm font-semibold transition-colors"
+              style={{ color: "#ffffff" }}
+            >
+              View case study →
+            </a>
+            <a
+              href={cs.url}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => track(Events.CLIENT_SITE_VISITED, { client: cs.client })}
+              className="inline-flex items-center gap-2 text-sm transition-colors"
+              style={{ color: "#555" }}
+            >
+              Visit {cs.display} ↗
+            </a>
+          </div>
         </motion.div>
       </div>
 
