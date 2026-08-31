@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 
 const ease = [0.16, 1, 0.3, 1];
@@ -16,7 +17,7 @@ const FAQS = [
   },
   {
     q: "Do you work with businesses outside of Toronto?",
-    a: "Yes. While I'm based in Toronto, I work with clients all across Canada. Everything is done remotely, calls, design reviews, and launches, so your location doesn't matter.",
+    a: "Yes. While I'm based in Toronto, I work with clients all across Canada. Everything is done remotely — calls, design reviews, and launches — so your location doesn't matter.",
   },
   {
     q: "Can you redesign my existing website?",
@@ -32,7 +33,7 @@ const FAQS = [
   },
   {
     q: "Do you provide SEO for Toronto businesses?",
-    a: "Every website I build includes on-page SEO, proper page titles, meta descriptions, structured headings, and mobile optimization. Local SEO for Toronto is included on Growth and higher plans. More advanced ongoing SEO work is available as an add-on.",
+    a: "Every website I build includes on-page SEO — proper page titles, meta descriptions, structured headings, and mobile optimization. Local SEO for Toronto is included on Growth and higher plans. More advanced ongoing SEO work is available as an add-on.",
   },
   {
     q: "What happens after I submit a quote request?",
@@ -45,32 +46,53 @@ function FAQItem({ faq, index, inView }) {
 
   return (
     <motion.div
-      className="border-t last:border-b"
-      style={{ borderColor: "rgba(255,255,255,0.05)" }}
-      initial={{ opacity: 0, y: 12 }}
+      style={{ borderTop: "1px solid var(--border)" }}
+      initial={{ opacity: 0, y: 10 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.45, delay: 0.08 + index * 0.05, ease }}
+      transition={{ duration: 0.45, delay: 0.08 + index * 0.04, ease }}
     >
       <button
         onClick={() => setOpen((o) => !o)}
-        className="w-full flex items-center justify-between gap-4 py-6 text-left"
+        style={{
+          width:          "100%",
+          display:        "flex",
+          alignItems:     "center",
+          justifyContent: "space-between",
+          gap:            "1.5rem",
+          padding:        "1.375rem 0",
+          textAlign:      "left",
+          background:     "none",
+          border:         "none",
+          cursor:         "pointer",
+          color:          "inherit",
+        }}
         aria-expanded={open}
       >
         <span
-          className="font-heading font-semibold text-sm md:text-base"
-          style={{ color: "#ffffff", letterSpacing: "-0.01em" }}
+          style={{
+            fontFamily:    "var(--font-display)",
+            fontSize:      "clamp(15px, 1.4vw, 19px)",
+            fontWeight:    300,
+            letterSpacing: "-0.01em",
+            color:         "#ffffff",
+          }}
         >
           {faq.q}
         </span>
         <span
           style={{
-            width: 22, height: 22, borderRadius: "50%",
-            border: "1px solid rgba(255,255,255,0.1)",
-            flexShrink: 0,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            fontSize: 14, color: "#888",
-            transition: "transform 220ms ease, border-color 220ms ease",
-            transform: open ? "rotate(45deg)" : "none",
+            width:          22,
+            height:         22,
+            borderRadius:   "50%",
+            border:         "1px solid var(--border)",
+            flexShrink:     0,
+            display:        "flex",
+            alignItems:     "center",
+            justifyContent: "center",
+            fontSize:       14,
+            color:          "var(--muted)",
+            transition:     "transform 220ms ease",
+            transform:      open ? "rotate(45deg)" : "none",
           }}
         >
           +
@@ -88,8 +110,15 @@ function FAQItem({ faq, index, inView }) {
             style={{ overflow: "hidden" }}
           >
             <p
-              className="text-sm leading-relaxed pb-6"
-              style={{ color: "#888888", maxWidth: 680 }}
+              style={{
+                fontFamily: "var(--font-ui)",
+                fontSize:   "clamp(13px, 1.1vw, 15px)",
+                lineHeight: 1.75,
+                color:      "var(--fg-dim)",
+                maxWidth:   680,
+                padding:    "0 0 1.5rem",
+                margin:     0,
+              }}
             >
               {faq.a}
             </p>
@@ -107,63 +136,88 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      className="relative py-32 px-6 md:px-16 lg:px-24"
-      style={{ zIndex: 10 }}
       ref={ref}
+      style={{
+        background: "var(--ground)",
+        padding:    "clamp(96px,14vh,160px) clamp(24px,6vw,96px)",
+        borderTop:  "1px solid var(--border)",
+      }}
     >
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-16">
-
-          {/* Left: label + intro */}
-          <div>
-            <motion.p
-              className="text-xs font-semibold tracking-[0.18em] uppercase mb-8"
-              style={{ color: "#2563eb" }}
-              initial={{ opacity: 0 }}
-              animate={inView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.5 }}
-            >
-              FAQ
-            </motion.p>
-            <motion.h2
-              className="font-heading font-bold leading-[1.08]"
+      <div
+        style={{
+          display:             "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+          gap:                 "clamp(48px,8vw,96px)",
+          alignItems:          "start",
+        }}
+      >
+        {/* Left: label + intro */}
+        <div style={{ position: "sticky", top: 120 }}>
+          <motion.p
+            style={{
+              fontFamily:    "var(--font-ui)",
+              fontSize:      11,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color:         "var(--muted)",
+              marginBottom:  "1.25rem",
+            }}
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.5 }}
+          >
+            FAQ
+          </motion.p>
+          <motion.h2
+            style={{
+              fontFamily:    "var(--font-display)",
+              fontSize:      "clamp(40px, 4.5vw, 64px)",
+              fontWeight:    300,
+              letterSpacing: "-0.03em",
+              lineHeight:    0.95,
+              color:         "#ffffff",
+              marginBottom:  "1.5rem",
+            }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.1, ease }}
+          >
+            Common
+            <br />
+            <em style={{ fontStyle: "italic", color: "var(--muted)" }}>questions.</em>
+          </motion.h2>
+          <motion.p
+            style={{
+              fontFamily: "var(--font-ui)",
+              fontSize:   "clamp(13px, 1.1vw, 15px)",
+              lineHeight: 1.7,
+              color:      "var(--fg-dim)",
+              margin:     0,
+            }}
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            Something else?{" "}
+            <Link
+              href="/quote"
               style={{
-                fontSize: "clamp(28px, 3.5vw, 46px)",
-                letterSpacing: "-0.03em",
-                color: "#ffffff",
+                color:          "var(--fg-dim)",
+                textDecoration: "underline",
+                textDecorationColor: "var(--border)",
               }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.1, ease }}
             >
-              Common
-              <br />
-              questions.
-            </motion.h2>
-            <motion.p
-              className="mt-5 text-sm leading-relaxed"
-              style={{ color: "#888" }}
-              initial={{ opacity: 0 }}
-              animate={inView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              Something else on your mind?{" "}
-              <a
-                href="/quote"
-                className="underline underline-offset-2 transition-colors hover:text-fg"
-                style={{ color: "#888" }}
-              >
-                Send me a message.
-              </a>
-            </motion.p>
-          </div>
+              Send me a message.
+            </Link>
+          </motion.p>
+        </div>
 
-          {/* Right: accordion */}
-          <div>
-            {FAQS.map((faq, i) => (
-              <FAQItem key={faq.q} faq={faq} index={i} inView={inView} />
-            ))}
-          </div>
+        {/* Right: accordion */}
+        <div>
+          {FAQS.map((faq, i) => (
+            <FAQItem key={faq.q} faq={faq} index={i} inView={inView} />
+          ))}
+          <div style={{ borderTop: "1px solid var(--border)" }} />
         </div>
       </div>
     </section>

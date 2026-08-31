@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { track, Events } from "../../lib/analytics";
 
@@ -13,85 +14,103 @@ export default function QuoteTeaser() {
   return (
     <section
       id="pricing"
-      className="relative py-32 px-6 md:px-16 lg:px-24"
-      style={{ zIndex: 10 }}
       ref={ref}
+      style={{
+        background: "var(--surface)",
+        padding:    "clamp(96px,14vh,160px) clamp(24px,6vw,96px)",
+        borderTop:  "1px solid var(--border)",
+      }}
     >
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          className="rounded-3xl p-10 md:p-16 text-center"
-          style={{
-            background: "linear-gradient(135deg, rgba(37,99,235,0.06) 0%, rgba(37,99,235,0.02) 60%, transparent 100%)",
-            border: "1px solid rgba(37,99,235,0.14)",
-          }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease }}
-        >
+      {/* Two-column layout: headline left, details right */}
+      <div
+        style={{
+          display:             "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+          gap:                 "clamp(48px,8vw,120px)",
+          alignItems:          "center",
+        }}
+      >
+        {/* Left */}
+        <div>
           <motion.p
-            className="text-xs font-semibold tracking-[0.18em] uppercase mb-5"
-            style={{ color: "#2563eb" }}
+            style={{
+              fontFamily:    "var(--font-ui)",
+              fontSize:      11,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color:         "var(--muted)",
+              marginBottom:  "1.25rem",
+            }}
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 0.5 }}
           >
             Instant Quote
           </motion.p>
 
           <motion.h2
-            className="font-heading font-bold mb-5"
             style={{
-              fontSize: "clamp(30px, 4.5vw, 58px)",
+              fontFamily:    "var(--font-display)",
+              fontSize:      "clamp(44px, 5.5vw, 80px)",
+              fontWeight:    300,
               letterSpacing: "-0.03em",
-              lineHeight: 1.05,
-              color: "#ffffff",
+              lineHeight:    0.95,
+              color:         "#ffffff",
+              margin:        0,
             }}
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.12, ease }}
+            transition={{ duration: 0.7, delay: 0.1, ease }}
           >
-            Get your estimate in
+            Your estimate
             <br />
-            <span style={{ color: "#2563eb" }}>about 60 seconds.</span>
+            <em style={{ fontStyle: "italic", color: "var(--muted)" }}>in 60 seconds.</em>
           </motion.h2>
+        </div>
 
-          <motion.p
-            className="mb-8 max-w-lg mx-auto"
-            style={{ color: "#888888", fontSize: "clamp(14px, 1.5vw, 17px)", lineHeight: 1.65 }}
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.24 }}
+        {/* Right */}
+        <motion.div
+          style={{ display: "flex", flexDirection: "column", gap: "1.75rem" }}
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.2, ease }}
+        >
+          <p
+            style={{
+              fontFamily: "var(--font-ui)",
+              fontSize:   "clamp(14px, 1.3vw, 16px)",
+              lineHeight: 1.75,
+              color:      "var(--fg-dim)",
+              margin:     0,
+            }}
           >
             Tell me about your business and what you need, get an instant price estimate.
-            No commitment. No sales call.
-          </motion.p>
+            No commitment. No sales call. Most projects start at{" "}
+            <span style={{ color: "#ffffff" }}>$299 setup + $15/month.</span>
+          </p>
 
-          <motion.div
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
-            initial={{ opacity: 0, y: 8 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.34 }}
-          >
-            <a
+          <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", alignItems: "center" }}>
+            <Link
               href="/quote"
               onClick={() => track(Events.QUOTE_STARTED)}
-              className="px-8 py-4 rounded-full font-semibold text-sm transition-all hover:brightness-110 hover:-translate-y-px"
-              style={{ background: "#2563eb", color: "#ffffff" }}
+              className="btn-primary"
             >
               Get My Instant Quote
-            </a>
-          </motion.div>
+            </Link>
+          </div>
 
-          <motion.p
-            className="mt-6 text-xs"
-            style={{ color: "#555" }}
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.5, delay: 0.44 }}
+          <p
+            style={{
+              fontFamily:    "var(--font-ui)",
+              fontSize:      11,
+              letterSpacing: "0.04em",
+              color:         "var(--muted)",
+              margin:        0,
+              opacity:       0.7,
+            }}
           >
-            Most projects start at $299 setup + $15/month.
             Estimates are free and arrive instantly.
-          </motion.p>
+          </p>
         </motion.div>
       </div>
     </section>
