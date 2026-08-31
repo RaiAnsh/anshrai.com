@@ -9,7 +9,7 @@ const services = [
   {
     num:    "01",
     title:  "Website Design & Development",
-    desc:   "A professional website that represents your business and brings in customers. Custom-built around your brand — designed to load fast, look great on every device, and turn visitors into leads.",
+    desc:   "A professional website that represents your business and brings in customers. Custom-built around your brand, designed to load fast, look great on every device, and turn visitors into leads.",
     price:  "Starting from $299",
     cta:    "Get a quote →",
     href:   "/quote",
@@ -17,7 +17,7 @@ const services = [
   {
     num:    "02",
     title:  "Digital Business Systems",
-    desc:   "Go beyond a basic website. Lead capture forms, AI chat assistants, automated follow-ups, booking systems, and custom integrations — built to work for your business around the clock.",
+    desc:   "Go beyond a basic website. Lead capture forms, AI chat assistants, automated follow-ups, booking systems, and custom integrations, built to work for your business around the clock.",
     price:  "Starting from $599",
     cta:    "Get a quote →",
     href:   "/quote",
@@ -25,7 +25,7 @@ const services = [
   {
     num:    "03",
     title:  "Ongoing Support & Management",
-    desc:   "Hosting, security, updates, and technical support — handled. You focus on running your business; I keep your website performing.",
+    desc:   "Hosting, security, updates, and technical support, handled. You focus on running your business; I keep your website performing.",
     price:  "From $15/month",
     cta:    "Get a quote →",
     href:   "/quote",

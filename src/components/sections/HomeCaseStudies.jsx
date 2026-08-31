@@ -67,7 +67,7 @@ function CaseStudyEntry({ cs, index }) {
             {cs.headline}
           </h3>
 
-          {/* Outcome metric — only if available */}
+          {/* Outcome metric, only if available */}
           {cs.outcome.metric && (
             <div
               className="flex items-baseline gap-3 mb-6"

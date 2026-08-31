@@ -14,7 +14,7 @@ html {
 html, body { margin: 0; padding: 0; }
 
 body {
-  background: #090909;
+  background: #07070e;
   color: #ffffff;
   overflow-x: hidden;
 }
@@ -26,7 +26,55 @@ button { border: none; background: none; font: inherit; }
 
 /* ─── Section z-layering ─────────────────────────── */
 /* Particle canvas: z-0 (fixed)                       */
+/* Grain: z-50 (fixed, pointer-events:none)           */
 /* All content: z-10+                                  */
+
+/* ─── Grain texture overlay ─────────────────────── */
+/* Sits above everything, no pointer events */
+body::after {
+  content: "";
+  position: fixed;
+  top: -100%;
+  left: -100%;
+  width: 300%;
+  height: 300%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* ─── CSS tokens ────────────────────────────────── */
+:root {
+  --accent:     #2563eb;
+  --accent-dim: rgba(37, 99, 235, 0.12);
+  --card-bg:    #0e0e18;
+  --card-border: rgba(255, 255, 255, 0.055);
+  --glow-blue:  0 0 40px rgba(37, 99, 235, 0.18), 0 0 80px rgba(37, 99, 235, 0.06);
+}
+
+/* ─── Card style ─────────────────────────────────── */
+/* Use class="glass-card" for the elevated card look  */
+.glass-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.04) inset,
+              0 -1px 0 rgba(0,0,0,0.5) inset;
+}
+
+/* ─── Glow button ────────────────────────────────── */
+.btn-glow {
+  box-shadow: 0 0 0 0 rgba(37,99,235,0);
+  transition: box-shadow 250ms ease, transform 200ms ease, filter 200ms ease;
+}
+.btn-glow:hover {
+  box-shadow: 0 0 24px rgba(37,99,235,0.5), 0 0 60px rgba(37,99,235,0.18);
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+}
 
 /* ─── Keyframes ──────────────────────────────────── */
 @keyframes fadeUp {
@@ -39,21 +87,12 @@ button { border: none; background: none; font: inherit; }
   100% { transform: translateX(-33.333%); }
 }
 
-/* ─── Film grain (subtle noise) ─────────────────── */
-.grain-overlay {
-  position: absolute;
-  inset: -50%;
-  width: 200%;
-  height: 200%;
-  pointer-events: none;
-  z-index: 20;
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 180px 180px;
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%       { opacity: 0.75; transform: scale(1.04); }
 }
 
 /* ─── Scrollbar ──────────────────────────────────── */
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #090909; }
+::-webkit-scrollbar-track { background: #07070e; }
 ::-webkit-scrollbar-thumb { background: rgba(37,99,235,0.3); border-radius: 2px; }

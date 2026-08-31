@@ -6,9 +6,9 @@ import { motion, useInView } from "framer-motion";
 const ease = [0.16, 1, 0.3, 1];
 
 const DIFFERENTIATORS = [
-  "You work directly with me — the developer building your project.",
+  "You work directly with me, the developer building your project.",
   "No agency overhead. No account managers. No handoffs.",
-  "Custom work tailored to your business — not a template.",
+  "Custom work tailored to your business, not a template.",
   "Fast turnaround without cutting corners.",
   "Ongoing support built into every plan.",
   "Honest pricing with nothing hidden.",
@@ -89,12 +89,12 @@ export default function WhoIAm() {
             >
               <p className="leading-relaxed mb-5 text-sm md:text-base" style={{ color: "#888888" }}>
                 I'm a Computer Science student and the developer behind arweb. I work directly
-                with businesses — from initial planning and design through development, launch,
+                with businesses, from initial planning and design through development, launch,
                 and ongoing support.
               </p>
               <p className="leading-relaxed text-sm md:text-base" style={{ color: "#888888" }}>
                 I started arweb because I saw local businesses losing customers to competitors
-                with better websites — and realized I could fix that. Now I build the kind of
+                with better websites, and realized I could fix that. Now I build the kind of
                 digital experiences that actually make a difference.
               </p>
             </motion.div>

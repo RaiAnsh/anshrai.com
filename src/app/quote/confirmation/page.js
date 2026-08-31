@@ -72,7 +72,7 @@ export default function QuoteConfirmationPage({ searchParams }) {
                 Starting from $299
               </p>
               <p className="text-xs leading-relaxed" style={{ color: "#666" }}>
-                Websites start at $299 setup + $15/month. The right package depends on your scope — I'll confirm after reviewing your project.
+                Websites start at $299 setup + $15/month. The right package depends on your scope, I'll confirm after reviewing your project.
               </p>
             </>
           ) : isCustom ? (

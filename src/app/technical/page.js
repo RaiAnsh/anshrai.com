@@ -45,7 +45,7 @@ const PROJECTS = [
     url: "https://arweb.co",
   },
   {
-    name: "MAP Canada — Admin Backend",
+    name: "MAP Canada, Admin Backend",
     status: "Live",
     desc: "Full admin backend for a humanitarian non-profit. Member management, event tracking, media library, subscriber management, contact submission tracking, and audit logging. Built for non-technical staff with a clean, accessible interface.",
     tech: ["Next.js", "PostgreSQL", "Authentication", "Admin Dashboard"],
@@ -53,9 +53,9 @@ const PROJECTS = [
     url: null,
   },
   {
-    name: "RL Contracting — Lead System",
+    name: "RL Contracting, Lead System",
     status: "Live",
-    desc: "Rebuilt website with integrated AI chat assistant, SEO structure, and automated lead routing. 65% increase in monthly leads from organic search — no paid ads.",
+    desc: "Rebuilt website with integrated AI chat assistant, SEO structure, and automated lead routing. 65% increase in monthly leads from organic search, no paid ads.",
     tech: ["Next.js", "AI Integration", "On-page SEO", "Lead Management"],
     github: null,
     url: "https://rlcontracting.ca",
@@ -74,7 +74,7 @@ export default function TechnicalPage() {
   return (
     <main
       className="min-h-screen px-6 md:px-16 lg:px-24 pt-36 pb-32"
-      style={{ background: "#090909" }}
+      style={{ background: "#07070e" }}
     >
       <div className="max-w-4xl mx-auto">
 
@@ -97,7 +97,7 @@ export default function TechnicalPage() {
             Ansh Rai
           </h1>
           <p className="text-base leading-relaxed max-w-xl mb-8" style={{ color: "#888", lineHeight: 1.7 }}>
-            CS student at Toronto Metropolitan University. I build production software — web apps, data pipelines, and full-stack systems. Founder of arweb, targeting database developer and data analyst roles.
+            CS student at Toronto Metropolitan University. I build production software, web apps, data pipelines, and full-stack systems. Founder of arweb, targeting database developer and data analyst roles.
           </p>
           <div className="flex flex-wrap gap-5">
             <a
@@ -148,7 +148,7 @@ export default function TechnicalPage() {
                   Toronto Metropolitan University
                 </p>
                 <p className="text-sm" style={{ color: "#888" }}>
-                  Bachelor of Science — Computer Science
+                  Bachelor of Science, Computer Science
                 </p>
               </div>
               <span

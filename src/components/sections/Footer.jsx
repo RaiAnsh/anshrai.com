@@ -33,7 +33,7 @@ export default function Footer() {
             <p className="text-xs leading-relaxed max-w-xs" style={{ color: "#555" }}>
               Custom websites and digital systems for small businesses.
               <br />
-              Toronto, Canada — Canada-wide.
+              Toronto, Canada, Canada-wide.
             </p>
             <a
               href="mailto:ansh@anshrai.com"

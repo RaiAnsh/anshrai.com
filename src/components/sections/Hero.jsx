@@ -19,10 +19,56 @@ const CLIENT_LOGOS = [
 export default function Hero() {
   return (
     <section
-      className="relative min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24"
+      className="relative min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24 overflow-hidden"
       style={{ zIndex: 10, paddingTop: 88 }}
     >
-      <div className="max-w-7xl mx-auto w-full">
+      {/* ── Aurora background glows ── */}
+      <div aria-hidden="true" style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0 }}>
+        {/* Primary blue orb — top left */}
+        <div style={{
+          position: "absolute",
+          top: "-10%",
+          left: "-5%",
+          width: "65%",
+          height: "75%",
+          background: "radial-gradient(ellipse at 30% 40%, rgba(37,99,235,0.22) 0%, rgba(37,99,235,0.06) 40%, transparent 70%)",
+          filter: "blur(40px)",
+          animation: "pulse-glow 8s ease-in-out infinite",
+        }} />
+        {/* Violet orb — top right */}
+        <div style={{
+          position: "absolute",
+          top: "5%",
+          right: "-10%",
+          width: "45%",
+          height: "55%",
+          background: "radial-gradient(ellipse, rgba(109,40,217,0.12) 0%, transparent 65%)",
+          filter: "blur(60px)",
+          animationDelay: "3s",
+          animation: "pulse-glow 10s ease-in-out infinite",
+        }} />
+        {/* Subtle cyan shimmer — bottom center */}
+        <div style={{
+          position: "absolute",
+          bottom: "10%",
+          left: "30%",
+          width: "40%",
+          height: "30%",
+          background: "radial-gradient(ellipse, rgba(6,182,212,0.06) 0%, transparent 70%)",
+          filter: "blur(50px)",
+        }} />
+        {/* Horizontal light streak */}
+        <div style={{
+          position: "absolute",
+          top: "38%",
+          left: 0,
+          right: 0,
+          height: 1,
+          background: "linear-gradient(90deg, transparent 0%, rgba(37,99,235,0.15) 30%, rgba(109,40,217,0.1) 60%, transparent 100%)",
+        }} />
+      </div>
+
+      <div className="max-w-7xl mx-auto w-full" style={{ position: "relative", zIndex: 10 }}>
 
         {/* ── Main grid ── */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-16 items-center">
@@ -36,7 +82,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15, ease }}
             >
-              Toronto, Canada · Canada-wide projects
+              Toronto Web Designer · Canada-wide
             </motion.p>
 
             <motion.h1
@@ -54,7 +100,10 @@ export default function Hero() {
               <br />
               turn visitors into
               <br />
-              <span style={{ color: "#2563eb" }}>customers.</span>
+              <span style={{
+                color: "#2563eb",
+                textShadow: "0 0 60px rgba(37,99,235,0.4)",
+              }}>customers.</span>
             </motion.h1>
 
             <motion.p
@@ -64,8 +113,8 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.42, ease }}
             >
-              I design and build custom websites and digital systems for businesses.
-              You work directly with the developer building your project from start to launch.
+              Toronto-based web designer and developer building custom websites for small businesses.
+              You work directly with the person building your site, from first call to launch.
             </motion.p>
 
             <motion.div
@@ -77,7 +126,7 @@ export default function Hero() {
               <a
                 href="/quote"
                 onClick={() => track(Events.QUOTE_STARTED)}
-                className="px-7 py-3.5 rounded-full text-sm font-semibold transition-all duration-200 hover:brightness-110 hover:-translate-y-px"
+                className="btn-glow px-7 py-3.5 rounded-full text-sm font-semibold"
                 style={{ background: "#2563eb", color: "#ffffff" }}
               >
                 Get an Instant Quote
@@ -109,7 +158,7 @@ export default function Hero() {
             </motion.p>
           </div>
 
-          {/* Right: concentric rings visual — desktop only */}
+          {/* Right: concentric rings visual, desktop only */}
           <motion.div
             className="hidden lg:flex items-center justify-center"
             initial={{ opacity: 0, scale: 0.88 }}
@@ -117,26 +166,34 @@ export default function Hero() {
             transition={{ duration: 1.2, delay: 0.5, ease }}
           >
             <div style={{ position: "relative", width: 280, height: 280 }}>
-              <div style={{ position: "absolute", inset: 0, borderRadius: "50%", border: "1px solid rgba(37,99,235,0.16)" }} />
-              <div style={{ position: "absolute", inset: "18%", borderRadius: "50%", border: "1px solid rgba(37,99,235,0.1)" }} />
-              <div style={{ position: "absolute", inset: "36%", borderRadius: "50%", border: "1px solid rgba(37,99,235,0.06)" }} />
+              {/* Outer glow */}
+              <div style={{
+                position: "absolute", inset: "-30%",
+                borderRadius: "50%",
+                background: "radial-gradient(circle, rgba(37,99,235,0.07) 0%, transparent 70%)",
+                filter: "blur(20px)",
+              }} />
+              <div style={{ position: "absolute", inset: 0, borderRadius: "50%", border: "1px solid rgba(37,99,235,0.2)" }} />
+              <div style={{ position: "absolute", inset: "18%", borderRadius: "50%", border: "1px solid rgba(37,99,235,0.12)" }} />
+              <div style={{ position: "absolute", inset: "36%", borderRadius: "50%", border: "1px solid rgba(37,99,235,0.07)" }} />
               <div style={{
                 position: "absolute", inset: "28%",
                 borderRadius: "50%",
-                background: "radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%)",
+                background: "radial-gradient(circle, rgba(37,99,235,0.16) 0%, rgba(109,40,217,0.04) 60%, transparent 100%)",
               }} />
               <div style={{
                 position: "absolute", top: "50%", left: "50%",
                 transform: "translate(-50%,-50%)",
-                width: 7, height: 7, borderRadius: "50%",
+                width: 8, height: 8, borderRadius: "50%",
                 background: "#2563eb",
-                boxShadow: "0 0 20px rgba(37,99,235,0.9), 0 0 50px rgba(37,99,235,0.35)",
+                boxShadow: "0 0 20px rgba(37,99,235,1), 0 0 60px rgba(37,99,235,0.5), 0 0 120px rgba(37,99,235,0.2)",
               }} />
               {[0, 72, 144, 216, 288].map((deg, i) => (
                 <div key={i} style={{
                   position: "absolute", top: "50%", left: "50%",
-                  width: 3, height: 3, borderRadius: "50%",
-                  background: `rgba(37,99,235,${0.5 - i * 0.07})`,
+                  width: 4, height: 4, borderRadius: "50%",
+                  background: `rgba(37,99,235,${0.6 - i * 0.08})`,
+                  boxShadow: `0 0 8px rgba(37,99,235,${0.4 - i * 0.05})`,
                   transform: `translate(-50%,-50%) rotate(${deg}deg) translateX(${72 + (i % 2) * 50}px)`,
                 }} />
               ))}
@@ -177,7 +234,8 @@ export default function Hero() {
       >
         <div style={{
           width: 1, height: 48,
-          background: "linear-gradient(to bottom, rgba(37,99,235,0.6), transparent)",
+          background: "linear-gradient(to bottom, rgba(37,99,235,0.7), transparent)",
+          boxShadow: "0 0 8px rgba(37,99,235,0.4)",
         }} />
       </motion.div>
     </section>

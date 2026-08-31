@@ -7,16 +7,16 @@ const ease = [0.16, 1, 0.3, 1];
 
 const FAQS = [
   {
-    q: "How much does a website cost?",
-    a: "Websites start at $299 for a custom 1–3 page site plus $15/month for hosting and support. Larger sites with more features start at $499 or $599. Use the instant quote tool to get an estimate based on your specific needs — final pricing is confirmed after a brief project review.",
+    q: "How much does a website cost in Toronto?",
+    a: "Websites start at $299 for a custom 1–3 page site plus $15/month for hosting and support. Larger sites with more features start at $499 or $599. Use the instant quote tool to get an estimate based on your specific needs. Final pricing is confirmed after a brief project review.",
   },
   {
     q: "How long does it take to build a website?",
     a: "Most small business websites are built and ready to launch within 1–2 weeks from when we confirm your project. Larger or more complex builds typically take 2–4 weeks. Timeline depends on how quickly we can gather your content and complete the review process together.",
   },
   {
-    q: "Do I need to already have a domain?",
-    a: "No — if you don't have a domain yet, I can help you get one set up as part of the project. If you already own a domain, I'll point it to your new site once it's ready to launch.",
+    q: "Do you work with businesses outside of Toronto?",
+    a: "Yes. While I'm based in Toronto, I work with clients all across Canada. Everything is done remotely, calls, design reviews, and launches, so your location doesn't matter.",
   },
   {
     q: "Can you redesign my existing website?",
@@ -31,8 +31,8 @@ const FAQS = [
     a: "Yes. If you use a platform like Square, Acuity, Fresha, or another booking service, I can integrate it directly into your website so customers can book without friction.",
   },
   {
-    q: "Do you provide SEO?",
-    a: "Every website I build includes basic on-page SEO — proper page titles, meta descriptions, headings, and mobile optimization. More advanced SEO work (ongoing content, technical audits, local search) is available as an add-on service.",
+    q: "Do you provide SEO for Toronto businesses?",
+    a: "Every website I build includes on-page SEO, proper page titles, meta descriptions, structured headings, and mobile optimization. Local SEO for Toronto is included on Growth and higher plans. More advanced ongoing SEO work is available as an add-on.",
   },
   {
     q: "What happens after I submit a quote request?",
