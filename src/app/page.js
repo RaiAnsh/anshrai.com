@@ -12,12 +12,6 @@ import FAQ        from "../components/sections/FAQ";
 import FinalCTA   from "../components/sections/FinalCTA";
 import Footer     from "../components/sections/Footer";
 
-export const metadata = {
-  title: "Ansh Rai — arweb | Websites Built for Small Businesses",
-  description:
-    "Custom websites and digital systems for small businesses across Canada. Get an instant quote — most projects start at $299. Toronto-based developer, Canada-wide projects.",
-};
-
 export default function Home() {
   return (
     <>
