@@ -13,6 +13,7 @@ const SOCIALS = [
 export default function Footer() {
   return (
     <footer
+      aria-label="Site footer"
       className="relative px-6 md:px-16 lg:px-24 pt-16 pb-10 border-t"
       style={{ borderColor: "rgba(255,255,255,0.05)", zIndex: 10 }}
     >
@@ -49,18 +50,20 @@ export default function Footer() {
               <p className="text-xs font-semibold tracking-[0.14em] uppercase mb-5" style={{ color: "#444" }}>
                 Site
               </p>
-              <div className="flex flex-col gap-3">
-                {NAV_LINKS.map((l) => (
-                  <a
-                    key={l.label}
-                    href={l.href}
-                    className="text-sm transition-colors hover:text-fg"
-                    style={{ color: "#666" }}
-                  >
-                    {l.label}
-                  </a>
-                ))}
-              </div>
+              <nav aria-label="Footer navigation">
+                <div className="flex flex-col gap-3">
+                  {NAV_LINKS.map((l) => (
+                    <a
+                      key={l.label}
+                      href={l.href}
+                      className="text-sm transition-colors hover:text-fg"
+                      style={{ color: "#666" }}
+                    >
+                      {l.label}
+                    </a>
+                  ))}
+                </div>
+              </nav>
             </div>
 
             <div>
@@ -100,9 +103,13 @@ export default function Footer() {
           <p className="text-xs" style={{ color: "#444" }}>
             © {new Date().getFullYear()} Ansh Rai · arweb
           </p>
-          <p className="text-xs" style={{ color: "#333" }}>
-            anshrai.com
-          </p>
+          <a
+            href="/privacy"
+            className="text-xs transition-colors hover:text-fg"
+            style={{ color: "#333" }}
+          >
+            Privacy Policy
+          </a>
         </div>
       </div>
     </footer>
