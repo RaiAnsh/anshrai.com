@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { caseStudies } from "../data/caseStudies";
 import { track, Events } from "../lib/analytics";
+import BrowserPreview from "./BrowserPreview";
 
 const ease = [0.16, 1, 0.3, 1];
 
@@ -135,79 +135,21 @@ export default function CaseStudyPage({ cs }) {
             ))}
           </motion.div>
 
-          {/* Site mockup / screenshot */}
+          {/* Site preview */}
           <motion.div
-            className="w-full rounded-2xl overflow-hidden mb-24"
-            style={{
-              background: "#0d0d0d",
-              border: `1px solid rgba(255,255,255,0.06)`,
-              aspectRatio: "16/9",
-            }}
+            className="w-full mb-24"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3, ease }}
           >
-            {cs.thumb ? (
-              <Image
-                src={cs.thumb}
-                alt={`${cs.client} website screenshot`}
-                fill
-                style={{ objectFit: "cover" }}
-              />
-            ) : (
-              <div
-                className="w-full h-full flex flex-col"
-                style={{ background: "#0d0d0d" }}
-              >
-                {/* Browser chrome */}
-                <div
-                  style={{
-                    height: 38,
-                    background: "#141414",
-                    borderBottom: "1px solid rgba(255,255,255,0.04)",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 6,
-                    paddingLeft: 14,
-                    flexShrink: 0,
-                  }}
-                >
-                  {["#ff5f57", "#febc2e", "#28c840"].map((c) => (
-                    <span key={c} style={{ width: 10, height: 10, borderRadius: "50%", background: c, opacity: 0.7 }} />
-                  ))}
-                  <span
-                    className="text-xs ml-3"
-                    style={{
-                      background: "rgba(255,255,255,0.04)",
-                      border: "1px solid rgba(255,255,255,0.06)",
-                      borderRadius: 6,
-                      padding: "2px 12px",
-                      color: "#444",
-                      fontSize: 11,
-                    }}
-                  >
-                    {cs.display}
-                  </span>
-                </div>
-                {/* Content area */}
-                <div
-                  className="flex-1 flex items-center justify-center"
-                  style={{
-                    background: `linear-gradient(135deg, ${cs.accentColor}08 0%, transparent 60%)`,
-                  }}
-                >
-                  <div className="text-center">
-                    <p
-                      className="font-heading font-bold mb-2"
-                      style={{ fontSize: "clamp(24px, 3vw, 40px)", color: cs.accentColor, letterSpacing: "-0.03em", opacity: 0.4 }}
-                    >
-                      {cs.client}
-                    </p>
-                    <p className="text-xs" style={{ color: "#333" }}>{cs.display}</p>
-                  </div>
-                </div>
-              </div>
-            )}
+            <BrowserPreview
+              url={cs.previewUrl ?? cs.url}
+              displayUrl={cs.display}
+              accentColor={cs.accentColor}
+              thumb={cs.thumb}
+              aspectRatio="16/9"
+              scale={0.42}
+            />
           </motion.div>
 
           {/* ── Body: 2-col on desktop ── */}

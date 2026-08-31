@@ -33,6 +33,7 @@ export const caseStudies = [
     tags:        ["Web Design", "AI Chatbot", "SEO", "Lead Generation"],
     accentColor: "#2563eb",
     thumb:       null,
+    previewUrl:  null,
     featured:    true,
   },
   {
@@ -64,6 +65,7 @@ export const caseStudies = [
     tags:        ["Full-Stack", "Admin Backend", "Authentication", "Database", "Web Design"],
     accentColor: "#22c55e",
     thumb:       null,
+    previewUrl:  null,
     featured:    true,
   },
   {
@@ -92,6 +94,7 @@ export const caseStudies = [
     tags:        ["Web Design", "Portfolio", "Lead Generation", "SEO"],
     accentColor: "#f59e0b",
     thumb:       null,
+    previewUrl:  null,
     featured:    true,
   },
   {
@@ -120,6 +123,7 @@ export const caseStudies = [
     tags:        ["Web Design", "Booking", "Mobile-First", "SEO"],
     accentColor: "#a855f7",
     thumb:       null,
+    previewUrl:  null,
     featured:    true,
   },
 ];

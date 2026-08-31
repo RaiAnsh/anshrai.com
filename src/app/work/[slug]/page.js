@@ -1,15 +1,14 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import { caseStudies } from "../../../data/caseStudies";
 import CaseStudyPage from "../../../components/CaseStudyPage";
 
-// Generate all slugs at build time
 export async function generateStaticParams() {
   return caseStudies.map((cs) => ({ slug: cs.slug }));
 }
 
 export async function generateMetadata({ params }) {
-  const cs = caseStudies.find((c) => c.slug === params.slug);
+  const { slug } = await params;
+  const cs = caseStudies.find((c) => c.slug === slug);
   if (!cs) return {};
   return {
     title: `${cs.client} — ${cs.headline}`,
@@ -18,8 +17,9 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default function WorkSlugPage({ params }) {
-  const cs = caseStudies.find((c) => c.slug === params.slug);
+export default async function WorkSlugPage({ params }) {
+  const { slug } = await params;
+  const cs = caseStudies.find((c) => c.slug === slug);
   if (!cs) notFound();
   return <CaseStudyPage cs={cs} />;
 }

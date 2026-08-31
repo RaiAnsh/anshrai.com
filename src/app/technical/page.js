@@ -1,4 +1,5 @@
 import Link from "next/link";
+import VehicleGradePreview from "../../components/VehicleGradePreview";
 
 export const metadata = {
   title: "Technical Portfolio | Ansh Rai",
@@ -281,6 +282,9 @@ export default function TechnicalPage() {
                     </span>
                   ))}
                 </div>
+
+                {/* VehicleGrade: live multi-page preview */}
+                {project.highlight && <VehicleGradePreview />}
               </div>
             ))}
           </div>

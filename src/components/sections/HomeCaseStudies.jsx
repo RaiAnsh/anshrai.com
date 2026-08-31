@@ -4,101 +4,9 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { caseStudies } from "../../data/caseStudies";
 import { track, Events } from "../../lib/analytics";
+import BrowserPreview from "../BrowserPreview";
 
 const ease = [0.16, 1, 0.3, 1];
-
-/* ── Browser mockup placeholder ── */
-function SiteMockup({ url, accentColor, thumb }) {
-  const displayUrl = url.replace("https://", "").replace("http://", "");
-
-  return (
-    <div
-      className="rounded-2xl overflow-hidden w-full"
-      style={{
-        background: "#0d0d0d",
-        border: `1px solid rgba(255,255,255,0.06)`,
-        aspectRatio: "16/10",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      {/* Browser chrome */}
-      <div
-        style={{
-          height: 34,
-          background: "#141414",
-          borderBottom: "1px solid rgba(255,255,255,0.05)",
-          display: "flex",
-          alignItems: "center",
-          padding: "0 14px",
-          gap: 10,
-          flexShrink: 0,
-        }}
-      >
-        <div style={{ display: "flex", gap: 6 }}>
-          {["#333","#333","#333"].map((c, i) => (
-            <span key={i} style={{ width: 9, height: 9, borderRadius: "50%", background: c, display: "block" }} />
-          ))}
-        </div>
-        <div
-          style={{
-            flex: 1,
-            height: 20,
-            background: "#1a1a1a",
-            borderRadius: 4,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <span style={{ fontSize: 10, color: "#444", fontFamily: "monospace" }}>
-            {displayUrl}
-          </span>
-        </div>
-      </div>
-
-      {/* Content area */}
-      {thumb ? (
-        <img
-          src={thumb}
-          alt={`Screenshot of ${displayUrl}`}
-          style={{ flex: 1, objectFit: "cover", objectPosition: "top" }}
-        />
-      ) : (
-        <div
-          style={{
-            flex: 1,
-            background: `linear-gradient(145deg, #111 0%, #0d0d0d 60%, ${accentColor}08 100%)`,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div style={{ textAlign: "center" }}>
-            <div
-              style={{
-                width: 44,
-                height: 44,
-                borderRadius: "50%",
-                background: `${accentColor}15`,
-                border: `1px solid ${accentColor}28`,
-                margin: "0 auto 10px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <div style={{ width: 14, height: 14, borderRadius: "50%", background: accentColor }} />
-            </div>
-            <p style={{ fontSize: 10, color: "#333", fontFamily: "monospace" }}>
-              {displayUrl}
-            </p>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
 
 /* ── Individual case study entry ── */
 function CaseStudyEntry({ cs, index }) {
@@ -235,17 +143,20 @@ function CaseStudyEntry({ cs, index }) {
         </motion.div>
       </div>
 
-      {/* ── Mockup column ── */}
+      {/* ── Preview column ── */}
       <motion.div
         className="flex items-center"
         initial={{ opacity: 0, scale: 0.97 }}
         animate={inView ? { opacity: 1, scale: 1 } : {}}
         transition={{ duration: 0.7, delay: 0.2, ease }}
       >
-        <SiteMockup
-          url={cs.url}
+        <BrowserPreview
+          url={cs.previewUrl ?? cs.url}
+          displayUrl={cs.display}
           accentColor={cs.accentColor}
           thumb={cs.thumb}
+          aspectRatio="16/10"
+          scale={0.38}
         />
       </motion.div>
     </motion.article>
