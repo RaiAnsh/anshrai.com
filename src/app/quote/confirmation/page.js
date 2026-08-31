@@ -63,7 +63,7 @@ export default function QuoteConfirmationPage({ searchParams }) {
             border: "1px solid rgba(255,255,255,0.06)",
           }}
         >
-          {isUnknown ? (
+          {(isUnknown || (!setup && !isCustom)) ? (
             <>
               <p className="text-xs font-semibold tracking-[0.14em] uppercase mb-3" style={{ color: "#555" }}>
                 Your estimate
@@ -72,7 +72,7 @@ export default function QuoteConfirmationPage({ searchParams }) {
                 Starting from $299
               </p>
               <p className="text-xs leading-relaxed" style={{ color: "#666" }}>
-                Websites start at $299 setup + $15/month. The right package depends on your scope, I'll confirm after reviewing your project.
+                A detailed quote will be emailed to you within 1 business day. Websites typically start at $299 setup + $15/month — final pricing depends on your scope.
               </p>
             </>
           ) : isCustom ? (
@@ -84,7 +84,7 @@ export default function QuoteConfirmationPage({ searchParams }) {
                 Custom pricing required
               </p>
               <p className="text-xs leading-relaxed" style={{ color: "#666" }}>
-                Your project includes features that require a custom quote. I'll review your requirements and send a tailored proposal.
+                Your project includes features that need a custom quote. I'll review your requirements and email you a tailored proposal within 1 business day.
               </p>
             </>
           ) : (
