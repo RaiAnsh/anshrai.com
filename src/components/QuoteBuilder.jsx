@@ -141,7 +141,14 @@ function CheckOption({ id, label, checked, onChange }) {
 
 function ProgressBar({ step }) {
   return (
-    <div className="flex items-center gap-2 mb-10">
+    <div
+      role="progressbar"
+      aria-valuenow={step}
+      aria-valuemin={1}
+      aria-valuemax={TOTAL_STEPS}
+      aria-label={`Step ${step} of ${TOTAL_STEPS}`}
+      className="flex items-center gap-2 mb-10"
+    >
       {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
         <div
           key={i}
@@ -469,7 +476,12 @@ export default function QuoteBuilder() {
       <ProgressBar step={step} />
 
       {/* Step label */}
-      <p className="text-xs font-semibold tracking-[0.14em] uppercase mb-6" style={{ color: "#555" }}>
+      <p
+        aria-live="polite"
+        aria-atomic="true"
+        className="text-xs font-semibold tracking-[0.14em] uppercase mb-6"
+        style={{ color: "#555" }}
+      >
         Step {step} of {TOTAL_STEPS}
       </p>
 
@@ -488,7 +500,7 @@ export default function QuoteBuilder() {
 
       {/* Error */}
       {error && (
-        <p className="mt-6 text-sm" style={{ color: "#ef4444" }}>
+        <p role="alert" aria-live="assertive" className="mt-6 text-sm" style={{ color: "#ef4444" }}>
           {error}
         </p>
       )}

@@ -32,6 +32,7 @@ export default function Nav() {
     <>
       {/* ── Main navbar ── */}
       <nav
+        aria-label="Main navigation"
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-16 py-5 transition-all duration-300"
         style={{
           background:   scrolled ? "rgba(9,9,9,0.88)" : "transparent",
@@ -80,6 +81,7 @@ export default function Nav() {
           onClick={() => setMenuOpen((o) => !o)}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
+          aria-controls="mobile-nav-drawer"
         >
           <span
             style={{
@@ -110,6 +112,10 @@ export default function Nav() {
 
       {/* ── Mobile drawer ── */}
       <div
+        id="mobile-nav-drawer"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation menu"
         className="fixed inset-0 z-40 md:hidden flex flex-col transition-all duration-300"
         style={{
           background:  "#090909",

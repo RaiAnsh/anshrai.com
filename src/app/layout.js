@@ -32,6 +32,52 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
   },
+  alternates: {
+    canonical: "https://anshrai.com",
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://anshrai.com/#person",
+      name: "Ansh Rai",
+      url: "https://anshrai.com",
+      sameAs: [
+        "https://www.linkedin.com/in/raiansh/",
+        "https://github.com/RaiAnsh",
+      ],
+      jobTitle: "Web Developer & Founder",
+      worksFor: { "@id": "https://anshrai.com/#organization" },
+    },
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://anshrai.com/#organization",
+      name: "arweb",
+      url: "https://anshrai.com",
+      email: "ansh@anshrai.com",
+      description:
+        "Custom websites and digital systems for small businesses across Canada. Starting at $299 setup + $15/month.",
+      founder: { "@id": "https://anshrai.com/#person" },
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Toronto",
+        addressRegion: "ON",
+        addressCountry: "CA",
+      },
+      areaServed: "Canada",
+      priceRange: "$$",
+      serviceType: [
+        "Web Design",
+        "Web Development",
+        "Digital Systems",
+        "SEO",
+        "Website Maintenance",
+      ],
+    },
+  ],
 };
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
@@ -60,6 +106,11 @@ export default function RootLayout({ children }) {
             </Script>
           </>
         )}
+        {/* JSON-LD structured data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>

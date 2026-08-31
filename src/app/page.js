@@ -1,5 +1,4 @@
 import Nav             from "../components/Nav";
-import CustomCursor     from "../components/CustomCursor";
 import ParticleNetwork  from "../components/ParticleNetwork";
 import MobileCTA        from "../components/MobileCTA";
 
@@ -23,7 +22,6 @@ export const metadata = {
 export default function Home() {
   return (
     <>
-      <CustomCursor />
       <ParticleNetwork />
       <Nav />
       <main style={{ position: "relative", zIndex: 10 }}>
