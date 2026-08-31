@@ -10,101 +10,116 @@ const SCENES = [
     slug:     "k-group",
     label:    "Interior Design",
     client:   "K Group",
-    headline: "Luxury interiors,\npresented online.",
+    headline: ["Luxury interiors,", "presented online."],
     result:   "Full-stack site + booking system",
     img:      "/projects/k-group/hero.jpg",
     href:     "/work/k-group",
+    pos:      "65% center",
   },
   {
     slug:     "rl-contracting",
     label:    "General Contractor",
     client:   "RL Contracting",
-    headline: "65% more leads\nfrom organic search.",
+    headline: ["65% more leads", "from organic search."],
     result:   "SEO-driven rebuild, no paid ads",
     img:      "/projects/rl-contracting/hero.jpg",
     href:     "/work/rl-contracting",
+    pos:      "50% center",
   },
   {
     slug:     "map-canada",
     label:    "Non-Profit",
     client:   "MAP Canada",
-    headline: "Humanitarian reach,\nmodern infrastructure.",
+    headline: ["Humanitarian reach,", "modern infrastructure."],
     result:   "Admin backend + public site",
-    img:      "/projects/rl-contracting/hero.jpg",
+    img:      "/projects/k-group/detail-raw.jpg",
     href:     "/work/map-canada",
+    pos:      "center 30%",
   },
   {
     slug:     "kk-fade",
     label:    "Barbershop",
     client:   "K&K Fade Lounge",
-    headline: "Book faster.\nFill more chairs.",
+    headline: ["Book faster.", "Fill more chairs."],
     result:   "Private studio booking site",
-    img:      "/projects/k-group/hero.jpg",
+    img:      "/projects/rl-contracting/hero.jpg",
     href:     "/work/kk-fade",
+    pos:      "30% center",
   },
   {
     slug:     "broadview",
-    label:    "Entertainment",
+    label:    "Entertainment Venue",
     client:   "Broadview",
-    headline: "Atmosphere\nbefore the door.",
+    headline: ["Atmosphere", "before the door."],
     result:   "Event venue digital identity",
     img:      "/projects/broadview-hero.jpg",
     href:     "/work/broadview",
+    pos:      "center 40%",
   },
 ];
 
-/* One sticky scene */
-function Scene({ scene, index, total }) {
-  const ref      = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
+/* Individual scene — receives parent scroll progress */
+function Scene({ scene, index, total, scrollYProgress }) {
+  const start   = index / total;
+  const end     = (index + 1) / total;
+  const inStart = Math.max(0, start - 0.02);
+  const outEnd  = index === total - 1 ? 1 : end;
 
-  /* Image parallax — travels upward slower than scroll */
-  const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
+  const opacity = useTransform(
+    scrollYProgress,
+    [inStart, start + 0.04, end - 0.08, outEnd],
+    [0,       1,             1,           index === total - 1 ? 1 : 0]
+  );
 
-  /* Content fades out near the end of this panel */
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.75, 1], [1, 1, 0]);
-  const contentY       = useTransform(scrollYProgress, [0, 1], ["0%", "-6%"]);
+  const imgY = useTransform(scrollYProgress, [start, end], ["0%", "12%"]);
 
   return (
-    <div
-      ref={ref}
-      id={`scene-${index}`}
-      style={{ height: "100vh", position: "relative", overflow: "hidden" }}
+    <motion.div
+      style={{
+        position: "absolute",
+        inset: 0,
+        opacity,
+        pointerEvents: "none",
+      }}
     >
-      {/* Photography — fills the viewport */}
+      {/* Photo */}
       <motion.div
         style={{
           position: "absolute",
-          inset: "-10% 0",
+          inset: "-8% 0",
           y: imgY,
           willChange: "transform",
         }}
       >
         <Image
           src={scene.img}
-          alt={scene.headline.replace("\n", " ")}
+          alt={scene.headline.join(" ")}
           fill
-          priority={index === 0}
           quality={85}
           sizes="100vw"
-          style={{ objectFit: "cover", objectPosition: "center" }}
+          style={{ objectFit: "cover", objectPosition: scene.pos }}
         />
-        {/* Gradient overlay — text legibility */}
+        {/* Gradient overlay */}
         <div
           style={{
             position: "absolute",
             inset: 0,
             background:
-              "linear-gradient(to right, rgba(11,11,14,0.88) 0%, rgba(11,11,14,0.55) 50%, rgba(11,11,14,0.20) 100%)",
+              "linear-gradient(to right, rgba(11,11,14,0.92) 0%, rgba(11,11,14,0.65) 50%, rgba(11,11,14,0.22) 100%)",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            bottom: 0, left: 0, right: 0,
+            height: "35%",
+            background: "linear-gradient(to top, rgba(11,11,14,1) 0%, transparent 100%)",
           }}
         />
       </motion.div>
 
-      {/* Content */}
-      <motion.div
+      {/* Text content */}
+      <div
         style={{
           position: "absolute",
           inset: 0,
@@ -112,11 +127,10 @@ function Scene({ scene, index, total }) {
           flexDirection: "column",
           justifyContent: "flex-end",
           padding: "clamp(32px,6vw,80px) clamp(24px,6vw,96px)",
-          opacity: contentOpacity,
-          y: contentY,
+          pointerEvents: "auto",
         }}
       >
-        {/* Eyebrow */}
+        {/* Counter */}
         <p
           style={{
             fontFamily: "var(--font-ui)",
@@ -124,37 +138,38 @@ function Scene({ scene, index, total }) {
             letterSpacing: "0.18em",
             textTransform: "uppercase",
             color: "var(--muted)",
-            marginBottom: "1rem",
+            marginBottom: "1.25rem",
           }}
         >
-          {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")} — {scene.label}
+          {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")} &mdash; {scene.label}
         </p>
 
         {/* Headline */}
         <h2
           style={{
             fontFamily: "var(--font-display)",
-            fontSize: "clamp(40px, 6vw, 96px)",
+            fontSize: "clamp(44px, 7vw, 112px)",
             fontWeight: 300,
             letterSpacing: "-0.03em",
-            lineHeight: 1.0,
+            lineHeight: 0.97,
             color: "#ffffff",
-            whiteSpace: "pre-line",
-            marginBottom: "1.5rem",
+            marginBottom: "1.75rem",
           }}
         >
-          {scene.headline}
+          {scene.headline[0]}
+          <br />
+          <em style={{ fontStyle: "italic", color: "var(--muted)" }}>{scene.headline[1]}</em>
         </h2>
 
-        {/* Result tag + CTA */}
-        <div style={{ display: "flex", alignItems: "center", gap: "1.5rem", flexWrap: "wrap" }}>
+        {/* Meta row */}
+        <div style={{ display: "flex", alignItems: "center", gap: "2rem", flexWrap: "wrap" }}>
           <span
             style={{
               fontFamily: "var(--font-ui)",
               fontSize: 13,
               color: "var(--fg-dim)",
               borderLeft: "2px solid var(--accent)",
-              paddingLeft: "0.75rem",
+              paddingLeft: "0.875rem",
             }}
           >
             {scene.result}
@@ -166,32 +181,87 @@ function Scene({ scene, index, total }) {
               fontSize: 13,
               fontWeight: 500,
               color: "#ffffff",
-              letterSpacing: "0.02em",
+              textDecoration: "none",
+              opacity: 0.6,
+              transition: "opacity 160ms",
               display: "flex",
               alignItems: "center",
-              gap: "0.4rem",
-              textDecoration: "none",
-              opacity: 0.7,
-              transition: "opacity 160ms",
+              gap: "0.3rem",
             }}
             onMouseEnter={(e) => (e.currentTarget.style.opacity = 1)}
-            onMouseLeave={(e) => (e.currentTarget.style.opacity = 0.7)}
+            onMouseLeave={(e) => (e.currentTarget.style.opacity = 0.6)}
           >
             Case study →
           </Link>
         </div>
-      </motion.div>
+      </div>
+    </motion.div>
+  );
+}
+
+/* Dot progress indicator */
+function ProgressDots({ scrollYProgress, total }) {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        right: "clamp(24px,4vw,56px)",
+        top: "50%",
+        transform: "translateY(-50%)",
+        display: "flex",
+        flexDirection: "column",
+        gap: 10,
+        zIndex: 20,
+      }}
+    >
+      {Array.from({ length: total }).map((_, i) => {
+        const start = i / total;
+        const end   = (i + 1) / total;
+        return (
+          <ProgressDot key={i} scrollYProgress={scrollYProgress} start={start} end={end} />
+        );
+      })}
     </div>
   );
 }
 
+function ProgressDot({ scrollYProgress, start, end }) {
+  const scale   = useTransform(scrollYProgress, [start, start + 0.04, end - 0.04, end], [1, 1.5, 1.5, 1]);
+  const opacity = useTransform(scrollYProgress, [start, start + 0.04, end - 0.04, end], [0.3, 1, 1, 0.3]);
+
+  return (
+    <motion.div
+      style={{
+        width: 3,
+        height: 3,
+        borderRadius: "50%",
+        background: "#fff",
+        scale,
+        opacity,
+      }}
+    />
+  );
+}
+
 export default function Showreel() {
+  const containerRef = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target:  containerRef,
+    offset:  ["start start", "end end"],
+  });
+
   return (
     <section id="work" style={{ background: "var(--ground)" }}>
-      {/* Section label */}
+
+      {/* Section label row */}
       <div
         style={{
-          padding: "clamp(64px,10vh,120px) clamp(24px,6vw,96px) 0",
+          padding: "clamp(72px,10vh,120px) clamp(24px,6vw,96px) clamp(40px,5vh,72px)",
+          borderTop: "1px solid var(--border)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
         }}
       >
         <p
@@ -205,39 +275,77 @@ export default function Showreel() {
         >
           Selected Work
         </p>
+        <Link
+          href="/work"
+          style={{
+            fontFamily: "var(--font-ui)",
+            fontSize: 13,
+            color: "var(--muted)",
+            textDecoration: "none",
+            transition: "color 160ms",
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+          onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
+        >
+          All projects →
+        </Link>
       </div>
 
-      {/* Scenes */}
-      {SCENES.map((scene, i) => (
-        <Scene key={scene.slug} scene={scene} index={i} total={SCENES.length} />
-      ))}
+      {/* ── Sticky scroll container ── */}
+      <div
+        ref={containerRef}
+        style={{ height: `${SCENES.length * 100}vh`, position: "relative" }}
+      >
+        {/* Sticky viewport */}
+        <div
+          style={{
+            position: "sticky",
+            top: 0,
+            height: "100vh",
+            overflow: "hidden",
+            background: "var(--ground)",
+          }}
+        >
+          {SCENES.map((scene, i) => (
+            <Scene
+              key={scene.slug}
+              scene={scene}
+              index={i}
+              total={SCENES.length}
+              scrollYProgress={scrollYProgress}
+            />
+          ))}
 
-      {/* Bottom CTA */}
+          {/* Progress dots */}
+          <ProgressDots scrollYProgress={scrollYProgress} total={SCENES.length} />
+        </div>
+      </div>
+
+      {/* Bottom transition out */}
       <div
         style={{
           padding: "clamp(80px,12vh,140px) clamp(24px,6vw,96px)",
+          borderTop: "1px solid var(--border)",
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
           gap: "2rem",
-          borderTop: "1px solid var(--border)",
         }}
       >
         <h3
           style={{
             fontFamily: "var(--font-display)",
-            fontSize: "clamp(28px,4vw,56px)",
+            fontSize: "clamp(32px,5vw,72px)",
             fontWeight: 300,
             letterSpacing: "-0.03em",
             color: "#ffffff",
-            lineHeight: 1.1,
+            lineHeight: 1.0,
+            margin: 0,
           }}
         >
           See the full archive.
         </h3>
-        <Link href="/work" className="btn-ghost">
-          All case studies →
-        </Link>
+        <Link href="/work" className="btn-ghost">All case studies →</Link>
       </div>
     </section>
   );

@@ -1,34 +1,32 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 
 const ease = [0.16, 1, 0.3, 1];
 
-const services = [
+const SERVICES = [
   {
-    num:    "01",
-    title:  "Website Design & Development",
-    desc:   "A professional website that represents your business and brings in customers. Custom-built around your brand, designed to load fast, look great on every device, and turn visitors into leads.",
-    price:  "Starting from $299",
-    cta:    "Get a quote →",
-    href:   "/quote",
+    num:   "01",
+    title: "Website Design & Development",
+    desc:  "A professional website that represents your business and brings in customers. Custom-built around your brand, designed to load fast, look great on every device, and turn visitors into leads.",
+    price: "From $299",
+    href:  "/quote",
   },
   {
-    num:    "02",
-    title:  "Digital Business Systems",
-    desc:   "Go beyond a basic website. Lead capture forms, AI chat assistants, automated follow-ups, booking systems, and custom integrations, built to work for your business around the clock.",
-    price:  "Starting from $599",
-    cta:    "Get a quote →",
-    href:   "/quote",
+    num:   "02",
+    title: "Digital Business Systems",
+    desc:  "Go beyond a basic website. Lead capture forms, AI chat assistants, automated follow-ups, booking systems, and custom integrations — built to work for your business around the clock.",
+    price: "From $599",
+    href:  "/quote",
   },
   {
-    num:    "03",
-    title:  "Ongoing Support & Management",
-    desc:   "Hosting, security, updates, and technical support, handled. You focus on running your business; I keep your website performing.",
-    price:  "From $15/month",
-    cta:    "Get a quote →",
-    href:   "/quote",
+    num:   "03",
+    title: "Ongoing Support & Management",
+    desc:  "Hosting, security, updates, and technical support — handled. You focus on running your business; I keep your website performing.",
+    price: "From $15/mo",
+    href:  "/quote",
   },
 ];
 
@@ -37,110 +35,200 @@ export default function Services() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="services" className="relative py-32 px-6 md:px-16 lg:px-24" style={{ zIndex: 10 }} ref={ref}>
-      <div className="max-w-7xl mx-auto">
+    <section
+      id="services"
+      ref={ref}
+      style={{
+        background: "var(--ground)",
+        padding:    "clamp(96px,14vh,160px) clamp(24px,6vw,96px)",
+        borderTop:  "1px solid var(--border)",
+      }}
+    >
+      {/* Section header */}
+      <div
+        style={{
+          display:         "flex",
+          alignItems:      "flex-end",
+          justifyContent:  "space-between",
+          flexWrap:        "wrap",
+          gap:             "2rem",
+          marginBottom:    "clamp(56px,8vh,96px)",
+        }}
+      >
+        <div>
+          <motion.p
+            style={{
+              fontFamily:    "var(--font-ui)",
+              fontSize:      11,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color:         "var(--muted)",
+              marginBottom:  "1.25rem",
+            }}
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.5 }}
+          >
+            Services
+          </motion.p>
 
-        <motion.p
-          className="text-xs font-semibold tracking-[0.18em] uppercase mb-8"
-          style={{ color: "#2563eb" }}
+          <motion.h2
+            style={{
+              fontFamily:    "var(--font-display)",
+              fontSize:      "clamp(40px, 5.5vw, 80px)",
+              fontWeight:    300,
+              letterSpacing: "-0.03em",
+              lineHeight:    0.95,
+              color:         "#ffffff",
+              margin:        0,
+            }}
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.08, ease }}
+          >
+            What I build
+            <br />
+            <em style={{ fontStyle: "italic", color: "var(--muted)" }}>for your business.</em>
+          </motion.h2>
+        </div>
+
+        <motion.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
         >
-          Services
-        </motion.p>
+          <Link href="/quote" className="btn-primary">Get an Instant Quote</Link>
+        </motion.div>
+      </div>
 
-        <motion.h2
-          className="font-heading font-bold mb-16"
-          style={{
-            fontSize: "clamp(32px, 5vw, 62px)",
-            letterSpacing: "-0.03em",
-            lineHeight: 1.0,
-            color: "#ffffff",
-          }}
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.1, ease }}
-        >
-          What I build
-          <br />
-          <span style={{ color: "#2563eb" }}>for your business.</span>
-        </motion.h2>
-
-        <div className="flex flex-col">
-          {services.map((s, i) => (
-            <motion.div
-              key={s.num}
-              className="group flex flex-col md:flex-row md:items-center gap-6 md:gap-8 py-10 border-t last:border-b"
-              style={{ borderColor: "rgba(255,255,255,0.05)" }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.15 + i * 0.1, ease }}
+      {/* Service rows */}
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        {SERVICES.map((s, i) => (
+          <motion.div
+            key={s.num}
+            style={{
+              display:       "grid",
+              gridTemplateColumns: "3rem 1fr auto",
+              gap:           "clamp(16px, 3vw, 48px)",
+              alignItems:    "start",
+              padding:       "clamp(28px,4vh,48px) 0",
+              borderTop:     "1px solid var(--border)",
+            }}
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.14 + i * 0.1, ease }}
+          >
+            {/* Number */}
+            <span
+              style={{
+                fontFamily:    "var(--font-ui)",
+                fontSize:      11,
+                letterSpacing: "0.1em",
+                color:         "rgba(37,99,235,0.5)",
+                paddingTop:    "0.35em",
+              }}
             >
-              {/* Number */}
-              <span
-                className="text-xs font-semibold tabular-nums flex-shrink-0 w-8"
-                style={{ color: "rgba(37,99,235,0.45)" }}
-              >
-                {s.num}
-              </span>
+              {s.num}
+            </span>
 
-              {/* Title */}
+            {/* Content */}
+            <div>
               <h3
-                className="font-heading font-semibold flex-shrink-0 transition-colors duration-200 group-hover:text-accent"
                 style={{
-                  fontSize: "clamp(20px, 2.2vw, 28px)",
+                  fontFamily:    "var(--font-display)",
+                  fontSize:      "clamp(22px, 2.4vw, 34px)",
+                  fontWeight:    300,
                   letterSpacing: "-0.02em",
-                  color: "#ffffff",
-                  minWidth: "clamp(180px, 24vw, 300px)",
+                  lineHeight:    1.1,
+                  color:         "#ffffff",
+                  marginBottom:  "0.875rem",
                 }}
               >
                 {s.title}
               </h3>
-
-              {/* Description */}
               <p
-                className="flex-1 leading-relaxed text-sm md:text-base"
-                style={{ color: "#888888", maxWidth: 440 }}
+                style={{
+                  fontFamily: "var(--font-ui)",
+                  fontSize:   "clamp(13px, 1.1vw, 15px)",
+                  lineHeight: 1.7,
+                  color:      "var(--fg-dim)",
+                  maxWidth:   520,
+                  margin:     0,
+                }}
               >
                 {s.desc}
               </p>
+            </div>
 
-              {/* Price + CTA */}
-              <div className="flex-shrink-0 flex flex-col items-start md:items-end gap-3">
-                <span
-                  className="font-heading font-semibold text-sm"
-                  style={{ color: "#ffffff" }}
-                >
-                  {s.price}
-                </span>
-                <a
-                  href={s.href}
-                  className="text-xs font-semibold transition-colors hover:text-fg"
-                  style={{ color: "#2563eb" }}
-                >
-                  {s.cta}
-                </a>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+            {/* Price + CTA — right column */}
+            <div
+              style={{
+                display:       "flex",
+                flexDirection: "column",
+                alignItems:    "flex-end",
+                gap:           "0.75rem",
+                textAlign:     "right",
+                flexShrink:    0,
+              }}
+            >
+              <span
+                style={{
+                  fontFamily:    "var(--font-display)",
+                  fontSize:      "clamp(18px, 1.8vw, 24px)",
+                  fontWeight:    300,
+                  letterSpacing: "-0.02em",
+                  color:         "#ffffff",
+                  whiteSpace:    "nowrap",
+                }}
+              >
+                {s.price}
+              </span>
+              <Link
+                href={s.href}
+                style={{
+                  fontFamily:    "var(--font-ui)",
+                  fontSize:      12,
+                  letterSpacing: "0.04em",
+                  color:         "var(--accent)",
+                  textDecoration: "none",
+                  whiteSpace:    "nowrap",
+                  transition:    "opacity 140ms",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.opacity = 0.7)}
+                onMouseLeave={(e) => (e.currentTarget.style.opacity = 1)}
+              >
+                Get a quote →
+              </Link>
+            </div>
+          </motion.div>
+        ))}
 
-        {/* Note */}
-        <motion.p
-          className="mt-8 text-xs"
-          style={{ color: "#555" }}
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.5, delay: 0.5 }}
-        >
-          Prices are estimates and vary by project scope. Use the{" "}
-          <a href="/quote" className="underline underline-offset-2 transition-colors hover:text-fg" style={{ color: "#888" }}>
-            instant quote tool
-          </a>{" "}
-          for a personalized estimate.
-        </motion.p>
+        {/* Last border */}
+        <div style={{ borderTop: "1px solid var(--border)" }} />
       </div>
+
+      {/* Footnote */}
+      <motion.p
+        style={{
+          fontFamily: "var(--font-ui)",
+          fontSize:   12,
+          color:      "var(--muted)",
+          marginTop:  "2rem",
+          opacity:    0.7,
+        }}
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 0.7 } : {}}
+        transition={{ duration: 0.5, delay: 0.5 }}
+      >
+        Prices are estimates and vary by scope.{" "}
+        <Link
+          href="/quote"
+          style={{ color: "var(--fg-dim)", textDecoration: "underline", textDecorationColor: "var(--border)" }}
+        >
+          Use the quote tool
+        </Link>{" "}
+        for a personalized estimate.
+      </motion.p>
     </section>
   );
 }
