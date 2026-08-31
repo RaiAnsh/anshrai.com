@@ -1,12 +1,12 @@
 // All client sites. Used on the arweb page and the homepage client strip.
-// Featured case studies live in caseStudies.js — this list is for the flat strip.
+// Featured case studies live in caseStudies.js, this list is for the flat strip.
 export const clients = [
   {
     name: "RL Contracting",
     url: "https://rlcontracting.ca",
     display: "rlcontracting.ca",
     type: "General Contracting · Canada",
-    desc: "Full website with AI chatbot and organic SEO for a contracting business. Lead volume grew 65% after launch — no paid advertising.",
+    desc: "Full website with AI chatbot and organic SEO for a contracting business. Lead volume grew 65% after launch, no paid advertising.",
     tags: ["Web Design", "AI Chatbot", "SEO", "Lead Generation"],
     accent: "rgba(37,99,235,1)",
     border: "rgba(37,99,235,0.22)",
@@ -18,7 +18,7 @@ export const clients = [
     url: "https://mapcan.ca",
     display: "mapcan.ca",
     type: "Humanitarian Organization · Canada",
-    desc: "Multi-page public website with donation integrations and a secure admin backend for staff — program pages, media management, subscribers, and audit logging.",
+    desc: "Multi-page public website with donation integrations and a secure admin backend for staff, program pages, media management, subscribers, and audit logging.",
     tags: ["Full-Stack", "Admin Backend", "Authentication", "Web Design"],
     accent: "rgba(34,197,94,1)",
     border: "rgba(34,197,94,0.22)",
@@ -30,7 +30,7 @@ export const clients = [
     url: "https://www.kgroupltd.ca",
     display: "kgroupltd.ca",
     type: "Renovation & Contracting · Canada",
-    desc: "Professional website presenting renovation services across residential, commercial, and hospitality sectors — portfolio, service pages, and lead capture.",
+    desc: "Professional website presenting renovation services across residential, commercial, and hospitality sectors, portfolio, service pages, and lead capture.",
     tags: ["Web Design", "Lead Gen", "Mobile Responsive", "SEO"],
     accent: "rgba(245,158,11,1)",
     border: "rgba(245,158,11,0.22)",
@@ -102,7 +102,7 @@ export const clients = [
     url: "https://www.broadviewbarbersalon.ca",
     display: "broadviewbarbersalon.ca",
     type: "Barbershop · Toronto, ON",
-    desc: "Website improvement and redesign for a busy Toronto barbershop — mobile experience, service presentation, and booking access.",
+    desc: "Website improvement and redesign for a busy Toronto barbershop, mobile experience, service presentation, and booking access.",
     tags: ["Web Design", "Mobile Responsive", "SEO", "Google Maps"],
     accent: "rgba(56,189,248,1)",
     border: "rgba(56,189,248,0.22)",

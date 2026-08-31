@@ -9,7 +9,7 @@ const STEPS = [
   {
     num:   "01",
     title: "Get your estimate",
-    desc:  "Answer a few quick questions and get an instant price estimate — no commitment, no sales call.",
+    desc:  "Answer a few quick questions and get an instant price estimate, no commitment, no sales call.",
   },
   {
     num:   "02",

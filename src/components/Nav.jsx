@@ -11,16 +11,15 @@ const NAV_LINKS = [
 ];
 
 export default function Nav() {
-  const [scrolled,  setScrolled]  = useState(false);
-  const [menuOpen,  setMenuOpen]  = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Lock body scroll when drawer is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
@@ -33,34 +32,44 @@ export default function Nav() {
       {/* ── Main navbar ── */}
       <nav
         aria-label="Main navigation"
-        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-16 py-5 transition-all duration-300"
+        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-16 py-6 transition-all duration-500"
         style={{
-          background:   scrolled ? "rgba(9,9,9,0.88)" : "transparent",
-          backdropFilter: scrolled ? "blur(24px)" : "none",
-          borderBottom: scrolled
-            ? "1px solid rgba(255,255,255,0.05)"
-            : "1px solid transparent",
+          background:     scrolled ? "rgba(11,11,14,0.92)" : "transparent",
+          backdropFilter: scrolled ? "blur(20px)" : "none",
+          borderBottom:   scrolled ? "1px solid rgba(255,255,255,0.04)" : "1px solid transparent",
         }}
       >
-        {/* Logo */}
+        {/* Wordmark */}
         <a
           href="/"
-          className="font-heading font-semibold text-fg"
-          style={{ fontSize: 17, letterSpacing: "-0.02em" }}
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: 20,
+            fontWeight: 400,
+            letterSpacing: "-0.02em",
+            color: "#ffffff",
+          }}
         >
           anshrai.
         </a>
 
-        {/* ── Desktop links ── */}
-        <div className="hidden md:flex items-center gap-7">
+        {/* Desktop links */}
+        <div className="hidden md:flex items-center gap-8">
           {NAV_LINKS.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              className="text-sm font-medium transition-colors duration-150"
-              style={{ color: "#888888" }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#ffffff")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "#888888")}
+              style={{
+                fontFamily: "var(--font-ui)",
+                fontSize: 13,
+                fontWeight: 400,
+                letterSpacing: "0.01em",
+                color: "var(--muted)",
+                textDecoration: "none",
+                transition: "color 160ms ease",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
             >
               {l.label}
             </a>
@@ -68,89 +77,65 @@ export default function Nav() {
           <a
             href="/quote"
             onClick={() => track(Events.NAV_QUOTE_CLICKED)}
-            className="text-sm px-5 py-2.5 rounded-full font-semibold transition-all duration-150 hover:brightness-110 hover:-translate-y-px"
-            style={{ background: "#2563eb", color: "#ffffff" }}
+            className="btn-primary"
+            style={{ fontSize: 13, padding: "0.55rem 1.25rem" }}
           >
-            Get an Instant Quote
+            Get a Quote
           </a>
         </div>
 
-        {/* ── Mobile: hamburger ── */}
+        {/* Mobile hamburger */}
         <button
           className="md:hidden flex flex-col justify-center gap-[5px] p-2 -mr-2"
           onClick={() => setMenuOpen((o) => !o)}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
-          aria-controls="mobile-nav-drawer"
         >
-          <span
-            style={{
-              display: "block", width: 22, height: 1.5,
-              background: "#fff",
-              transition: "transform 220ms ease",
-              transform: menuOpen ? "rotate(45deg) translate(2px, 6.5px)" : "none",
-            }}
-          />
-          <span
-            style={{
-              display: "block", width: 22, height: 1.5,
-              background: "#fff",
-              transition: "opacity 220ms ease",
-              opacity: menuOpen ? 0 : 1,
-            }}
-          />
-          <span
-            style={{
-              display: "block", width: 22, height: 1.5,
-              background: "#fff",
-              transition: "transform 220ms ease",
-              transform: menuOpen ? "rotate(-45deg) translate(2px, -6.5px)" : "none",
-            }}
-          />
+          <span style={{ display:"block", width:22, height:1, background:"#fff", transition:"transform 220ms ease", transform: menuOpen ? "rotate(45deg) translate(0,6px)" : "none" }} />
+          <span style={{ display:"block", width:22, height:1, background:"#fff", transition:"opacity 220ms ease", opacity: menuOpen ? 0 : 1 }} />
+          <span style={{ display:"block", width:22, height:1, background:"#fff", transition:"transform 220ms ease", transform: menuOpen ? "rotate(-45deg) translate(0,-6px)" : "none" }} />
         </button>
       </nav>
 
-      {/* ── Mobile drawer ── */}
+      {/* Mobile drawer */}
       <div
-        id="mobile-nav-drawer"
         role="dialog"
         aria-modal="true"
         aria-label="Navigation menu"
         className="fixed inset-0 z-40 md:hidden flex flex-col transition-all duration-300"
         style={{
-          background:  "#090909",
-          opacity:     menuOpen ? 1 : 0,
+          background:    "var(--ground)",
+          opacity:       menuOpen ? 1 : 0,
           pointerEvents: menuOpen ? "auto" : "none",
-          transform:   menuOpen ? "translateX(0)" : "translateX(20px)",
+          transform:     menuOpen ? "none" : "translateY(-8px)",
         }}
       >
-        <div className="flex flex-col px-6 pt-24 pb-10 gap-7 flex-1">
+        <div className="flex flex-col px-6 pt-28 pb-10 gap-6">
           {NAV_LINKS.map((l) => (
             <a
               key={l.href}
               href={l.href}
               onClick={close}
-              className="font-heading font-semibold text-fg"
-              style={{ fontSize: "clamp(28px,8vw,40px)", letterSpacing: "-0.025em" }}
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "clamp(32px,9vw,48px)",
+                fontWeight: 300,
+                letterSpacing: "-0.02em",
+                color: "#ffffff",
+                textDecoration: "none",
+              }}
             >
               {l.label}
             </a>
           ))}
-        </div>
-
-        {/* CTA at bottom of drawer */}
-        <div className="px-6 pb-12">
           <a
             href="/quote"
-            onClick={() => { close(); track(Events.NAV_QUOTE_CLICKED); }}
-            className="block w-full text-center py-4 rounded-full font-semibold text-base"
-            style={{ background: "#2563eb", color: "#ffffff" }}
+            onClick={close}
+            className="btn-primary mt-4"
+            style={{ alignSelf: "flex-start" }}
           >
-            Get an Instant Quote
+            Get a Quote
           </a>
-          <p className="text-center text-xs mt-4" style={{ color: "#555" }}>
-            Most inquiries receive a response within 1 business day.
-          </p>
         </div>
       </div>
     </>

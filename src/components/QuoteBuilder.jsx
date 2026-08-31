@@ -283,7 +283,7 @@ function Step5({ data, setData }) {
       <h2 className="font-heading font-bold mb-2" style={{ fontSize: "clamp(22px,3vw,32px)", letterSpacing: "-0.03em", color: "#fff" }}>
         What's your timeline?
       </h2>
-      <p className="text-sm mb-8" style={{ color: "#888" }}>No commitment — just helps me prioritize.</p>
+      <p className="text-sm mb-8" style={{ color: "#888" }}>No commitment, just helps me prioritize.</p>
       <div className="flex flex-col gap-3">
         {TIMELINES.map((t) => (
           <OptionButton
@@ -355,7 +355,7 @@ function Step5({ data, setData }) {
   );
 }
 
-// ─── Canary step ─ — shows result before submitting ──────────
+// ─── Canary step ─, shows result before submitting ──────────
 // (inline result summary shown on step 5 submission)
 
 // ─── Main component ───────────────────────────────────────────
@@ -420,13 +420,13 @@ export default function QuoteBuilder() {
     const featureLabels = data.features.map((id) => ADDONS[id]?.label ?? id).join(", ");
     const priceInfo =
       result.type === "unknown"
-        ? "To be determined — page count not specified"
+        ? "To be determined, page count not specified"
         : result.type === "custom"
         ? "Custom pricing required"
         : `$${result.setup} setup + $${result.monthly}/month`;
 
     const body = new FormData();
-    body.append("_subject", `[arweb] New quote request — ${ref}`);
+    body.append("_subject", `[arweb] New quote request, ${ref}`);
     body.append("Reference",      ref);
     body.append("Name",           data.name || "Not provided");
     body.append("Email",          data.email);
@@ -436,7 +436,7 @@ export default function QuoteBuilder() {
     body.append("Features",       featureLabels || "None selected");
     body.append("Existing Site",  data.existing);
     body.append("Timeline",       data.timeline);
-    body.append("Notes",          data.notes || "—");
+    body.append("Notes",          data.notes || ",");
     body.append("Estimated Price", priceInfo);
 
     try {

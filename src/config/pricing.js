@@ -78,12 +78,12 @@ export const THRESHOLDS = {
   monthlyForCustom: 99,   // if total monthly exceeds this → custom quote
 };
 
-// UI copy — edit here, not in components
+// UI copy, edit here, not in components
 export const COPY = {
   responseTime:  "Most inquiries receive a response within 1 business day.",
   disclaimer:    "This is an estimate based on your selections. Final pricing is confirmed after a brief project review.",
   customNote:    "This project has a custom scope. I'll review your requirements and confirm pricing after our initial conversation.",
-  starterNote:   "Websites start at $299 setup + $15/month. The right package depends on your scope — I'll confirm after reviewing your project.",
+  starterNote:   "Websites start at $299 setup + $15/month. The right package depends on your scope, I'll confirm after reviewing your project.",
 };
 
 export const CONTACT = {

@@ -14,7 +14,7 @@ html {
 html, body { margin: 0; padding: 0; }
 
 body {
-  background: #090909;
+  background: #0b0b0e;
   color: #ffffff;
   overflow-x: hidden;
 }
@@ -24,36 +24,69 @@ a, button { cursor: pointer; }
 img, video { display: block; max-width: 100%; }
 button { border: none; background: none; font: inherit; }
 
-/* ─── Section z-layering ─────────────────────────── */
-/* Particle canvas: z-0 (fixed)                       */
-/* All content: z-10+                                  */
-
-/* ─── Keyframes ──────────────────────────────────── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+/* ─── CSS tokens ────────────────────────────────── */
+:root {
+  --ground:      #0b0b0e;
+  --surface:     #111118;
+  --border:      rgba(255, 255, 255, 0.06);
+  --muted:       #5a5a6c;
+  --fg:          #ffffff;
+  --fg-dim:      #888898;
+  --accent:      #2563eb;
+  --accent-dim:  rgba(37, 99, 235, 0.10);
 }
 
-@keyframes marquee-scroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-33.333%); }
-}
+/* ─── Typography tokens ──────────────────────────── */
+.font-display { font-family: var(--font-display), 'Georgia', serif; }
+.font-ui      { font-family: var(--font-ui), system-ui, sans-serif; }
 
-/* ─── Film grain (subtle noise) ─────────────────── */
-.grain-overlay {
-  position: absolute;
-  inset: -50%;
-  width: 200%;
-  height: 200%;
-  pointer-events: none;
-  z-index: 20;
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 180px 180px;
-}
+/* ─── Utility: text-fg ───────────────────────────── */
+.text-fg      { color: var(--fg); }
+.text-fg-dim  { color: var(--fg-dim); }
+.text-muted   { color: var(--muted); }
+.text-accent  { color: var(--accent); }
 
-/* ─── Scrollbar ──────────────────────────────────── */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #090909; }
-::-webkit-scrollbar-thumb { background: rgba(37,99,235,0.3); border-radius: 2px; }
+/* ─── CTA button ─────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--accent);
+  color: #fff;
+  padding: 0.75rem 1.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition: opacity 180ms ease;
+}
+.btn-primary:hover { opacity: 0.85; }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+  padding: 0.75rem 1.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255,255,255,0.08);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+.btn-ghost:hover { color: var(--fg); border-color: rgba(255,255,255,0.18); }
+
+/* ─── Legacy alias (pages still using btn-glow) ──── */
+.btn-glow {
+  display: inline-flex;
+  align-items: center;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: opacity 180ms ease;
+}
+.btn-glow:hover { opacity: 0.85; }

@@ -62,7 +62,7 @@ export default function QuoteTeaser() {
             animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.24 }}
           >
-            Tell me about your business and what you need — get an instant price estimate.
+            Tell me about your business and what you need, get an instant price estimate.
             No commitment. No sales call.
           </motion.p>
 

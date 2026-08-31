@@ -13,9 +13,9 @@ export const caseStudies = [
     display:    "rlcontracting.ca",
     industry:   "General Contracting",
     location:   "Canada",
-    headline:   "65% more leads — from a website and SEO alone.",
+    headline:   "65% more leads, from a website and SEO alone.",
     problem:    "RL Contracting was winning work through referrals but had no web presence to capture customers actively searching online. Competitors with professional websites were winning jobs before RL could even get in front of them.",
-    solution:   "A fast, professional website built around lead generation — service pages, project portfolio, quote request functionality, and an AI chat assistant to capture and qualify inquiries around the clock. Paired with organic SEO built from the ground up.",
+    solution:   "A fast, professional website built around lead generation, service pages, project portfolio, quote request functionality, and an AI chat assistant to capture and qualify inquiries around the clock. Paired with organic SEO built from the ground up.",
     deliverables: [
       "Multi-page custom website",
       "AI chat assistant for 24/7 lead capture",
@@ -28,7 +28,7 @@ export const caseStudies = [
     outcome: {
       metric:  "65%",
       label:   "increase in leads",
-      context: "Driven entirely by organic search — no paid advertising, no Google Maps, no listings. Just the website.",
+      context: "Driven entirely by organic search, no paid advertising, no Google Maps, no listings. Just the website.",
     },
     tags:        ["Web Design", "AI Chatbot", "SEO", "Lead Generation"],
     accentColor: "#2563eb",
@@ -44,7 +44,7 @@ export const caseStudies = [
     industry:   "International Humanitarian Organization",
     location:   "Canada",
     headline:   "A complete platform for a global organization.",
-    problem:    "MAP Canada (Make Aid Possible) needed far more than a standard website. They required a cohesive platform — public-facing content for their programs and global impact, fundraising integrations for supporters, and a secure administrative backend for staff to manage operations.",
+    problem:    "MAP Canada (Make Aid Possible) needed far more than a standard website. They required a cohesive platform, public-facing content for their programs and global impact, fundraising integrations for supporters, and a secure administrative backend for staff to manage operations.",
     solution:   "Two interconnected systems built from scratch: a multi-page public website for program information, media, and donor engagement, and a password-protected admin backend for staff to manage media uploads, subscriber lists, contact submissions, and operational records.",
     deliverables: [
       "Multi-page public website",
@@ -60,7 +60,7 @@ export const caseStudies = [
     outcome: {
       metric:  null,
       label:   null,
-      context: "MAP Canada now operates their entire digital presence and internal communications from one cohesive platform — purpose-built for their scale and mission.",
+      context: "MAP Canada now operates their entire digital presence and internal communications from one cohesive platform, purpose-built for their scale and mission.",
     },
     tags:        ["Full-Stack", "Admin Backend", "Authentication", "Database", "Web Design"],
     accentColor: "#22c55e",
@@ -76,7 +76,7 @@ export const caseStudies = [
     industry:   "Renovation & Contracting",
     location:   "Canada",
     headline:   "A professional presence for a renovation company doing exceptional work.",
-    problem:    "K Group & Co. Ltd were delivering high-quality renovation work across residential, commercial, and hospitality projects — but had no web presence to show for it. Prospective clients had no way to explore their portfolio or make initial contact online.",
+    problem:    "K Group & Co. Ltd were delivering high-quality renovation work across residential, commercial, and hospitality projects, but had no web presence to show for it. Prospective clients had no way to explore their portfolio or make initial contact online.",
     solution:   "A polished multi-page website designed around the breadth of their renovation work. Clear service area sections, a project portfolio, prominent quote and contact functionality, and a fast, mobile-optimized experience.",
     deliverables: [
       "Multi-page website",
@@ -105,8 +105,8 @@ export const caseStudies = [
     industry:   "Barbershop",
     location:   "Toronto, ON",
     headline:   "A website as sharp as the cuts.",
-    problem:    "KK Fade Lounge needed a website that matched the premium experience inside their shop — something that would attract new clients online and make booking information instantly accessible.",
-    solution:   "A premium, mobile-first website with a visual direction matched to the barbershop's brand. Service listings, photo gallery, and clear access to booking — designed to bring in new clients and serve returning ones.",
+    problem:    "KK Fade Lounge needed a website that matched the premium experience inside their shop, something that would attract new clients online and make booking information instantly accessible.",
+    solution:   "A premium, mobile-first website with a visual direction matched to the barbershop's brand. Service listings, photo gallery, and clear access to booking, designed to bring in new clients and serve returning ones.",
     deliverables: [
       "Custom website design",
       "Service menu",

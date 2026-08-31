@@ -1,3 +1,5 @@
+"use client";
+
 const NAV_LINKS = [
   { label: "Work",      href: "/#work" },
   { label: "Services",  href: "/#services" },
@@ -14,103 +16,194 @@ export default function Footer() {
   return (
     <footer
       aria-label="Site footer"
-      className="relative px-6 md:px-16 lg:px-24 pt-16 pb-10 border-t"
-      style={{ borderColor: "rgba(255,255,255,0.05)", zIndex: 10 }}
+      style={{
+        background:  "var(--ground)",
+        borderTop:   "1px solid var(--border)",
+        padding:     "clamp(56px,8vh,96px) clamp(24px,6vw,96px) clamp(32px,4vh,56px)",
+        zIndex:      10,
+        position:    "relative",
+      }}
     >
-      <div className="max-w-7xl mx-auto">
-
-        {/* Top row */}
-        <div className="flex flex-col md:flex-row md:items-start justify-between gap-12 mb-16">
-
-          {/* Brand */}
-          <div>
-            <p
-              className="font-heading font-bold mb-2"
-              style={{ fontSize: 18, letterSpacing: "-0.03em", color: "#ffffff" }}
-            >
-              arweb
-            </p>
-            <p className="text-xs leading-relaxed max-w-xs" style={{ color: "#555" }}>
-              Custom websites and digital systems for small businesses.
-              <br />
-              Toronto, Canada — Canada-wide.
-            </p>
-            <a
-              href="mailto:ansh@anshrai.com"
-              className="inline-block mt-4 text-xs transition-colors hover:text-fg"
-              style={{ color: "#888" }}
-            >
-              ansh@anshrai.com ↗
-            </a>
-          </div>
-
-          {/* Links */}
-          <div className="flex flex-col sm:flex-row gap-12">
-            <div>
-              <p className="text-xs font-semibold tracking-[0.14em] uppercase mb-5" style={{ color: "#444" }}>
-                Site
-              </p>
-              <nav aria-label="Footer navigation">
-                <div className="flex flex-col gap-3">
-                  {NAV_LINKS.map((l) => (
-                    <a
-                      key={l.label}
-                      href={l.href}
-                      className="text-sm transition-colors hover:text-fg"
-                      style={{ color: "#666" }}
-                    >
-                      {l.label}
-                    </a>
-                  ))}
-                </div>
-              </nav>
-            </div>
-
-            <div>
-              <p className="text-xs font-semibold tracking-[0.14em] uppercase mb-5" style={{ color: "#444" }}>
-                Connect
-              </p>
-              <div className="flex flex-col gap-3">
-                {SOCIALS.map((s) => (
-                  <a
-                    key={s.label}
-                    href={s.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-sm transition-colors hover:text-fg"
-                    style={{ color: "#666" }}
-                  >
-                    {s.label} ↗
-                  </a>
-                ))}
-                <a
-                  href="/quote"
-                  className="text-sm transition-colors hover:text-fg"
-                  style={{ color: "#666" }}
-                >
-                  Get a Quote →
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom bar */}
-        <div
-          className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-8 border-t"
-          style={{ borderColor: "rgba(255,255,255,0.04)" }}
-        >
-          <p className="text-xs" style={{ color: "#444" }}>
-            © {new Date().getFullYear()} Ansh Rai · arweb
+      {/* Top row */}
+      <div
+        style={{
+          display:        "flex",
+          flexWrap:       "wrap",
+          justifyContent: "space-between",
+          gap:            "clamp(40px,6vw,64px)",
+          marginBottom:   "clamp(48px,7vh,80px)",
+        }}
+      >
+        {/* Brand */}
+        <div style={{ maxWidth: 300 }}>
+          <p
+            style={{
+              fontFamily:    "var(--font-display)",
+              fontSize:      18,
+              fontWeight:    400,
+              letterSpacing: "-0.02em",
+              color:         "#ffffff",
+              marginBottom:  "0.75rem",
+            }}
+          >
+            anshrai.
+          </p>
+          <p
+            style={{
+              fontFamily: "var(--font-ui)",
+              fontSize:   13,
+              lineHeight: 1.65,
+              color:      "var(--muted)",
+              margin:     0,
+              marginBottom: "1.25rem",
+            }}
+          >
+            Custom websites and digital systems for small businesses.
+            Toronto-based, Canada-wide.
           </p>
           <a
-            href="/privacy"
-            className="text-xs transition-colors hover:text-fg"
-            style={{ color: "#333" }}
+            href="mailto:ansh@anshrai.com"
+            style={{
+              fontFamily:     "var(--font-ui)",
+              fontSize:       13,
+              color:          "var(--fg-dim)",
+              textDecoration: "none",
+              transition:     "color 160ms",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "var(--fg-dim)")}
           >
-            Privacy Policy
+            ansh@anshrai.com ↗
           </a>
         </div>
+
+        {/* Links */}
+        <div style={{ display: "flex", gap: "clamp(32px,5vw,64px)", flexWrap: "wrap" }}>
+          <div>
+            <p
+              style={{
+                fontFamily:    "var(--font-ui)",
+                fontSize:      10,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color:         "var(--muted)",
+                marginBottom:  "1.25rem",
+              }}
+            >
+              Site
+            </p>
+            <nav aria-label="Footer navigation">
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
+                {NAV_LINKS.map((l) => (
+                  <a
+                    key={l.label}
+                    href={l.href}
+                    style={{
+                      fontFamily:     "var(--font-ui)",
+                      fontSize:       13,
+                      color:          "var(--fg-dim)",
+                      textDecoration: "none",
+                      transition:     "color 160ms",
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "var(--fg-dim)")}
+                  >
+                    {l.label}
+                  </a>
+                ))}
+              </div>
+            </nav>
+          </div>
+
+          <div>
+            <p
+              style={{
+                fontFamily:    "var(--font-ui)",
+                fontSize:      10,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color:         "var(--muted)",
+                marginBottom:  "1.25rem",
+              }}
+            >
+              Connect
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
+              {SOCIALS.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    fontFamily:     "var(--font-ui)",
+                    fontSize:       13,
+                    color:          "var(--fg-dim)",
+                    textDecoration: "none",
+                    transition:     "color 160ms",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "var(--fg-dim)")}
+                >
+                  {s.label} ↗
+                </a>
+              ))}
+              <a
+                href="/quote"
+                style={{
+                  fontFamily:     "var(--font-ui)",
+                  fontSize:       13,
+                  color:          "var(--fg-dim)",
+                  textDecoration: "none",
+                  transition:     "color 160ms",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "var(--fg-dim)")}
+              >
+                Get a Quote →
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom bar */}
+      <div
+        style={{
+          display:        "flex",
+          flexWrap:       "wrap",
+          alignItems:     "center",
+          justifyContent: "space-between",
+          gap:            "0.75rem",
+          paddingTop:     "clamp(24px,3vh,36px)",
+          borderTop:      "1px solid var(--border)",
+        }}
+      >
+        <p
+          style={{
+            fontFamily: "var(--font-ui)",
+            fontSize:   12,
+            color:      "var(--muted)",
+            margin:     0,
+          }}
+        >
+          © {new Date().getFullYear()} Ansh Rai · arweb
+        </p>
+        <a
+          href="/privacy"
+          style={{
+            fontFamily:     "var(--font-ui)",
+            fontSize:       12,
+            color:          "var(--muted)",
+            textDecoration: "none",
+            opacity:        0.6,
+            transition:     "opacity 160ms",
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.opacity = 1)}
+          onMouseLeave={(e) => (e.currentTarget.style.opacity = 0.6)}
+        >
+          Privacy Policy
+        </a>
       </div>
     </footer>
   );

@@ -1,184 +1,224 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { track, Events } from "../../lib/analytics";
 
 const ease = [0.16, 1, 0.3, 1];
-
-const CLIENT_LOGOS = [
-  "RL Contracting",
-  "MAP Canada",
-  "K Group Ltd",
-  "KK Fade Lounge",
-  "Five Star Detailing",
-  "Sunder Wellness",
-  "Delmar Contracting",
-  "+4 more",
-];
 
 export default function Hero() {
   return (
     <section
-      className="relative min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24"
-      style={{ zIndex: 10, paddingTop: 88 }}
+      className="relative min-h-screen flex flex-col justify-end overflow-hidden"
+      style={{ background: "var(--ground)" }}
     >
-      <div className="max-w-7xl mx-auto w-full">
+      {/* ── Photography panel ── right half, bleeds in */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 0,
+        }}
+      >
+        <Image
+          src="/projects/k-group/hero.jpg"
+          alt="K Group luxury interior — arweb portfolio"
+          fill
+          priority
+          quality={90}
+          sizes="100vw"
+          style={{ objectFit: "cover", objectPosition: "65% center" }}
+        />
+        {/* Strong gradient: solid ground left → transparent right */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background:
+              "linear-gradient(to right, #0b0b0e 42%, rgba(11,11,14,0.80) 62%, rgba(11,11,14,0.28) 82%, rgba(11,11,14,0.10) 100%)",
+          }}
+        />
+        {/* Bottom fade so text stays legible */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: 0, left: 0, right: 0,
+            height: "40%",
+            background: "linear-gradient(to top, #0b0b0e 0%, transparent 100%)",
+          }}
+        />
+        {/* Top fade */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0, left: 0, right: 0,
+            height: "20%",
+            background: "linear-gradient(to bottom, #0b0b0e 0%, transparent 100%)",
+          }}
+        />
+      </div>
 
-        {/* ── Main grid ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-16 items-center">
-
-          {/* Left: copy + CTAs */}
-          <div>
-            <motion.p
-              className="text-xs font-semibold tracking-[0.18em] uppercase mb-7"
-              style={{ color: "#2563eb" }}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.15, ease }}
-            >
-              Toronto, Canada · Canada-wide projects
-            </motion.p>
-
-            <motion.h1
-              className="font-heading font-bold leading-[1.02] mb-7"
-              style={{
-                fontSize: "clamp(44px, 5.8vw, 82px)",
-                letterSpacing: "-0.03em",
-                color: "#ffffff",
-              }}
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.28, ease }}
-            >
-              Websites built to
-              <br />
-              turn visitors into
-              <br />
-              <span style={{ color: "#2563eb" }}>customers.</span>
-            </motion.h1>
-
-            <motion.p
-              className="leading-relaxed mb-10 max-w-xl"
-              style={{ color: "#888888", fontSize: "clamp(15px, 1.6vw, 18px)" }}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.42, ease }}
-            >
-              I design and build custom websites and digital systems for businesses.
-              You work directly with the developer building your project from start to launch.
-            </motion.p>
-
-            <motion.div
-              className="flex flex-wrap items-center gap-4 mb-8"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.56, ease }}
-            >
-              <a
-                href="/quote"
-                onClick={() => track(Events.QUOTE_STARTED)}
-                className="px-7 py-3.5 rounded-full text-sm font-semibold transition-all duration-200 hover:brightness-110 hover:-translate-y-px"
-                style={{ background: "#2563eb", color: "#ffffff" }}
-              >
-                Get an Instant Quote
-              </a>
-              <a
-                href="/#work"
-                className="text-sm font-semibold transition-colors duration-200 hover:text-fg"
-                style={{ color: "#888888" }}
-              >
-                View My Work →
-              </a>
-            </motion.div>
-
-            <motion.p
-              className="text-xs"
-              style={{ color: "rgba(136,136,136,0.45)" }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.72, ease }}
-            >
-              Developer or recruiter?{" "}
-              <a
-                href="/technical"
-                className="underline underline-offset-2 transition-colors hover:text-fg"
-                style={{ color: "rgba(136,136,136,0.6)" }}
-              >
-                View Technical Work →
-              </a>
-            </motion.p>
-          </div>
-
-          {/* Right: concentric rings visual — desktop only */}
-          <motion.div
-            className="hidden lg:flex items-center justify-center"
-            initial={{ opacity: 0, scale: 0.88 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, delay: 0.5, ease }}
-          >
-            <div style={{ position: "relative", width: 280, height: 280 }}>
-              <div style={{ position: "absolute", inset: 0, borderRadius: "50%", border: "1px solid rgba(37,99,235,0.16)" }} />
-              <div style={{ position: "absolute", inset: "18%", borderRadius: "50%", border: "1px solid rgba(37,99,235,0.1)" }} />
-              <div style={{ position: "absolute", inset: "36%", borderRadius: "50%", border: "1px solid rgba(37,99,235,0.06)" }} />
-              <div style={{
-                position: "absolute", inset: "28%",
-                borderRadius: "50%",
-                background: "radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%)",
-              }} />
-              <div style={{
-                position: "absolute", top: "50%", left: "50%",
-                transform: "translate(-50%,-50%)",
-                width: 7, height: 7, borderRadius: "50%",
-                background: "#2563eb",
-                boxShadow: "0 0 20px rgba(37,99,235,0.9), 0 0 50px rgba(37,99,235,0.35)",
-              }} />
-              {[0, 72, 144, 216, 288].map((deg, i) => (
-                <div key={i} style={{
-                  position: "absolute", top: "50%", left: "50%",
-                  width: 3, height: 3, borderRadius: "50%",
-                  background: `rgba(37,99,235,${0.5 - i * 0.07})`,
-                  transform: `translate(-50%,-50%) rotate(${deg}deg) translateX(${72 + (i % 2) * 50}px)`,
-                }} />
-              ))}
-            </div>
-          </motion.div>
-        </div>
-
-        {/* ── Client logos strip ── */}
-        <motion.div
-          className="mt-24 md:mt-28"
+      {/* ── Content ── */}
+      <div
+        style={{
+          position: "relative",
+          zIndex: 1,
+          padding: "0 clamp(24px,6vw,96px) clamp(64px,10vh,120px)",
+          maxWidth: "56rem",
+        }}
+      >
+        {/* Eyebrow */}
+        <motion.p
+          style={{
+            fontFamily: "var(--font-ui)",
+            fontSize: 11,
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: "var(--muted)",
+            marginBottom: "1.5rem",
+          }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.9 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <p className="text-xs tracking-[0.16em] uppercase mb-5" style={{ color: "rgba(136,136,136,0.3)" }}>
-            Trusted by local businesses across Canada
+          Toronto · Canada-wide
+        </motion.p>
+
+        {/* Headline */}
+        <div style={{ overflow: "hidden", marginBottom: "0.15em" }}>
+          <motion.h1
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(60px, 9.5vw, 152px)",
+              fontWeight: 300,
+              letterSpacing: "-0.03em",
+              lineHeight: 0.95,
+              color: "#ffffff",
+              margin: 0,
+            }}
+            initial={{ y: "105%", opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1.0, ease, delay: 0.05 }}
+          >
+            Websites
+          </motion.h1>
+        </div>
+
+        <div style={{ overflow: "hidden", marginBottom: "2.5rem" }}>
+          <motion.h1
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(60px, 9.5vw, 152px)",
+              fontWeight: 300,
+              fontStyle: "italic",
+              letterSpacing: "-0.03em",
+              lineHeight: 0.95,
+              color: "var(--muted)",
+              margin: 0,
+            }}
+            initial={{ y: "105%", opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1.0, ease, delay: 0.12 }}
+          >
+            that work.
+          </motion.h1>
+        </div>
+
+        {/* Sub + CTAs */}
+        <motion.div
+          style={{ display: "flex", flexDirection: "column", gap: "2rem", alignItems: "flex-start" }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease, delay: 0.55 }}
+        >
+          <p
+            style={{
+              fontFamily: "var(--font-ui)",
+              fontSize: "clamp(14px, 1.4vw, 17px)",
+              color: "var(--fg-dim)",
+              lineHeight: 1.65,
+              maxWidth: 380,
+              margin: 0,
+            }}
+          >
+            Custom websites for Toronto small businesses. You talk to the developer, not an agency. Launches in 1–2 weeks.
           </p>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            {CLIENT_LOGOS.map((name) => (
-              <span
-                key={name}
-                className="text-sm font-medium"
-                style={{ color: "rgba(136,136,136,0.28)", letterSpacing: "-0.01em" }}
-              >
-                {name}
-              </span>
-            ))}
+
+          <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+            <Link href="/quote" className="btn-primary">Get a Quote</Link>
+            <Link href="/work" className="btn-ghost">View Work</Link>
           </div>
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* ── Scroll line ── */}
       <motion.div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
+        style={{
+          position: "absolute",
+          bottom: 40,
+          right: "clamp(24px,6vw,96px)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 10,
+          zIndex: 1,
+        }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.6, duration: 0.6 }}
+        transition={{ delay: 1.4, duration: 0.6 }}
       >
-        <div style={{
-          width: 1, height: 48,
-          background: "linear-gradient(to bottom, rgba(37,99,235,0.6), transparent)",
-        }} />
+        <span
+          style={{
+            writingMode: "vertical-rl",
+            fontFamily: "var(--font-ui)",
+            fontSize: 10,
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+            color: "var(--muted)",
+          }}
+        >
+          Scroll
+        </span>
+        <motion.div
+          style={{
+            width: 1,
+            height: 52,
+            background: "var(--muted)",
+            transformOrigin: "top",
+          }}
+          initial={{ scaleY: 0 }}
+          animate={{ scaleY: 1 }}
+          transition={{ delay: 1.6, duration: 0.8 }}
+        />
+      </motion.div>
+
+      {/* ── Client credit chip ── */}
+      <motion.div
+        style={{
+          position: "absolute",
+          bottom: 40,
+          left: "clamp(24px,6vw,96px)",
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          zIndex: 1,
+        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.8, duration: 0.6 }}
+      >
+        <div style={{ width: 20, height: 1, background: "var(--muted)" }} />
+        <span
+          style={{
+            fontFamily: "var(--font-ui)",
+            fontSize: 10,
+            letterSpacing: "0.14em",
+            textTransform: "uppercase",
+            color: "var(--muted)",
+          }}
+        >
+          K Group · Interior Design
+        </span>
       </motion.div>
     </section>
   );
