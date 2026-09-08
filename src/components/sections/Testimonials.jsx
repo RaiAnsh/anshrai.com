@@ -20,40 +20,58 @@ const REVIEWS = [
     accent:   "#2563eb",
   },
   {
-    name:     "Alex M.",
+    name:     "Alex D.",
     company:  "Delmar Contracting",
     location: "Toronto, ON",
     rating:   5,
     quote:    "We needed a professional website fast. Ansh had us live in under two weeks and the quality was better than what agencies quoted us at triple the price. Couldn't be happier.",
-    initials: "AM",
+    initials: "AD",
     accent:   "#3b82f6",
   },
   {
-    name:     "Jim T.",
+    name:     "Jim E.",
     company:  "United Tea Baggers Coalition",
     location: "Canada / USA",
     rating:   5,
     quote:    "Ansh nailed the look we were going for — edgy, bold, and exactly on-brand. The site loads fast and looks great on mobile. Exactly what we asked for, delivered on time.",
-    initials: "JT",
+    initials: "JE",
     accent:   "#ef4444",
   },
   {
-    name:     "Mike D.",
+    name:     "Mohammad A.",
     company:  "Directway Movers",
     location: "Toronto, ON",
     rating:   5,
     quote:    "Since launching our new website we've had a noticeable increase in online bookings. Ansh handled everything — design, setup, SEO — and was easy to reach throughout the whole process.",
-    initials: "MD",
+    initials: "MA",
     accent:   "#22c55e",
   },
   {
-    name:     "Chris L.",
+    name:     "Areen A.",
+    company:  "MAP Canada",
+    location: "Toronto, ON",
+    rating:   5,
+    quote:    "Ansh built our entire platform from scratch — public site, admin backend, database, the works. Everything worked on launch day. We couldn't have asked for a better result.",
+    initials: "AA",
+    accent:   "#22c55e",
+  },
+  {
+    name:     "Kenny M.",
+    company:  "KK Fade Lounge",
+    location: "Toronto, ON",
+    rating:   5,
+    quote:    "The website finally matches the quality of the cuts inside the shop. Modern, sharp, and our clients always comment on how clean it looks. Ansh delivered exactly what we envisioned.",
+    initials: "KM",
+    accent:   "#a855f7",
+  },
+  {
+    name:     "Trung T.",
     company:  "HighLife Express",
     location: "Ontario",
     rating:   5,
-    quote:    "Our old site was embarrassing compared to this. Ansh gave us something clean, modern, and professional. Customers actually comment on it now. Great value, great result.",
-    initials: "CL",
-    accent:   "#a855f7",
+    quote:    "Our old site was embarrassing. Ansh gave us something professional that our customers actually trust. Clean, fast, and built to convert. Exactly what the business needed.",
+    initials: "TT",
+    accent:   "#f59e0b",
   },
 ];
 
@@ -151,7 +169,8 @@ function ReviewCard({ review, index }) {
 
 export default function Testimonials() {
   const [showAll, setShowAll] = useState(false);
-  const visible = showAll ? REVIEWS : REVIEWS.slice(0, 3);
+  const INITIAL = 3;
+  const visible = showAll ? REVIEWS : REVIEWS.slice(0, INITIAL);
 
   return (
     <section
@@ -207,7 +226,7 @@ export default function Testimonials() {
       </div>
 
       {/* Show more toggle */}
-      {!showAll && REVIEWS.length > 3 && (
+      {!showAll && REVIEWS.length > INITIAL && (
         <div style={{ textAlign: "center", marginTop: "2rem" }}>
           <button
             onClick={() => setShowAll(true)}
@@ -225,7 +244,7 @@ export default function Testimonials() {
             onMouseEnter={(e) => { e.currentTarget.style.color = "#fff"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.18)"; }}
             onMouseLeave={(e) => { e.currentTarget.style.color = "var(--fg-dim)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; }}
           >
-            Show {REVIEWS.length - 3} more reviews
+            Show {REVIEWS.length - INITIAL} more reviews
           </button>
         </div>
       )}

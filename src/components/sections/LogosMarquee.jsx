@@ -13,6 +13,9 @@ const LOGOS = [
   { name: "Five Star Detailing",     href: "https://www.fivestarmobiledetailing.ca",  img: "/logos/fivestar.png"    },
   { name: "HighLife Express",        href: "#",                                       img: "/logos/highlife.png"    },
   { name: "MAP Canada",              href: "https://mapcan.ca",                       img: "/logos/mapcan.webp"     },
+  { name: "AEA",                     href: "#",                                       img: "/logos/AEA.avif"        },
+  { name: "Bradshaw Plumbing",       href: "https://www.bradshawplumbing.com",        img: "/logos/bradshaw.png"    },
+  { name: "Broadview Barber",        href: "https://www.broadviewbarbersalon.ca",     img: "/logos/broadview.png"   },
   // pending — add file to public/logos/ and uncomment:
   // { name: "Redline Contracting",  href: "#",                                       img: "/logos/redline.png"     },
   // { name: "UTBC",                 href: "https://unitedtea-baggerscoalition.com",  img: "/logos/utbc.png"        },
