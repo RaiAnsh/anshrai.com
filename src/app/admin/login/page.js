@@ -1,7 +1,12 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { createHash } from "crypto";
 
 export const metadata = { title: "Admin Login — arweb" };
+
+// SHA-256 of the admin password — safe to commit, plain text never stored.
+// To change the password: node -e "require('crypto').createHash('sha256').update('newpass').digest('hex')" | pbcopy
+const PASSWORD_HASH = "b9e371c48e1264cebb3747e2733cd4a224f3d28f55a12446094d7e70bac8fac0";
 
 export default async function AdminLoginPage({ searchParams }) {
   const failed = (await searchParams)?.error === "1";
@@ -9,12 +14,10 @@ export default async function AdminLoginPage({ searchParams }) {
   async function login(formData) {
     "use server";
 
-    const password = formData.get("password");
-    const expected = process.env.ADMIN_PASSWORD;
+    const password = formData.get("password") ?? "";
+    const hash     = createHash("sha256").update(password).digest("hex");
 
-    if (!expected) throw new Error("ADMIN_PASSWORD env var is not set.");
-
-    if (password === expected) {
+    if (hash === PASSWORD_HASH) {
       const jar = await cookies();
       jar.set("admin_auth", "1", {
         httpOnly: true,
@@ -42,7 +45,6 @@ export default async function AdminLoginPage({ searchParams }) {
         fontFamily:     "var(--font-ui, system-ui)",
       }}
     >
-      {/* Brand */}
       <p
         style={{
           fontSize:      13,
@@ -56,7 +58,6 @@ export default async function AdminLoginPage({ searchParams }) {
         arweb
       </p>
 
-      {/* Card */}
       <div
         style={{
           width:        "100%",
@@ -79,13 +80,7 @@ export default async function AdminLoginPage({ searchParams }) {
         >
           Admin login
         </h1>
-        <p
-          style={{
-            fontSize:     13,
-            color:        "rgba(255,255,255,0.35)",
-            marginBottom: "2rem",
-          }}
-        >
+        <p style={{ fontSize: 13, color: "rgba(255,255,255,0.35)", marginBottom: "2rem" }}>
           Enter your password to continue.
         </p>
 
