@@ -107,15 +107,15 @@ export default function Hero() {
 
         {/* Headline */}
         <div style={{ marginBottom: "2.5rem" }}>
-          {/* Line 1 — bright */}
+          {/* Line 1 — bold sans */}
           <div style={{ overflow: "hidden" }}>
             <motion.h1
               style={{
-                fontFamily:    "var(--font-display)",
-                fontSize:      "clamp(56px, 9.5vw, 148px)",
-                fontWeight:    300,
-                letterSpacing: "-0.035em",
-                lineHeight:    0.92,
+                fontFamily:    "var(--font-ui)",
+                fontSize:      "clamp(48px, 8.5vw, 136px)",
+                fontWeight:    800,
+                letterSpacing: "-0.04em",
+                lineHeight:    0.90,
                 color:         "#ffffff",
                 margin:        0,
               }}
@@ -127,17 +127,17 @@ export default function Hero() {
             </motion.h1>
           </div>
 
-          {/* Line 2 — italic dim */}
+          {/* Line 2 — Cormorant italic, blue accent */}
           <div style={{ overflow: "hidden" }}>
             <motion.h1
               style={{
                 fontFamily:    "var(--font-display)",
-                fontSize:      "clamp(56px, 9.5vw, 148px)",
+                fontSize:      "clamp(56px, 9.8vw, 156px)",
                 fontWeight:    300,
                 fontStyle:     "italic",
-                letterSpacing: "-0.035em",
+                letterSpacing: "-0.025em",
                 lineHeight:    0.92,
-                color:         "rgba(255,255,255,0.25)",
+                color:         "var(--accent)",
                 margin:        0,
               }}
               initial={{ y: "110%", opacity: 0 }}
@@ -148,15 +148,15 @@ export default function Hero() {
             </motion.h1>
           </div>
 
-          {/* Line 3 — bright again */}
+          {/* Line 3 — bold sans, white */}
           <div style={{ overflow: "hidden" }}>
             <motion.h1
               style={{
-                fontFamily:    "var(--font-display)",
-                fontSize:      "clamp(56px, 9.5vw, 148px)",
-                fontWeight:    300,
-                letterSpacing: "-0.035em",
-                lineHeight:    0.92,
+                fontFamily:    "var(--font-ui)",
+                fontSize:      "clamp(48px, 8.5vw, 136px)",
+                fontWeight:    800,
+                letterSpacing: "-0.04em",
+                lineHeight:    0.90,
                 color:         "#ffffff",
                 margin:        0,
               }}
