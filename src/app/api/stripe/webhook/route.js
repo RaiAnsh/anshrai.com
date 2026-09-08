@@ -95,9 +95,16 @@ export async function POST(req) {
         });
       }
 
-      // 5. Mark as paid in Customer metadata
+      // 5. Mark as paid + store subscription id in Customer metadata
+      const subList = await stripe.subscriptions.list({ customer: customer.id, limit: 1 });
+      const subId   = subList.data[0]?.id ?? "";
       await stripe.customers.update(customer.id, {
-        metadata: { ...customer.metadata, arweb_status: "paid" },
+        metadata: {
+          ...customer.metadata,
+          arweb_status: "paid",
+          arweb_sub_id: subId,
+          arweb_paid_at: String(Math.floor(Date.now() / 1000)),
+        },
       });
 
       console.log("[webhook] Subscription created for customer:", customer.id);

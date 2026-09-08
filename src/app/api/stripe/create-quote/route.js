@@ -43,10 +43,12 @@ export async function POST(req) {
       name,
       email,
       metadata: {
+        arweb:         "1",          // tag for reliable search
         arweb_token:   token,
         arweb_setup:   String(setupFee),
         arweb_monthly: String(monthlyFee),
         arweb_desc:    description ?? "",
+        arweb_notes:   "",
         arweb_status:  "pending",
       },
     });
