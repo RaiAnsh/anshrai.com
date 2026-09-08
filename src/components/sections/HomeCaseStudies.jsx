@@ -203,102 +203,86 @@ function CaseStudyCard({ cs, index }) {
         </div>
       </div>
 
-      {/* ── Right: visual placeholder ── */}
+      {/* ── Right: screenshot ── */}
       <div
         style={{
-          position:       "relative",
-          overflow:       "hidden",
-          background:     `linear-gradient(135deg, ${cs.accentColor}08 0%, ${cs.accentColor}03 50%, #0a0a0a 100%)`,
-          display:        "flex",
-          flexDirection:  "column",
-          alignItems:     "center",
-          justifyContent: "center",
-          borderLeft:     "1px solid rgba(255,255,255,0.04)",
-          padding:        "clamp(32px,4vw,56px)",
+          position:   "relative",
+          overflow:   "hidden",
+          background: "#0a0a0a",
+          borderLeft: "1px solid rgba(255,255,255,0.04)",
+          minHeight:  320,
         }}
       >
-        {/* Abstract grid decoration */}
+        {cs.screenshot ? (
+          /* Real screenshot */
+          <img
+            src={cs.screenshot}
+            alt={`${cs.client} website screenshot`}
+            style={{
+              position:   "absolute",
+              inset:      0,
+              width:      "100%",
+              height:     "100%",
+              objectFit:  "cover",
+              objectPosition: "top center",
+              transition: "transform 500ms ease",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.03)")}
+            onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+          />
+        ) : (
+          /* Fallback placeholder */
+          <>
+            <div
+              aria-hidden="true"
+              style={{
+                position:        "absolute",
+                inset:           0,
+                background:      `linear-gradient(135deg, ${cs.accentColor}08 0%, ${cs.accentColor}03 50%, #0a0a0a 100%)`,
+                backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 39px, ${cs.accentColor}08 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, ${cs.accentColor}08 40px)`,
+                pointerEvents:   "none",
+              }}
+            />
+            <div
+              style={{
+                position:       "absolute",
+                inset:          0,
+                display:        "flex",
+                flexDirection:  "column",
+                alignItems:     "center",
+                justifyContent: "center",
+                padding:        "clamp(32px,4vw,56px)",
+              }}
+            >
+              <span
+                style={{
+                  fontFamily:    "var(--font-display)",
+                  fontSize:      64,
+                  fontWeight:    300,
+                  color:         `${cs.accentColor}40`,
+                  letterSpacing: "-0.04em",
+                  lineHeight:    1,
+                }}
+              >
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <p style={{ fontFamily: "var(--font-ui)", fontSize: 11, color: `${cs.accentColor}60`, marginTop: "1rem", letterSpacing: "0.12em", textTransform: "uppercase" }}>
+                {cs.client}
+              </p>
+            </div>
+          </>
+        )}
+
+        {/* Gradient fade from left so it blends into text column */}
         <div
           aria-hidden="true"
           style={{
-            position:        "absolute",
-            inset:           0,
-            backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 39px, ${cs.accentColor}08 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, ${cs.accentColor}08 40px)`,
-            pointerEvents:   "none",
+            position:   "absolute",
+            inset:      0,
+            background: "linear-gradient(to right, #0f0f0f 0%, transparent 18%)",
+            pointerEvents: "none",
           }}
         />
-
-        {/* Center circle with accent */}
-        <div
-          style={{
-            position:      "relative",
-            width:         120,
-            height:        120,
-            borderRadius:  "50%",
-            background:    `radial-gradient(circle, ${cs.accentColor}22 0%, ${cs.accentColor}06 60%, transparent 100%)`,
-            border:        `1px solid ${cs.accentColor}28`,
-            display:       "flex",
-            alignItems:    "center",
-            justifyContent:"center",
-            marginBottom:  "1.5rem",
-          }}
-        >
-          <span
-            style={{
-              fontFamily:    "var(--font-display)",
-              fontSize:      48,
-              fontWeight:    300,
-              color:         `${cs.accentColor}80`,
-              letterSpacing: "-0.04em",
-              lineHeight:    1,
-            }}
-          >
-            {String(index + 1).padStart(2, "0")}
-          </span>
-        </div>
-
-        {/* Client name */}
-        <p
-          style={{
-            fontFamily:    "var(--font-ui)",
-            fontSize:      11,
-            letterSpacing: "0.14em",
-            textTransform: "uppercase",
-            color:         `${cs.accentColor}70`,
-            position:      "relative",
-          }}
-        >
-          {cs.client}
-        </p>
-
-        {/* Location */}
-        <p
-          style={{
-            fontFamily:    "var(--font-ui)",
-            fontSize:      11,
-            color:         "rgba(255,255,255,0.15)",
-            marginTop:     "0.25rem",
-            position:      "relative",
-          }}
-        >
-          {cs.location}
-        </p>
-
-        {/* Phase 2 placeholder note */}
-        <div
-          style={{
-            position:   "absolute",
-            bottom:     16,
-            right:      16,
-            fontFamily: "var(--font-ui)",
-            fontSize:   9,
-            color:      "rgba(255,255,255,0.12)",
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-          }}
-        >
-          screenshot · phase 2
-        </div>
       </div>
     </motion.article>
   );

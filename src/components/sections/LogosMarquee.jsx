@@ -16,19 +16,25 @@ const LOGOS = [
   {
     name:   "KK Fade Lounge",
     href:   "https://www.kkfadelounge.com",
-    img:    "/logos/kk-fade.png",
-    invert: false,        // already dark bg, gold logo — looks good
+    img:    "/logos/kkfadelounge.png",
+    invert: false,   // dark bg gold logo
+  },
+  {
+    name:   "K Group Ltd",
+    href:   "https://www.kgroupltd.ca",
+    img:    "/logos/kgroup.png",
+    invert: true,    // white bg → invert to white-on-dark
   },
   {
     name:   "Delmar Contracting",
     href:   "https://www.delmarcontracting.ca",
     img:    "/logos/delmar.png",
-    invert: true,         // white bg logo — invert to look good on dark strip
+    invert: true,
   },
   {
     name:   "Five Star Mobile Detailing",
     href:   "https://www.fivestarmobiledetailing.ca",
-    img:    "/logos/five-star.png",
+    img:    "/logos/fivestar.png",
     invert: true,
   },
   {
@@ -40,31 +46,25 @@ const LOGOS = [
   {
     name:   "MAP Canada",
     href:   "https://mapcan.ca",
-    img:    "/logos/map-canada.png",
+    img:    "/logos/mapcan.webp",
     invert: true,
   },
   {
     name:   "Redline Contracting",
     href:   "#",
-    img:    "/logos/redline.png",
+    img:    null,    // logo pending
     invert: false,
   },
   {
     name:   "United Tea Baggers Coalition",
     href:   "https://unitedtea-baggerscoalition.com",
-    img:    "/logos/utbc.png",
+    img:    null,    // logo pending
     invert: false,
-  },
-  {
-    name:   "K Group Ltd",
-    href:   "https://www.kgroupltd.ca",
-    img:    "/logos/k-group.png",
-    invert: true,
   },
   {
     name:   "RL Contracting",
     href:   "https://rlcontracting.ca",
-    img:    null,         // no logo image yet
+    img:    null,
     invert: false,
   },
   {
