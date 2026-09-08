@@ -78,7 +78,7 @@ export default function PayButton({ token, amount }) {
             Redirecting to Stripe…
           </>
         ) : (
-          <>Pay {amount} securely →</>
+          <>{amount ? `Pay ${amount} securely →` : "Get started — free setup →"}</>
         )}
       </button>
 

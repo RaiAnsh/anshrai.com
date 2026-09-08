@@ -187,7 +187,7 @@ function ClientRow({ client: initial, onDelete }) {
 
 // ── New Quote Form ──────────────────────────────────────────
 function NewQuoteForm({ onCreated }) {
-  const [form, setForm] = useState({ name: "", email: "", setupFee: "", monthlyFee: "", description: "" });
+  const [form, setForm] = useState({ name: "", email: "", setupFee: "", monthlyFee: "", description: "", originalSetup: "", originalMonthly: "", offerLabel: "" });
   const [result, setResult] = useState(null);
   const [error,  setError]  = useState(null);
   const [pending, start]    = useTransition();
@@ -201,13 +201,21 @@ function NewQuoteForm({ onCreated }) {
       try {
         const res  = await fetch("/api/stripe/create-quote", {
           method: "POST", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name: form.name, email: form.email, setupFee: Number(form.setupFee), monthlyFee: Number(form.monthlyFee), description: form.description }),
+          body: JSON.stringify({
+            name: form.name, email: form.email,
+            setupFee: form.setupFee === "" ? 0 : Number(form.setupFee),
+            monthlyFee: Number(form.monthlyFee),
+            description: form.description,
+            originalSetup:   form.originalSetup   !== "" ? Number(form.originalSetup)   : null,
+            originalMonthly: form.originalMonthly !== "" ? Number(form.originalMonthly) : null,
+            offerLabel: form.offerLabel || null,
+          }),
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error ?? "Unknown error");
         setResult(data);
         onCreated({ id: "tmp_" + Date.now(), name: form.name, email: form.email, setup: form.setupFee, monthly: form.monthlyFee, desc: form.description, notes: "", status: "pending", token: data.token, subId: "", paidAt: null, nextBilling: null, created: Math.floor(Date.now() / 1000) });
-        setForm({ name: "", email: "", setupFee: "", monthlyFee: "", description: "" });
+        setForm({ name: "", email: "", setupFee: "", monthlyFee: "", description: "", originalSetup: "", originalMonthly: "", offerLabel: "" });
       } catch (err) { setError(err.message); }
     });
   }
@@ -222,12 +230,14 @@ function NewQuoteForm({ onCreated }) {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "1rem", marginBottom: "1rem" }}>
           <div><label style={lbl}>Client name</label><input style={inp} placeholder="Acme Corp" required {...field("name")} /></div>
           <div><label style={lbl}>Email</label><input style={inp} type="email" placeholder="client@example.com" required {...field("email")} /></div>
-          <div><label style={lbl}>Setup fee (CAD $)</label><input style={inp} type="number" placeholder="499" min="0" step="1" required {...field("setupFee")} /></div>
+          <div><label style={lbl}>Setup fee (CAD $) — 0 for free</label><input style={inp} type="number" placeholder="0" min="0" step="1" {...field("setupFee")} /></div>
           <div><label style={lbl}>Monthly fee (CAD $)</label><input style={inp} type="number" placeholder="35" min="0" step="1" required {...field("monthlyFee")} /></div>
+          <div><label style={lbl}>Was: setup fee (crossed out)</label><input style={inp} type="number" placeholder="799 (optional)" min="0" step="1" {...field("originalSetup")} /></div>
+          <div><label style={lbl}>Was: monthly fee (crossed out)</label><input style={inp} type="number" placeholder="50 (optional)" min="0" step="1" {...field("originalMonthly")} /></div>
         </div>
-        <div style={{ marginBottom: "1.5rem" }}>
-          <label style={lbl}>Description (shown on payment page)</label>
-          <textarea style={{ ...inp, resize: "vertical", minHeight: 72, lineHeight: 1.6 }} placeholder="e.g. Custom 5-page website for KK Fade Lounge" {...field("description")} />
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: "1rem", marginBottom: "1rem" }}>
+          <div><label style={lbl}>Offer label (optional)</label><input style={inp} placeholder='e.g. "Launch Special"' {...field("offerLabel")} /></div>
+          <div><label style={lbl}>Description (shown on payment page)</label><input style={inp} placeholder="e.g. Custom 5-page website for KK Fade Lounge" {...field("description")} /></div>
         </div>
 
         {error && <p style={{ fontSize: 13, color: "#ef4444", marginBottom: "1rem" }}>{error}</p>}
