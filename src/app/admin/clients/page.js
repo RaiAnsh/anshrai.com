@@ -35,19 +35,22 @@ async function fetchClients() {
           }
         }
         return {
-          id:          c.id,
-          name:        c.name         ?? "—",
-          email:       c.email        ?? "—",
-          setup:       c.metadata.arweb_setup    ?? "0",
-          monthly:     c.metadata.arweb_monthly  ?? "0",
-          desc:        c.metadata.arweb_desc     ?? "",
-          notes:       c.metadata.arweb_notes    ?? "",
-          status:      c.metadata.arweb_status   ?? "pending",
-          token:       c.id,                          // customer ID is the URL token
-          subId:       c.metadata.arweb_sub_id   ?? "",
-          paidAt:      c.metadata.arweb_paid_at  ? Number(c.metadata.arweb_paid_at) : null,
+          id:           c.id,
+          name:         c.name         ?? "—",
+          email:        c.email        ?? "—",
+          setup:        c.metadata.arweb_setup         ?? "0",
+          monthly:      c.metadata.arweb_monthly       ?? "0",
+          origSetup:    c.metadata.arweb_orig_setup    ?? "",
+          origMonthly:  c.metadata.arweb_orig_monthly  ?? "",
+          offerLabel:   c.metadata.arweb_offer_label   ?? "",
+          desc:         c.metadata.arweb_desc          ?? "",
+          notes:        c.metadata.arweb_notes         ?? "",
+          status:       c.metadata.arweb_status        ?? "pending",
+          token:        c.id,
+          subId:        c.metadata.arweb_sub_id        ?? "",
+          paidAt:       c.metadata.arweb_paid_at ? Number(c.metadata.arweb_paid_at) : null,
           nextBilling,
-          created:     c.created,
+          created:      c.created,
         };
       })
     );

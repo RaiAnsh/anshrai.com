@@ -27,12 +27,15 @@ async function getQuote(token) {
     const c = await stripe.customers.retrieve(token);
     if (!c || c.deleted || c.metadata?.arweb !== "1") return null;
     return {
-      name:     c.name,
-      email:    c.email,
-      setup:    parseFloat(c.metadata.arweb_setup   ?? "0"),
-      monthly:  parseFloat(c.metadata.arweb_monthly ?? "0"),
-      desc:     c.metadata.arweb_desc     ?? "",
-      status:   c.metadata.arweb_status   ?? "pending",
+      name:         c.name,
+      email:        c.email,
+      setup:        parseFloat(c.metadata.arweb_setup        ?? "0"),
+      monthly:      parseFloat(c.metadata.arweb_monthly      ?? "0"),
+      origSetup:    c.metadata.arweb_orig_setup    ? parseFloat(c.metadata.arweb_orig_setup)   : null,
+      origMonthly:  c.metadata.arweb_orig_monthly  ? parseFloat(c.metadata.arweb_orig_monthly) : null,
+      offerLabel:   c.metadata.arweb_offer_label   ?? "",
+      desc:         c.metadata.arweb_desc          ?? "",
+      status:       c.metadata.arweb_status        ?? "pending",
     };
   } catch {
     return null;
@@ -218,26 +221,55 @@ export default async function PayPage({ params, searchParams }) {
                 </p>
               )}
 
+              {/* Offer label */}
+              {quote.offerLabel && (
+                <div style={{ marginBottom: "1rem" }}>
+                  <span style={{
+                    fontFamily: "var(--font-ui, system-ui)", fontSize: 11, fontWeight: 700,
+                    letterSpacing: "0.12em", textTransform: "uppercase",
+                    background: "rgba(37,99,235,0.18)", color: "#60a5fa",
+                    border: "1px solid rgba(37,99,235,0.3)",
+                    padding: "0.3rem 0.8rem", borderRadius: 9999,
+                  }}>
+                    🏷 {quote.offerLabel}
+                  </span>
+                </div>
+              )}
+
               {/* Divider */}
               <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", margin: "0 0 1.5rem" }} />
 
               {/* Pricing breakdown */}
               <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem", marginBottom: "2rem" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <span style={{ fontFamily: "var(--font-ui, system-ui)", fontSize: 14, color: "rgba(255,255,255,0.55)" }}>
                     Setup fee <span style={{ fontSize: 11, opacity: 0.6 }}>(one-time)</span>
                   </span>
-                  <span style={{ fontFamily: "var(--font-ui, system-ui)", fontSize: 18, fontWeight: 700, color: "#fff" }}>
-                    {fmt(quote.setup)}
-                  </span>
+                  <div style={{ display: "flex", alignItems: "baseline", gap: "0.5rem" }}>
+                    {quote.origSetup != null && (
+                      <span style={{ fontFamily: "var(--font-ui, system-ui)", fontSize: 14, color: "rgba(255,255,255,0.3)", textDecoration: "line-through" }}>
+                        {fmt(quote.origSetup)}
+                      </span>
+                    )}
+                    <span style={{ fontFamily: "var(--font-ui, system-ui)", fontSize: 18, fontWeight: 700, color: quote.setup === 0 ? "#22c55e" : "#fff" }}>
+                      {quote.setup === 0 ? "Free" : fmt(quote.setup)}
+                    </span>
+                  </div>
                 </div>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <span style={{ fontFamily: "var(--font-ui, system-ui)", fontSize: 14, color: "rgba(255,255,255,0.55)" }}>
                     Monthly maintenance
                   </span>
-                  <span style={{ fontFamily: "var(--font-ui, system-ui)", fontSize: 15, fontWeight: 600, color: "rgba(255,255,255,0.7)" }}>
-                    {fmt(quote.monthly)}<span style={{ fontWeight: 400, fontSize: 12, opacity: 0.6 }}>/mo</span>
-                  </span>
+                  <div style={{ display: "flex", alignItems: "baseline", gap: "0.5rem" }}>
+                    {quote.origMonthly != null && (
+                      <span style={{ fontFamily: "var(--font-ui, system-ui)", fontSize: 14, color: "rgba(255,255,255,0.3)", textDecoration: "line-through" }}>
+                        {fmt(quote.origMonthly)}<span style={{ fontSize: 11 }}>/mo</span>
+                      </span>
+                    )}
+                    <span style={{ fontFamily: "var(--font-ui, system-ui)", fontSize: 15, fontWeight: 600, color: "rgba(255,255,255,0.9)" }}>
+                      {fmt(quote.monthly)}<span style={{ fontWeight: 400, fontSize: 12, opacity: 0.6 }}>/mo</span>
+                    </span>
+                  </div>
                 </div>
               </div>
 
@@ -270,7 +302,7 @@ export default async function PayPage({ params, searchParams }) {
               </div>
 
               {/* Pay button — client component */}
-              {!success && <PayButton token={token} amount={fmt(quote.setup)} />}
+              {!success && <PayButton token={token} amount={quote.setup === 0 ? null : fmt(quote.setup)} />}
 
               {success && (
                 <div

@@ -12,26 +12,35 @@ import stripe from "@/lib/stripe";
 
 export async function POST(req) {
   try {
-    const { name, email, setupFee, monthlyFee, description } = await req.json();
+    const {
+      name, email,
+      setupFee, monthlyFee,
+      description,
+      originalSetup,   // optional: crossed-out price for setup
+      originalMonthly, // optional: crossed-out price for monthly
+      offerLabel,      // optional: e.g. "Launch Special"
+    } = await req.json();
 
-    if (!name || !email || !setupFee || !monthlyFee) {
+    if (!name || !email || monthlyFee === undefined || monthlyFee === null || monthlyFee === "") {
       return NextResponse.json(
-        { error: "name, email, setupFee, and monthlyFee are required." },
+        { error: "name, email, and monthlyFee are required." },
         { status: 400 }
       );
     }
 
-    // Create customer — the ID itself is the URL token (no search needed)
     const customer = await stripe.customers.create({
       name,
       email,
       metadata: {
-        arweb:         "1",
-        arweb_setup:   String(setupFee),
-        arweb_monthly: String(monthlyFee),
-        arweb_desc:    description ?? "",
-        arweb_notes:   "",
-        arweb_status:  "pending",
+        arweb:                  "1",
+        arweb_setup:            String(setupFee ?? 0),
+        arweb_monthly:          String(monthlyFee),
+        arweb_desc:             description      ?? "",
+        arweb_notes:            "",
+        arweb_status:           "pending",
+        arweb_orig_setup:       originalSetup    != null ? String(originalSetup)   : "",
+        arweb_orig_monthly:     originalMonthly  != null ? String(originalMonthly) : "",
+        arweb_offer_label:      offerLabel       ?? "",
       },
     });
 
