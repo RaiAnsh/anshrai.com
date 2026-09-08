@@ -1,46 +1,147 @@
-export default function AdminLoginPage() {
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+
+export const metadata = { title: "Admin Login — arweb" };
+
+export default async function AdminLoginPage({ searchParams }) {
+  const failed = (await searchParams)?.error === "1";
+
   async function login(formData) {
     "use server";
 
     const password = formData.get("password");
     const expected = process.env.ADMIN_PASSWORD;
 
-    if (!expected) throw new Error("Missing ADMIN_PASSWORD env var.");
+    if (!expected) throw new Error("ADMIN_PASSWORD env var is not set.");
 
     if (password === expected) {
-      // set cookie for auth
-      const { cookies } = await import("next/headers");
-      cookies().set("admin_auth", "1", {
+      const jar = await cookies();
+      jar.set("admin_auth", "1", {
         httpOnly: true,
-        secure: true,
+        secure:   true,
         sameSite: "lax",
-        path: "/",
-        maxAge: 60 * 60 * 8, // 8 hours
+        path:     "/",
+        maxAge:   60 * 60 * 8, // 8 hours
       });
-
-      const { redirect } = await import("next/navigation");
       redirect("/admin");
     }
 
-    // If wrong, just fall through (we’ll show an error in next step)
+    redirect("/admin/login?error=1");
   }
 
   return (
-    <main className="container">
-      <h1>Admin</h1>
-      <p>Enter password to continue.</p>
+    <main
+      style={{
+        minHeight:      "100svh",
+        background:     "#080808",
+        display:        "flex",
+        flexDirection:  "column",
+        alignItems:     "center",
+        justifyContent: "center",
+        padding:        "2rem 1.25rem",
+        fontFamily:     "var(--font-ui, system-ui)",
+      }}
+    >
+      {/* Brand */}
+      <p
+        style={{
+          fontSize:      13,
+          fontWeight:    700,
+          letterSpacing: "0.1em",
+          color:         "rgba(255,255,255,0.35)",
+          marginBottom:  "2.5rem",
+          textTransform: "uppercase",
+        }}
+      >
+        arweb
+      </p>
 
-      <form action={login} style={{ marginTop: 16 }}>
-        <input
-          name="password"
-          type="password"
-          placeholder="Admin password"
-          style={{ padding: 10, width: "100%", maxWidth: 360 }}
-        />
-        <div style={{ marginTop: 12 }}>
-          <button type="submit">Enter</button>
-        </div>
-      </form>
+      {/* Card */}
+      <div
+        style={{
+          width:        "100%",
+          maxWidth:     380,
+          background:   "#111118",
+          border:       "1px solid rgba(255,255,255,0.08)",
+          borderRadius: 20,
+          padding:      "2.5rem 2rem",
+        }}
+      >
+        <h1
+          style={{
+            fontFamily:    "var(--font-display, Georgia, serif)",
+            fontSize:      28,
+            fontWeight:    300,
+            letterSpacing: "-0.02em",
+            color:         "#fff",
+            marginBottom:  "0.4rem",
+          }}
+        >
+          Admin login
+        </h1>
+        <p
+          style={{
+            fontSize:     13,
+            color:        "rgba(255,255,255,0.35)",
+            marginBottom: "2rem",
+          }}
+        >
+          Enter your password to continue.
+        </p>
+
+        {failed && (
+          <div
+            style={{
+              background:   "rgba(239,68,68,0.10)",
+              border:       "1px solid rgba(239,68,68,0.2)",
+              borderRadius: 10,
+              padding:      "0.75rem 1rem",
+              marginBottom: "1.25rem",
+            }}
+          >
+            <p style={{ fontSize: 13, color: "#ef4444", margin: 0 }}>
+              Incorrect password. Try again.
+            </p>
+          </div>
+        )}
+
+        <form action={login} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            autoFocus
+            required
+            style={{
+              width:        "100%",
+              background:   "rgba(255,255,255,0.05)",
+              border:       "1px solid rgba(255,255,255,0.10)",
+              borderRadius: 10,
+              padding:      "0.8rem 1rem",
+              fontSize:     14,
+              color:        "#fff",
+              outline:      "none",
+              boxSizing:    "border-box",
+            }}
+          />
+          <button
+            type="submit"
+            style={{
+              width:        "100%",
+              padding:      "0.85rem",
+              borderRadius: 10,
+              border:       "none",
+              background:   "#2563eb",
+              color:        "#fff",
+              fontSize:     14,
+              fontWeight:   600,
+              cursor:       "pointer",
+            }}
+          >
+            Enter →
+          </button>
+        </form>
+      </div>
     </main>
   );
-}   
+}
