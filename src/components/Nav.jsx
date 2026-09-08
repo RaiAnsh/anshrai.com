@@ -6,6 +6,7 @@ import { track, Events } from "../lib/analytics";
 const NAV_LINKS = [
   { label: "Work",      href: "/#work" },
   { label: "Services",  href: "/#services" },
+  { label: "About",     href: "/#about" },
   { label: "Pricing",   href: "/quote" },
   { label: "Technical", href: "/technical" },
 ];
@@ -15,7 +16,7 @@ export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
+    const onScroll = () => setScrolled(window.scrollY > 80);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -29,100 +30,150 @@ export default function Nav() {
 
   return (
     <>
-      {/* ── Main navbar ── */}
+      {/* ── Main nav wrapper ── */}
       <nav
         aria-label="Main navigation"
-        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-16 py-6 transition-all duration-500"
         style={{
-          background:     scrolled ? "rgba(11,11,14,0.92)" : "transparent",
-          backdropFilter: scrolled ? "blur(20px)" : "none",
-          borderBottom:   scrolled ? "1px solid rgba(255,255,255,0.04)" : "1px solid transparent",
+          position:       "fixed",
+          top:            0,
+          left:           0,
+          right:          0,
+          zIndex:         50,
+          display:        "flex",
+          justifyContent: "center",
+          padding:        scrolled ? "12px 24px" : "24px 24px",
+          transition:     "padding 400ms cubic-bezier(0.16,1,0.3,1)",
+          pointerEvents:  "none",
         }}
       >
-        {/* Wordmark */}
-        <a
-          href="/"
+        {/* Inner pill / bar */}
+        <div
           style={{
-            fontFamily: "var(--font-display)",
-            fontSize: 20,
-            fontWeight: 400,
-            letterSpacing: "-0.02em",
-            color: "#ffffff",
+            display:        "flex",
+            alignItems:     "center",
+            justifyContent: "space-between",
+            width:          "100%",
+            maxWidth:       scrolled ? 900 : 1280,
+            padding:        scrolled ? "0.6rem 1.25rem" : "0 clamp(24px,4vw,48px)",
+            borderRadius:   scrolled ? 9999 : 0,
+            background:     scrolled ? "rgba(8,8,8,0.88)" : "transparent",
+            backdropFilter: scrolled ? "blur(24px) saturate(180%)" : "none",
+            border:         scrolled ? "1px solid rgba(255,255,255,0.06)" : "1px solid transparent",
+            transition:     "max-width 400ms cubic-bezier(0.16,1,0.3,1), padding 400ms cubic-bezier(0.16,1,0.3,1), background 400ms, border-radius 400ms, border-color 400ms",
+            pointerEvents:  "auto",
           }}
         >
-          anshrai.
-        </a>
-
-        {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-8">
-          {NAV_LINKS.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              style={{
-                fontFamily: "var(--font-ui)",
-                fontSize: 13,
-                fontWeight: 400,
-                letterSpacing: "0.01em",
-                color: "var(--muted)",
-                textDecoration: "none",
-                transition: "color 160ms ease",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "var(--muted)")}
-            >
-              {l.label}
-            </a>
-          ))}
+          {/* Wordmark */}
           <a
-            href="/quote"
-            onClick={() => track(Events.NAV_QUOTE_CLICKED)}
-            className="btn-primary"
-            style={{ fontSize: 13, padding: "0.55rem 1.25rem" }}
+            href="/"
+            style={{
+              fontFamily:    "var(--font-display)",
+              fontSize:      scrolled ? 17 : 20,
+              fontWeight:    400,
+              letterSpacing: "-0.02em",
+              color:         "#ffffff",
+              textDecoration:"none",
+              transition:    "font-size 300ms",
+              flexShrink:    0,
+            }}
           >
-            Get a Quote
+            anshrai.
           </a>
-        </div>
 
-        {/* Mobile hamburger */}
-        <button
-          className="md:hidden flex flex-col justify-center gap-[5px] p-2 -mr-2"
-          onClick={() => setMenuOpen((o) => !o)}
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={menuOpen}
-        >
-          <span style={{ display:"block", width:22, height:1, background:"#fff", transition:"transform 220ms ease", transform: menuOpen ? "rotate(45deg) translate(0,6px)" : "none" }} />
-          <span style={{ display:"block", width:22, height:1, background:"#fff", transition:"opacity 220ms ease", opacity: menuOpen ? 0 : 1 }} />
-          <span style={{ display:"block", width:22, height:1, background:"#fff", transition:"transform 220ms ease", transform: menuOpen ? "rotate(-45deg) translate(0,-6px)" : "none" }} />
-        </button>
+          {/* Desktop links */}
+          <div
+            className="hidden md:flex"
+            style={{ alignItems: "center", gap: scrolled ? "1.75rem" : "2.25rem", transition: "gap 300ms" }}
+          >
+            {NAV_LINKS.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                style={{
+                  fontFamily:     "var(--font-ui)",
+                  fontSize:       13,
+                  fontWeight:     400,
+                  letterSpacing:  "0.01em",
+                  color:          "rgba(255,255,255,0.45)",
+                  textDecoration: "none",
+                  transition:     "color 160ms ease",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.45)")}
+              >
+                {l.label}
+              </a>
+            ))}
+            <a
+              href="/quote"
+              onClick={() => track(Events.NAV_QUOTE_CLICKED)}
+              style={{
+                display:       "inline-flex",
+                alignItems:    "center",
+                gap:           "0.4rem",
+                background:    "#ffffff",
+                color:         "#080808",
+                padding:       "0.5rem 1.1rem",
+                borderRadius:  9999,
+                fontSize:      13,
+                fontWeight:    600,
+                fontFamily:    "var(--font-ui)",
+                textDecoration:"none",
+                transition:    "opacity 180ms ease",
+                letterSpacing: "0.01em",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
+              onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+            >
+              Start a Project
+            </a>
+          </div>
+
+          {/* Mobile hamburger */}
+          <button
+            className="md:hidden flex flex-col justify-center gap-[5px] p-2 -mr-1"
+            onClick={() => setMenuOpen((o) => !o)}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            style={{ background: "none", border: "none", cursor: "pointer" }}
+          >
+            <span style={{ display: "block", width: 22, height: 1.5, background: "#fff", borderRadius: 2, transition: "transform 220ms ease", transform: menuOpen ? "rotate(45deg) translate(0,6px)" : "none" }} />
+            <span style={{ display: "block", width: 22, height: 1.5, background: "#fff", borderRadius: 2, transition: "opacity 220ms ease", opacity: menuOpen ? 0 : 1 }} />
+            <span style={{ display: "block", width: 22, height: 1.5, background: "#fff", borderRadius: 2, transition: "transform 220ms ease", transform: menuOpen ? "rotate(-45deg) translate(0,-6px)" : "none" }} />
+          </button>
+        </div>
       </nav>
 
-      {/* Mobile drawer */}
+      {/* ── Mobile drawer ── */}
       <div
         role="dialog"
         aria-modal="true"
         aria-label="Navigation menu"
-        className="fixed inset-0 z-40 md:hidden flex flex-col transition-all duration-300"
+        className="fixed inset-0 z-40 md:hidden flex flex-col"
         style={{
-          background:    "var(--ground)",
+          background:    "#080808",
           opacity:       menuOpen ? 1 : 0,
           pointerEvents: menuOpen ? "auto" : "none",
-          transform:     menuOpen ? "none" : "translateY(-8px)",
+          transform:     menuOpen ? "none" : "translateY(-12px)",
+          transition:    "opacity 280ms ease, transform 280ms ease",
         }}
       >
-        <div className="flex flex-col px-6 pt-28 pb-10 gap-6">
+        <div style={{ display: "flex", flexDirection: "column", padding: "clamp(96px,14vh,140px) clamp(24px,6vw,48px) 3rem", gap: "0.5rem" }}>
           {NAV_LINKS.map((l) => (
             <a
               key={l.href}
               href={l.href}
               onClick={close}
               style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(32px,9vw,48px)",
-                fontWeight: 300,
-                letterSpacing: "-0.02em",
-                color: "#ffffff",
-                textDecoration: "none",
+                fontFamily:    "var(--font-display)",
+                fontSize:      "clamp(32px,9vw,52px)",
+                fontWeight:    300,
+                letterSpacing: "-0.025em",
+                color:         "#ffffff",
+                textDecoration:"none",
+                padding:       "0.4rem 0",
+                borderBottom:  "1px solid rgba(255,255,255,0.05)",
+                transition:    "color 160ms",
               }}
             >
               {l.label}
@@ -131,10 +182,10 @@ export default function Nav() {
           <a
             href="/quote"
             onClick={close}
-            className="btn-primary mt-4"
-            style={{ alignSelf: "flex-start" }}
+            className="btn-primary"
+            style={{ alignSelf: "flex-start", marginTop: "1.5rem", fontSize: 14 }}
           >
-            Get a Quote
+            Start a Project
           </a>
         </div>
       </div>

@@ -78,6 +78,27 @@ button { border: none; background: none; font: inherit; }
 }
 .btn-ghost:hover { color: var(--fg); border-color: rgba(255,255,255,0.18); }
 
+/* ─── Marquee / ticker animations ──────────────── */
+@keyframes marquee-ltr {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes ticker-rtl {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-33.333%); }
+}
+
+.logos-track {
+  animation: marquee-ltr 32s linear infinite;
+}
+.logos-track:hover {
+  animation-play-state: paused;
+}
+
+.ticker-track {
+  animation: ticker-rtl 28s linear infinite;
+}
+
 /* ─── Legacy alias (pages still using btn-glow) ──── */
 .btn-glow {
   display: inline-flex;

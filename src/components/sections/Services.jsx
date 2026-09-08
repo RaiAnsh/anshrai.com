@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { motion, useInView } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const ease = [0.16, 1, 0.3, 1];
 
@@ -10,225 +10,246 @@ const SERVICES = [
   {
     num:   "01",
     title: "Website Design & Development",
-    desc:  "A professional website that represents your business and brings in customers. Custom-built around your brand, designed to load fast, look great on every device, and turn visitors into leads.",
-    price: "From $299",
-    href:  "/quote",
+    desc:  "Custom-coded websites that load fast, rank on Google, and turn visitors into customers. No templates, no page builders.",
+    tags:  ["Next.js", "React", "Tailwind", "Framer Motion"],
+    icon:  "🖥",
   },
   {
     num:   "02",
-    title: "Digital Business Systems",
-    desc:  "Go beyond a basic website. Lead capture forms, AI chat assistants, automated follow-ups, booking systems, and custom integrations — built to work for your business around the clock.",
-    price: "From $599",
-    href:  "/quote",
+    title: "Business Systems & Dashboards",
+    desc:  "Internal tools, admin panels, and client portals with authentication, databases, and real-time data management.",
+    tags:  ["PostgreSQL", "Auth", "APIs", "Admin Panels"],
+    icon:  "⚙",
   },
   {
     num:   "03",
-    title: "Ongoing Support & Management",
-    desc:  "Hosting, security, updates, and technical support — handled. You focus on running your business; I keep your website performing.",
-    price: "From $15/mo",
-    href:  "/quote",
+    title: "SEO & Performance",
+    desc:  "Technical SEO setup, on-page optimization, and performance tuning to get your business found and keep visitors engaged.",
+    tags:  ["SEO", "Core Web Vitals", "Analytics", "Indexing"],
+    icon:  "📈",
+  },
+  {
+    num:   "04",
+    title: "AI Integrations",
+    desc:  "AI chat assistants, lead qualification bots, and smart automation that work around the clock — while you don't.",
+    tags:  ["AI Chat", "Lead Capture", "24/7 Automation"],
+    icon:  "🤖",
+  },
+  {
+    num:   "05",
+    title: "Ongoing Support & Retainers",
+    desc:  "Monthly hosting, updates, security patches, and priority support so your site stays fast, fresh, and issue-free.",
+    tags:  ["Hosting", "Maintenance", "Priority Support"],
+    icon:  "🛡",
   },
 ];
 
 export default function Services() {
-  const ref    = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const [active, setActive] = useState(null);
 
   return (
     <section
       id="services"
-      ref={ref}
       style={{
-        background: "var(--ground)",
-        padding:    "clamp(96px,14vh,160px) clamp(24px,6vw,96px)",
-        borderTop:  "1px solid var(--border)",
+        position:   "relative",
+        background: "linear-gradient(180deg, #080808 0%, #090d1a 40%, #080808 100%)",
+        padding:    "clamp(72px,10vh,120px) clamp(24px,5vw,80px)",
+        borderTop:  "1px solid rgba(255,255,255,0.05)",
+        overflow:   "hidden",
       }}
     >
-      {/* Section header */}
+      {/* Background blue glow */}
+      <div
+        aria-hidden="true"
+        style={{
+          position:    "absolute",
+          top:         "30%",
+          right:       "-20%",
+          width:       "60vw",
+          height:      "60vw",
+          borderRadius:"50%",
+          background:  "radial-gradient(circle, rgba(37,99,235,0.07) 0%, transparent 70%)",
+          pointerEvents: "none",
+          filter:      "blur(40px)",
+        }}
+      />
+
       <div
         style={{
-          display:         "flex",
-          alignItems:      "flex-end",
-          justifyContent:  "space-between",
-          flexWrap:        "wrap",
-          gap:             "2rem",
-          marginBottom:    "clamp(56px,8vh,96px)",
+          display:   "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap:       "clamp(48px,8vw,120px)",
+          alignItems:"start",
+          position:  "relative",
         }}
       >
-        <div>
-          <motion.p
+        {/* ── Left: header ── */}
+        <div style={{ position: "sticky", top: 120 }}>
+          <p
             style={{
               fontFamily:    "var(--font-ui)",
               fontSize:      11,
               letterSpacing: "0.18em",
               textTransform: "uppercase",
-              color:         "var(--muted)",
+              color:         "var(--accent)",
               marginBottom:  "1.25rem",
             }}
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.5 }}
           >
-            Services
-          </motion.p>
-
-          <motion.h2
+            What I Do
+          </p>
+          <h2
             style={{
               fontFamily:    "var(--font-display)",
-              fontSize:      "clamp(40px, 5.5vw, 80px)",
+              fontSize:      "clamp(40px, 4.5vw, 72px)",
               fontWeight:    300,
               letterSpacing: "-0.03em",
-              lineHeight:    0.95,
+              lineHeight:    1.0,
               color:         "#ffffff",
-              margin:        0,
+              marginBottom:  "1.5rem",
             }}
-            initial={{ opacity: 0, y: 24 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.08, ease }}
           >
-            What I build
-            <br />
-            <em style={{ fontStyle: "italic", color: "var(--muted)" }}>for your business.</em>
-          </motion.h2>
+            Explore{" "}
+            <em style={{ fontStyle: "italic", color: "rgba(255,255,255,0.25)" }}>
+              our services.
+            </em>
+          </h2>
+          <p
+            style={{
+              fontFamily: "var(--font-ui)",
+              fontSize:   "clamp(13px, 1.1vw, 15px)",
+              lineHeight: 1.75,
+              color:      "var(--fg-dim)",
+              maxWidth:   340,
+              marginBottom: "2rem",
+            }}
+          >
+            From a simple landing page to a full business platform — every project is custom-built, optimized, and delivered on time.
+          </p>
+          <Link href="/quote" className="btn-primary" style={{ fontSize: 13 }}>
+            Get a Quote
+          </Link>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <Link href="/quote" className="btn-primary">Get an Instant Quote</Link>
-        </motion.div>
-      </div>
-
-      {/* Service rows */}
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        {SERVICES.map((s, i) => (
-          <motion.div
-            key={s.num}
-            style={{
-              display:       "grid",
-              gridTemplateColumns: "3rem 1fr auto",
-              gap:           "clamp(16px, 3vw, 48px)",
-              alignItems:    "start",
-              padding:       "clamp(28px,4vh,48px) 0",
-              borderTop:     "1px solid var(--border)",
-            }}
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.14 + i * 0.1, ease }}
-          >
-            {/* Number */}
-            <span
-              style={{
-                fontFamily:    "var(--font-ui)",
-                fontSize:      11,
-                letterSpacing: "0.1em",
-                color:         "rgba(37,99,235,0.5)",
-                paddingTop:    "0.35em",
-              }}
-            >
-              {s.num}
-            </span>
-
-            {/* Content */}
-            <div>
-              <h3
-                style={{
-                  fontFamily:    "var(--font-display)",
-                  fontSize:      "clamp(22px, 2.4vw, 34px)",
-                  fontWeight:    300,
-                  letterSpacing: "-0.02em",
-                  lineHeight:    1.1,
-                  color:         "#ffffff",
-                  marginBottom:  "0.875rem",
-                }}
-              >
-                {s.title}
-              </h3>
-              <p
-                style={{
-                  fontFamily: "var(--font-ui)",
-                  fontSize:   "clamp(13px, 1.1vw, 15px)",
-                  lineHeight: 1.7,
-                  color:      "var(--fg-dim)",
-                  maxWidth:   520,
-                  margin:     0,
-                }}
-              >
-                {s.desc}
-              </p>
-            </div>
-
-            {/* Price + CTA — right column */}
+        {/* ── Right: numbered list ── */}
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          {SERVICES.map((svc, i) => (
             <div
+              key={svc.num}
+              onMouseEnter={() => setActive(i)}
+              onMouseLeave={() => setActive(null)}
               style={{
-                display:       "flex",
-                flexDirection: "column",
-                alignItems:    "flex-end",
-                gap:           "0.75rem",
-                textAlign:     "right",
-                flexShrink:    0,
+                padding:    "clamp(20px,3vh,32px) 0",
+                borderBottom: "1px solid rgba(255,255,255,0.06)",
+                cursor:     "default",
+                transition: "border-color 200ms ease",
+                borderColor: active === i ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.06)",
               }}
             >
-              <span
+              <div
                 style={{
-                  fontFamily:    "var(--font-display)",
-                  fontSize:      "clamp(18px, 1.8vw, 24px)",
-                  fontWeight:    300,
-                  letterSpacing: "-0.02em",
-                  color:         "#ffffff",
-                  whiteSpace:    "nowrap",
+                  display:     "flex",
+                  alignItems:  "flex-start",
+                  gap:         "1.5rem",
                 }}
               >
-                {s.price}
-              </span>
-              <Link
-                href={s.href}
-                style={{
-                  fontFamily:    "var(--font-ui)",
-                  fontSize:      12,
-                  letterSpacing: "0.04em",
-                  color:         "var(--accent)",
-                  textDecoration: "none",
-                  whiteSpace:    "nowrap",
-                  transition:    "opacity 140ms",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.opacity = 0.7)}
-                onMouseLeave={(e) => (e.currentTarget.style.opacity = 1)}
-              >
-                Get a quote →
-              </Link>
+                {/* Number */}
+                <span
+                  style={{
+                    fontFamily:    "var(--font-display)",
+                    fontSize:      "clamp(28px, 3.5vw, 48px)",
+                    fontWeight:    300,
+                    letterSpacing: "-0.04em",
+                    color:         active === i ? "var(--accent)" : "rgba(255,255,255,0.10)",
+                    lineHeight:    1,
+                    transition:    "color 250ms ease",
+                    flexShrink:    0,
+                    width:         "2.5ch",
+                  }}
+                >
+                  {svc.num}
+                </span>
+
+                {/* Content */}
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
+                    <h3
+                      style={{
+                        fontFamily:    "var(--font-ui)",
+                        fontSize:      "clamp(15px, 1.4vw, 19px)",
+                        fontWeight:    500,
+                        color:         active === i ? "#ffffff" : "rgba(255,255,255,0.7)",
+                        margin:        0,
+                        transition:    "color 200ms ease",
+                        letterSpacing: "-0.01em",
+                      }}
+                    >
+                      {svc.title}
+                    </h3>
+                  </div>
+
+                  <AnimatePresence>
+                    {active === i && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3, ease }}
+                        style={{ overflow: "hidden" }}
+                      >
+                        <p
+                          style={{
+                            fontFamily: "var(--font-ui)",
+                            fontSize:   "clamp(12px, 1vw, 14px)",
+                            lineHeight: 1.7,
+                            color:      "var(--fg-dim)",
+                            marginBottom: "0.875rem",
+                          }}
+                        >
+                          {svc.desc}
+                        </p>
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
+                          {svc.tags.map((t) => (
+                            <span
+                              key={t}
+                              style={{
+                                fontFamily:   "var(--font-ui)",
+                                fontSize:     10,
+                                padding:      "0.2rem 0.65rem",
+                                borderRadius: 9999,
+                                background:   "rgba(37,99,235,0.08)",
+                                border:       "1px solid rgba(37,99,235,0.20)",
+                                color:        "rgba(37,99,235,0.8)",
+                                letterSpacing:"0.04em",
+                              }}
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
             </div>
-          </motion.div>
-        ))}
+          ))}
 
-        {/* Last border */}
-        <div style={{ borderTop: "1px solid var(--border)" }} />
+          {/* Starting price note */}
+          <p
+            style={{
+              fontFamily:    "var(--font-ui)",
+              fontSize:      12,
+              color:         "var(--muted)",
+              marginTop:     "1.5rem",
+              letterSpacing: "0.01em",
+            }}
+          >
+            Starting from{" "}
+            <span style={{ color: "var(--fg-dim)", fontWeight: 500 }}>$299 setup + $15/month</span>
+            {" "}— custom quotes available.
+          </p>
+        </div>
       </div>
-
-      {/* Footnote */}
-      <motion.p
-        style={{
-          fontFamily: "var(--font-ui)",
-          fontSize:   12,
-          color:      "var(--muted)",
-          marginTop:  "2rem",
-          opacity:    0.7,
-        }}
-        initial={{ opacity: 0 }}
-        animate={inView ? { opacity: 0.7 } : {}}
-        transition={{ duration: 0.5, delay: 0.5 }}
-      >
-        Prices are estimates and vary by scope.{" "}
-        <Link
-          href="/quote"
-          style={{ color: "var(--fg-dim)", textDecoration: "underline", textDecorationColor: "var(--border)" }}
-        >
-          Use the quote tool
-        </Link>{" "}
-        for a personalized estimate.
-      </motion.p>
     </section>
   );
 }
