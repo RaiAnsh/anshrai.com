@@ -1,32 +1,38 @@
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+"use client";
 
-export const metadata = { title: "Admin Login — arweb" };
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-export default async function AdminLoginPage({ searchParams }) {
-  const failed = (await searchParams)?.error === "1";
+export default function AdminLoginPage() {
+  const router   = useRouter();
+  const [pw,     setPw]     = useState("");
+  const [error,  setError]  = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  async function login(formData) {
-    "use server";
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
 
-    const password = formData.get("password");
-    const expected = process.env.ADMIN_PASSWORD;
-
-    if (!expected) throw new Error("ADMIN_PASSWORD env var is not set.");
-
-    if (password === expected) {
-      const jar = await cookies();
-      jar.set("admin_auth", "1", {
-        httpOnly: true,
-        secure:   true,
-        sameSite: "lax",
-        path:     "/",
-        maxAge:   60 * 60 * 8, // 8 hours
+    try {
+      const res  = await fetch("/api/admin/login", {
+        method:  "POST",
+        headers: { "Content-Type": "application/json" },
+        body:    JSON.stringify({ password: pw }),
       });
-      redirect("/admin");
-    }
+      const data = await res.json();
 
-    redirect("/admin/login?error=1");
+      if (!res.ok) {
+        setError(data.error ?? "Incorrect password.");
+        setLoading(false);
+        return;
+      }
+
+      router.push("/admin");
+    } catch {
+      setError("Network error — please try again.");
+      setLoading(false);
+    }
   }
 
   return (
@@ -42,7 +48,6 @@ export default async function AdminLoginPage({ searchParams }) {
         fontFamily:     "var(--font-ui, system-ui)",
       }}
     >
-      {/* Brand */}
       <p
         style={{
           fontSize:      13,
@@ -56,7 +61,6 @@ export default async function AdminLoginPage({ searchParams }) {
         arweb
       </p>
 
-      {/* Card */}
       <div
         style={{
           width:        "100%",
@@ -79,17 +83,11 @@ export default async function AdminLoginPage({ searchParams }) {
         >
           Admin login
         </h1>
-        <p
-          style={{
-            fontSize:     13,
-            color:        "rgba(255,255,255,0.35)",
-            marginBottom: "2rem",
-          }}
-        >
+        <p style={{ fontSize: 13, color: "rgba(255,255,255,0.35)", marginBottom: "2rem" }}>
           Enter your password to continue.
         </p>
 
-        {failed && (
+        {error && (
           <div
             style={{
               background:   "rgba(239,68,68,0.10)",
@@ -99,19 +97,18 @@ export default async function AdminLoginPage({ searchParams }) {
               marginBottom: "1.25rem",
             }}
           >
-            <p style={{ fontSize: 13, color: "#ef4444", margin: 0 }}>
-              Incorrect password. Try again.
-            </p>
+            <p style={{ fontSize: 13, color: "#ef4444", margin: 0 }}>{error}</p>
           </div>
         )}
 
-        <form action={login} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
           <input
-            name="password"
             type="password"
             placeholder="Password"
             autoFocus
             required
+            value={pw}
+            onChange={(e) => setPw(e.target.value)}
             style={{
               width:        "100%",
               background:   "rgba(255,255,255,0.05)",
@@ -126,19 +123,20 @@ export default async function AdminLoginPage({ searchParams }) {
           />
           <button
             type="submit"
+            disabled={loading}
             style={{
               width:        "100%",
               padding:      "0.85rem",
               borderRadius: 10,
               border:       "none",
-              background:   "#2563eb",
+              background:   loading ? "rgba(37,99,235,0.5)" : "#2563eb",
               color:        "#fff",
               fontSize:     14,
               fontWeight:   600,
-              cursor:       "pointer",
+              cursor:       loading ? "not-allowed" : "pointer",
             }}
           >
-            Enter →
+            {loading ? "Checking…" : "Enter →"}
           </button>
         </form>
       </div>
