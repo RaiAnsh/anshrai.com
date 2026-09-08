@@ -1,198 +1,199 @@
 "use client";
 
-import { useRef } from "react";
 import Link from "next/link";
+import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
 const ease = [0.16, 1, 0.3, 1];
 
 const DIFFERENTIATORS = [
-  "You work directly with me — the developer actually building your project.",
-  "No agency overhead. No account managers. No handoffs.",
-  "Custom work tailored to your business, not a template.",
-  "Fast turnaround without cutting corners.",
-  "Honest pricing with nothing hidden.",
+  {
+    title:  "You talk to the builder.",
+    desc:   "No account managers, no middlemen. Every decision goes through the person actually writing the code.",
+  },
+  {
+    title:  "Launched in 1–2 weeks.",
+    desc:   "No bloated timelines. Scoped clearly, built fast, reviewed together, delivered on time.",
+  },
+  {
+    title:  "SEO-built from the start.",
+    desc:   "Technical SEO, on-page optimization, and Core Web Vitals handled in the initial build — not bolted on later.",
+  },
+  {
+    title:  "Transparent, flat pricing.",
+    desc:   "Setup fee + $15/month hosting. No surprise invoices, no hidden agency markup.",
+  },
 ];
 
 export default function WhoIAm() {
   const ref    = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
     <section
-      id="about"
       ref={ref}
+      id="about"
       style={{
-        background: "var(--ground)",
-        padding:    "clamp(96px,14vh,160px) clamp(24px,6vw,96px)",
-        borderTop:  "1px solid var(--border)",
+        background: "#080808",
+        padding:    "clamp(72px,10vh,120px) clamp(24px,5vw,80px)",
+        borderTop:  "1px solid rgba(255,255,255,0.05)",
       }}
     >
       <div
         style={{
           display:             "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+          gridTemplateColumns: "1fr 1fr",
           gap:                 "clamp(48px,8vw,120px)",
           alignItems:          "start",
         }}
       >
-        {/* ── Left ── */}
-        <div>
-          <motion.p
+        {/* ── Left: bio ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease }}
+        >
+          <p
             style={{
               fontFamily:    "var(--font-ui)",
               fontSize:      11,
               letterSpacing: "0.18em",
               textTransform: "uppercase",
               color:         "var(--muted)",
-              marginBottom:  "clamp(40px,6vh,72px)",
+              marginBottom:  "1.25rem",
             }}
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.5 }}
           >
-            Who you're working with
-          </motion.p>
+            About
+          </p>
 
-          <motion.h2
+          <h2
             style={{
               fontFamily:    "var(--font-display)",
-              fontSize:      "clamp(44px, 5.5vw, 80px)",
+              fontSize:      "clamp(40px, 5vw, 72px)",
               fontWeight:    300,
               letterSpacing: "-0.03em",
-              lineHeight:    0.95,
+              lineHeight:    1.02,
               color:         "#ffffff",
-              marginBottom:  "clamp(28px,4vh,48px)",
+              marginBottom:  "2rem",
             }}
-            initial={{ opacity: 0, y: 24 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.1, ease }}
           >
-            Hi, I'm Ansh.
-            <br />
-            <em style={{ fontStyle: "italic", color: "var(--muted)" }}>The developer.</em>
-          </motion.h2>
+            Hi, I'm Ansh.{" "}
+            <em style={{ fontStyle: "italic", color: "rgba(255,255,255,0.25)" }}>
+              The developer.
+            </em>
+          </h2>
 
-          <motion.div
-            style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.2, ease }}
+          <p
+            style={{
+              fontFamily: "var(--font-ui)",
+              fontSize:   "clamp(13px, 1.1vw, 15px)",
+              lineHeight: 1.75,
+              color:      "var(--fg-dim)",
+              marginBottom: "1.25rem",
+            }}
           >
-            <p
-              style={{
-                fontFamily: "var(--font-ui)",
-                fontSize:   "clamp(14px, 1.2vw, 16px)",
-                lineHeight: 1.75,
-                color:      "var(--fg-dim)",
-                margin:     0,
-              }}
-            >
-              I'm a Computer Science student and the developer behind arweb. I work directly
-              with businesses — from initial planning and design through development, launch,
-              and ongoing support.
-            </p>
-            <p
-              style={{
-                fontFamily: "var(--font-ui)",
-                fontSize:   "clamp(14px, 1.2vw, 16px)",
-                lineHeight: 1.75,
-                color:      "var(--fg-dim)",
-                margin:     0,
-              }}
-            >
-              I started arweb because I saw local businesses losing customers to competitors
-              with better websites, and realized I could fix that. Now I build the kind of
-              digital experiences that actually make a difference.
-            </p>
-          </motion.div>
+            I'm a CS student and freelance web developer based in Toronto. I started{" "}
+            <strong style={{ color: "var(--fg)", fontWeight: 500 }}>arweb</strong> to give
+            small businesses what agencies charge five figures for — custom, fast, professional websites
+            that actually bring in customers.
+          </p>
 
-          <motion.div
-            style={{ marginTop: "2.5rem" }}
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.5, delay: 0.34 }}
+          <p
+            style={{
+              fontFamily: "var(--font-ui)",
+              fontSize:   "clamp(13px, 1.1vw, 15px)",
+              lineHeight: 1.75,
+              color:      "var(--fg-dim)",
+              marginBottom: "2.5rem",
+            }}
           >
-            <Link
-              href="/technical"
-              style={{
-                fontFamily:     "var(--font-ui)",
-                fontSize:       13,
-                color:          "var(--accent)",
-                textDecoration: "none",
-                transition:     "opacity 140ms",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.opacity = 0.7)}
-              onMouseLeave={(e) => (e.currentTarget.style.opacity = 1)}
-            >
-              View technical background →
+            Every project I take on is built with production-quality code, proper SEO, and a direct
+            line to me — not a ticket queue. My clients get results, not deliverables.
+          </p>
+
+          <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+            <Link href="/quote" className="btn-primary" style={{ fontSize: 13 }}>
+              Work with me
             </Link>
-          </motion.div>
-        </div>
+            <a
+              href="mailto:info@anshrai.com"
+              className="btn-ghost"
+              style={{ fontSize: 13 }}
+            >
+              info@anshrai.com
+            </a>
+          </div>
+        </motion.div>
 
         {/* ── Right: differentiators ── */}
-        <div style={{ paddingTop: "clamp(0px, 4vw, 80px)" }}>
-          <motion.p
-            style={{
-              fontFamily:    "var(--font-ui)",
-              fontSize:      11,
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              color:         "var(--muted)",
-              marginBottom:  "2.5rem",
-            }}
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.5, delay: 0.18 }}
-          >
-            Why work with me
-          </motion.p>
-
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            {DIFFERENTIATORS.map((d, i) => (
-              <motion.div
-                key={d}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease, delay: 0.15 }}
+        >
+          {DIFFERENTIATORS.map((d, i) => (
+            <div
+              key={d.title}
+              style={{
+                padding:      "1.5rem 0",
+                borderBottom: "1px solid rgba(255,255,255,0.06)",
+              }}
+            >
+              <div
                 style={{
-                  display:    "flex",
-                  alignItems: "flex-start",
-                  gap:        "1.25rem",
-                  padding:    "1.25rem 0",
-                  borderBottom: "1px solid var(--border)",
+                  display:        "flex",
+                  alignItems:     "flex-start",
+                  gap:            "1.25rem",
                 }}
-                initial={{ opacity: 0, x: -12 }}
-                animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.45, delay: 0.28 + i * 0.07, ease }}
               >
-                <div
-                  style={{
-                    width:        20,
-                    height:       20,
-                    borderRadius: "50%",
-                    background:   "rgba(37,99,235,0.08)",
-                    border:       "1px solid rgba(37,99,235,0.2)",
-                    flexShrink:   0,
-                    marginTop:    2,
-                    display:      "flex",
-                    alignItems:   "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <div style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--accent)" }} />
-                </div>
+                {/* Index */}
                 <span
                   style={{
-                    fontFamily: "var(--font-ui)",
-                    fontSize:   "clamp(13px, 1.1vw, 15px)",
-                    lineHeight: 1.65,
-                    color:      "var(--fg-dim)",
+                    fontFamily:    "var(--font-display)",
+                    fontSize:      20,
+                    fontWeight:    300,
+                    color:         "rgba(255,255,255,0.10)",
+                    lineHeight:    1,
+                    flexShrink:    0,
+                    marginTop:     "0.1em",
+                    letterSpacing: "-0.03em",
+                    width:         "1.8ch",
                   }}
                 >
-                  {d}
+                  {String(i + 1).padStart(2, "0")}
                 </span>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+
+                <div>
+                  <h3
+                    style={{
+                      fontFamily:    "var(--font-ui)",
+                      fontSize:      "clamp(14px, 1.3vw, 17px)",
+                      fontWeight:    500,
+                      color:         "#ffffff",
+                      letterSpacing: "-0.01em",
+                      marginBottom:  "0.5rem",
+                      margin:        0,
+                      marginBottom:  "0.5rem",
+                    }}
+                  >
+                    {d.title}
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-ui)",
+                      fontSize:   "clamp(12px, 1vw, 14px)",
+                      lineHeight: 1.7,
+                      color:      "var(--fg-dim)",
+                      margin:     0,
+                    }}
+                  >
+                    {d.desc}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

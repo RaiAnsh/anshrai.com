@@ -120,7 +120,7 @@ export default function QuoteConfirmationPage({ searchParams }) {
             Back to home
           </Link>
           <a
-            href="mailto:ansh@anshrai.com"
+            href="mailto:info@anshrai.com"
             className="px-7 py-3.5 rounded-full font-semibold text-sm transition-all"
             style={{
               background: "transparent",

@@ -93,7 +93,7 @@ export default function FinalCTA() {
             Get an Instant Quote
           </Link>
           <a
-            href="mailto:ansh@anshrai.com"
+            href="mailto:info@anshrai.com"
             onClick={() => track(Events.CONTACT_EMAIL_CLICKED)}
             className="btn-ghost"
           >
