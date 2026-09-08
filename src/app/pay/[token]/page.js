@@ -48,9 +48,10 @@ function fmt(n) {
 }
 
 export default async function PayPage({ params, searchParams }) {
-  const { token } = params;
-  const success   = searchParams?.success   === "1";
-  const cancelled = searchParams?.cancelled === "1";
+  const { token }   = await params;
+  const sp          = await searchParams;
+  const success     = sp?.success   === "1";
+  const cancelled   = sp?.cancelled === "1";
 
   const quote = await getQuote(token);
 
