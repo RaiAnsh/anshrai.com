@@ -69,52 +69,23 @@ export default function Nav() {
             style={{
               display:        "inline-flex",
               alignItems:     "center",
-              gap:            "0.55rem",
               textDecoration: "none",
               flexShrink:     0,
             }}
           >
-            {/* Gradient icon — matches arweb logo */}
-            <svg
-              width={scrolled ? 22 : 26}
-              height={scrolled ? 22 : 26}
-              viewBox="0 0 32 32"
-              fill="none"
-              style={{ transition: "width 300ms, height 300ms", flexShrink: 0 }}
-              aria-hidden="true"
-            >
-              <defs>
-                <linearGradient id="arweb-g" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#38b6ff" />
-                  <stop offset="100%" stopColor="#c77dff" />
-                </linearGradient>
-              </defs>
-              {/* Power button ring */}
-              <path
-                d="M16 4 L16 10"
-                stroke="url(#arweb-g)" strokeWidth="3" strokeLinecap="round"
-              />
-              <path
-                d="M10.5 7.5 A9 9 0 1 0 21.5 7.5"
-                stroke="url(#arweb-g)" strokeWidth="3" strokeLinecap="round" fill="none"
-              />
-            </svg>
-            {/* Wordmark */}
-            <span
+            {/* arweb logo — mix-blend-mode:screen makes the black bg transparent */}
+            <img
+              src="/arweb-logo.png"
+              alt="arweb"
+              width={scrolled ? 110 : 130}
               style={{
-                fontFamily:    "var(--font-ui)",
-                fontSize:      scrolled ? 16 : 19,
-                fontWeight:    700,
-                letterSpacing: "-0.02em",
-                background:    "linear-gradient(135deg, #38b6ff 0%, #c77dff 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-                transition:    "font-size 300ms",
+                height:       "auto",
+                mixBlendMode: "screen",
+                transition:   "width 300ms",
+                flexShrink:   0,
+                display:      "block",
               }}
-            >
-              arweb
-            </span>
+            />
           </a>
 
           {/* Desktop links */}
