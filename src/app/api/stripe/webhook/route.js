@@ -43,22 +43,17 @@ export async function POST(req) {
     const session = event.data.object;
 
     try {
-      const token = session.metadata?.arweb_token;
-      if (!token) {
-        console.warn("[webhook] No arweb_token in session metadata, skipping.");
+      // 1. Get Customer directly from the session (no search needed)
+      const customerId = session.customer;
+      if (!customerId) {
+        console.warn("[webhook] No customer on session, skipping.");
         return NextResponse.json({ received: true });
       }
-
-      // 1. Find Customer
-      const search = await stripe.customers.search({
-        query: `metadata['arweb_token']:'${token}'`,
-        limit: 1,
-      });
-      if (search.data.length === 0) {
-        console.error("[webhook] Customer not found for token:", token);
+      const customer = await stripe.customers.retrieve(customerId);
+      if (!customer || customer.deleted || customer.metadata?.arweb !== "1") {
+        console.warn("[webhook] Not an arweb customer:", customerId);
         return NextResponse.json({ received: true });
       }
-      const customer = search.data[0];
       const { arweb_monthly } = customer.metadata;
 
       // 2. Get the PaymentMethod from the PaymentIntent
