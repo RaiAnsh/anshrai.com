@@ -5,12 +5,13 @@ export const metadata = {
   description: "Your quote request has been received. We'll be in touch within 1 business day.",
 };
 
-export default function QuoteConfirmationPage({ searchParams }) {
-  const ref     = searchParams?.ref     ?? null;
-  const setup   = searchParams?.setup   ? Number(searchParams.setup)   : null;
-  const monthly = searchParams?.monthly ? Number(searchParams.monthly) : null;
-  const isCustom  = searchParams?.custom  === "1";
-  const isUnknown = searchParams?.unknown === "1";
+export default async function QuoteConfirmationPage({ searchParams }) {
+  const sp      = await searchParams;
+  const ref     = sp?.ref     ?? null;
+  const setup   = sp?.setup   ? Number(sp.setup)   : null;
+  const monthly = sp?.monthly ? Number(sp.monthly) : null;
+  const isCustom  = sp?.custom  === "1";
+  const isUnknown = sp?.unknown === "1";
 
   return (
     <main
