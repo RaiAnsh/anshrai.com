@@ -43,7 +43,7 @@ async function fetchClients() {
           desc:        c.metadata.arweb_desc     ?? "",
           notes:       c.metadata.arweb_notes    ?? "",
           status:      c.metadata.arweb_status   ?? "pending",
-          token:       c.metadata.arweb_token    ?? "",
+          token:       c.id,                          // customer ID is the URL token
           subId:       c.metadata.arweb_sub_id   ?? "",
           paidAt:      c.metadata.arweb_paid_at  ? Number(c.metadata.arweb_paid_at) : null,
           nextBilling,
