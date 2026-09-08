@@ -1,23 +1,15 @@
 // ─────────────────────────────────────────────────────────────
 //  POST /api/stripe/webhook
 //
-//  Handles Stripe events after a client pays.
-//
-//  Event: checkout.session.completed
-//    1. Get arweb_token from session metadata
-//    2. Look up Customer by token, get arweb_monthly fee
-//    3. Get the saved PaymentMethod from the PaymentIntent
-//    4. Attach PaymentMethod to Customer + set as default
-//    5. Create a Stripe Subscription for the monthly fee
-//    6. Update Customer metadata: arweb_status → "paid"
+//  Handles checkout.session.completed.
+//  With mode:'subscription', the subscription is already created
+//  by Stripe — we just mark the customer as paid and store the sub ID.
 //
 //  Required env: STRIPE_WEBHOOK_SECRET
-//    Get this from Stripe Dashboard → Webhooks → your endpoint → Signing secret
 // ─────────────────────────────────────────────────────────────
 import { NextResponse } from "next/server";
 import stripe from "@/lib/stripe";
 
-// Next.js App Router: disable body parsing so we can verify Stripe's signature
 export const dynamic = "force-dynamic";
 
 export async function POST(req) {
@@ -38,75 +30,35 @@ export async function POST(req) {
     return NextResponse.json({ error: `Webhook error: ${err.message}` }, { status: 400 });
   }
 
-  // ── Handle checkout.session.completed ──────────────────────
   if (event.type === "checkout.session.completed") {
     const session = event.data.object;
-
     try {
-      // 1. Get Customer directly from the session (no search needed)
       const customerId = session.customer;
+      const subId      = session.subscription ?? "";
+
       if (!customerId) {
-        console.warn("[webhook] No customer on session, skipping.");
+        console.warn("[webhook] No customer on session.");
         return NextResponse.json({ received: true });
       }
+
       const customer = await stripe.customers.retrieve(customerId);
       if (!customer || customer.deleted || customer.metadata?.arweb !== "1") {
-        console.warn("[webhook] Not an arweb customer:", customerId);
-        return NextResponse.json({ received: true });
-      }
-      const { arweb_monthly } = customer.metadata;
-
-      // 2. Get the PaymentMethod from the PaymentIntent
-      const pi = await stripe.paymentIntents.retrieve(session.payment_intent, {
-        expand: ["payment_method"],
-      });
-      const pmId = pi.payment_method?.id ?? pi.payment_method;
-
-      if (pmId) {
-        // 3. Attach to customer and set as default
-        await stripe.paymentMethods.attach(pmId, { customer: customer.id });
-        await stripe.customers.update(customer.id, {
-          invoice_settings: { default_payment_method: pmId },
-        });
-
-        // 4. Create monthly Subscription
-        const monthlyCents = Math.round(parseFloat(arweb_monthly) * 100);
-
-        // Create an inline price for the subscription
-        const price = await stripe.prices.create({
-          currency:    "cad",
-          unit_amount: monthlyCents,
-          recurring:   { interval: "month" },
-          product_data: {
-            name: "arweb Monthly Maintenance",
-          },
-        });
-
-        await stripe.subscriptions.create({
-          customer:          customer.id,
-          default_payment_method: pmId,
-          items:             [{ price: price.id }],
-          metadata:          { arweb_token: token },
-        });
+        return NextResponse.json({ received: true }); // not an arweb customer
       }
 
-      // 5. Mark as paid + store subscription id in Customer metadata
-      const subList = await stripe.subscriptions.list({ customer: customer.id, limit: 1 });
-      const subId   = subList.data[0]?.id ?? "";
-      await stripe.customers.update(customer.id, {
+      // Mark paid + store subscription ID
+      await stripe.customers.update(customerId, {
         metadata: {
           ...customer.metadata,
-          arweb_status: "paid",
-          arweb_sub_id: subId,
+          arweb_status:  "paid",
+          arweb_sub_id:  subId,
           arweb_paid_at: String(Math.floor(Date.now() / 1000)),
         },
       });
 
-      console.log("[webhook] Subscription created for customer:", customer.id);
+      console.log("[webhook] Marked paid:", customerId, "sub:", subId);
     } catch (err) {
-      console.error("[webhook] Error processing payment:", err);
-      // Still return 200 so Stripe doesn't retry endlessly
-      return NextResponse.json({ received: true, error: err.message });
+      console.error("[webhook] Error processing event:", err.message);
     }
   }
 
