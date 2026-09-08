@@ -23,13 +23,9 @@ export async function generateMetadata({ params }) {
 
 async function getQuote(token) {
   try {
-    const search = await stripe.customers.search({
-      query: `metadata['arweb_token']:'${token}'`,
-      limit: 1,
-    });
-    if (search.data.length === 0) return null;
-
-    const c = search.data[0];
+    // token IS the Stripe customer ID — direct retrieve, no search/indexing delay
+    const c = await stripe.customers.retrieve(token);
+    if (!c || c.deleted || c.metadata?.arweb !== "1") return null;
     return {
       name:     c.name,
       email:    c.email,

@@ -24,17 +24,18 @@ export async function POST(req) {
       return NextResponse.json({ error: "token is required." }, { status: 400 });
     }
 
-    // Find the customer that holds this token in metadata
-    const search = await stripe.customers.search({
-      query: `metadata['arweb_token']:'${token}'`,
-      limit: 1,
-    });
-
-    if (search.data.length === 0) {
+    // token IS the Stripe customer ID — direct retrieve, instant
+    let customer;
+    try {
+      customer = await stripe.customers.retrieve(token);
+    } catch {
       return NextResponse.json({ error: "Quote not found." }, { status: 404 });
     }
 
-    const customer = search.data[0];
+    if (!customer || customer.deleted || customer.metadata?.arweb !== "1") {
+      return NextResponse.json({ error: "Quote not found." }, { status: 404 });
+    }
+
     const { arweb_setup, arweb_desc, arweb_status } = customer.metadata;
 
     if (arweb_status === "paid") {
@@ -66,15 +67,9 @@ export async function POST(req) {
       payment_intent_data: {
         // Save the card so the webhook can charge monthly
         setup_future_usage: "off_session",
-        metadata: {
-          arweb_token: token,
-        },
       },
       success_url: `${baseUrl}/pay/${token}?success=1`,
       cancel_url:  `${baseUrl}/pay/${token}?cancelled=1`,
-      metadata: {
-        arweb_token: token,
-      },
     });
 
     return NextResponse.json({ url: session.url });
