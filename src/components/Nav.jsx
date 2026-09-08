@@ -79,11 +79,10 @@ export default function Nav() {
               alt="arweb"
               width={scrolled ? 110 : 130}
               style={{
-                height:       "auto",
-                mixBlendMode: "screen",
-                transition:   "width 300ms",
-                flexShrink:   0,
-                display:      "block",
+                height:     "auto",
+                transition: "width 300ms",
+                flexShrink: 0,
+                display:    "block",
               }}
             />
           </a>
