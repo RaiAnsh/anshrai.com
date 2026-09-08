@@ -1,35 +1,38 @@
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-import { createHash } from "crypto";
+"use client";
 
-export const metadata = { title: "Admin Login — arweb" };
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-// SHA-256 of the admin password — safe to commit, plain text never stored.
-// To change the password: node -e "require('crypto').createHash('sha256').update('newpass').digest('hex')" | pbcopy
-const PASSWORD_HASH = "b9e371c48e1264cebb3747e2733cd4a224f3d28f55a12446094d7e70bac8fac0";
+export default function AdminLoginPage() {
+  const router   = useRouter();
+  const [pw,     setPw]     = useState("");
+  const [error,  setError]  = useState(null);
+  const [loading, setLoading] = useState(false);
 
-export default async function AdminLoginPage({ searchParams }) {
-  const failed = (await searchParams)?.error === "1";
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
 
-  async function login(formData) {
-    "use server";
-
-    const password = formData.get("password") ?? "";
-    const hash     = createHash("sha256").update(password).digest("hex");
-
-    if (hash === PASSWORD_HASH) {
-      const jar = await cookies();
-      jar.set("admin_auth", "1", {
-        httpOnly: true,
-        secure:   true,
-        sameSite: "lax",
-        path:     "/",
-        maxAge:   60 * 60 * 8, // 8 hours
+    try {
+      const res  = await fetch("/api/admin/login", {
+        method:  "POST",
+        headers: { "Content-Type": "application/json" },
+        body:    JSON.stringify({ password: pw }),
       });
-      redirect("/admin");
-    }
+      const data = await res.json();
 
-    redirect("/admin/login?error=1");
+      if (!res.ok) {
+        setError(data.error ?? "Incorrect password.");
+        setLoading(false);
+        return;
+      }
+
+      router.push("/admin");
+    } catch {
+      setError("Network error — please try again.");
+      setLoading(false);
+    }
   }
 
   return (
@@ -84,7 +87,7 @@ export default async function AdminLoginPage({ searchParams }) {
           Enter your password to continue.
         </p>
 
-        {failed && (
+        {error && (
           <div
             style={{
               background:   "rgba(239,68,68,0.10)",
@@ -94,19 +97,18 @@ export default async function AdminLoginPage({ searchParams }) {
               marginBottom: "1.25rem",
             }}
           >
-            <p style={{ fontSize: 13, color: "#ef4444", margin: 0 }}>
-              Incorrect password. Try again.
-            </p>
+            <p style={{ fontSize: 13, color: "#ef4444", margin: 0 }}>{error}</p>
           </div>
         )}
 
-        <form action={login} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
           <input
-            name="password"
             type="password"
             placeholder="Password"
             autoFocus
             required
+            value={pw}
+            onChange={(e) => setPw(e.target.value)}
             style={{
               width:        "100%",
               background:   "rgba(255,255,255,0.05)",
@@ -121,19 +123,20 @@ export default async function AdminLoginPage({ searchParams }) {
           />
           <button
             type="submit"
+            disabled={loading}
             style={{
               width:        "100%",
               padding:      "0.85rem",
               borderRadius: 10,
               border:       "none",
-              background:   "#2563eb",
+              background:   loading ? "rgba(37,99,235,0.5)" : "#2563eb",
               color:        "#fff",
               fontSize:     14,
               fontWeight:   600,
-              cursor:       "pointer",
+              cursor:       loading ? "not-allowed" : "pointer",
             }}
           >
-            Enter →
+            {loading ? "Checking…" : "Enter →"}
           </button>
         </form>
       </div>
