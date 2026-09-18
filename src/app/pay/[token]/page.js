@@ -14,6 +14,7 @@
 // ─────────────────────────────────────────────────────────────
 import stripe from "@/lib/stripe";
 import PayButton from "./PayButton";
+import EtransferInvoice from "./EtransferInvoice";
 
 export const dynamic = "force-dynamic"; // always fresh — no caching
 
@@ -26,7 +27,22 @@ async function getQuote(token) {
     // token IS the Stripe customer ID — direct retrieve, no search/indexing delay
     const c = await stripe.customers.retrieve(token);
     if (!c || c.deleted || c.metadata?.arweb !== "1") return null;
+    const type = c.metadata.arweb_type ?? "subscription";
+    if (type === "etransfer") {
+      let lineItems = [];
+      try { lineItems = JSON.parse(c.metadata.arweb_line_items ?? "[]"); } catch {}
+      return {
+        type:           "etransfer",
+        name:           c.name,
+        email:          c.email,
+        amount:         parseFloat(c.metadata.arweb_amount ?? "0"),
+        lineItems,
+        status:         c.metadata.arweb_status            ?? "pending",
+        etransferEmail: c.metadata.arweb_etransfer_email   ?? "anshr792@gmail.com",
+      };
+    }
     return {
+      type:         "subscription",
       name:         c.name,
       email:        c.email,
       setup:        parseFloat(c.metadata.arweb_setup        ?? "0"),
@@ -147,8 +163,8 @@ export default async function PayPage({ params, searchParams }) {
             </div>
           )}
 
-          {/* ── Already paid ── */}
-          {quote?.status === "paid" && !success && (
+          {/* ── Already paid (subscription only) ── */}
+          {quote?.type !== "etransfer" && quote?.status === "paid" && !success && (
             <div style={{ textAlign: "center", padding: "2rem 0" }}>
               <div style={{ fontSize: 40, marginBottom: "1rem" }}>✅</div>
               <p style={{ fontFamily: "var(--font-ui, system-ui)", fontSize: 22, fontWeight: 700, color: "#fff", marginBottom: "0.5rem" }}>
@@ -161,8 +177,13 @@ export default async function PayPage({ params, searchParams }) {
             </div>
           )}
 
+          {/* ── E-Transfer invoice ── */}
+          {quote?.type === "etransfer" && (
+            <EtransferInvoice quote={quote} token={token} />
+          )}
+
           {/* ── Active quote ── */}
-          {quote && (quote.status !== "paid" || success) && (
+          {quote && quote.type !== "etransfer" && (quote.status !== "paid" || success) && (
             <>
               {/* Eyebrow */}
               <p

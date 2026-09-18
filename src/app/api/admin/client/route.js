@@ -18,17 +18,30 @@ async function checkAuth() {
   return authed === "1";
 }
 
-// PATCH — update notes
+// PATCH — update notes OR mark e-transfer as paid
 export async function PATCH(req) {
   if (!(await checkAuth())) {
     return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
   }
 
   try {
-    const { customerId, notes } = await req.json();
+    const { customerId, notes, action } = await req.json();
     if (!customerId) return NextResponse.json({ error: "customerId required." }, { status: 400 });
 
     const customer = await stripe.customers.retrieve(customerId);
+
+    if (action === "mark_paid") {
+      await stripe.customers.update(customerId, {
+        metadata: {
+          ...customer.metadata,
+          arweb_status:  "paid",
+          arweb_paid_at: String(Math.floor(Date.now() / 1000)),
+        },
+      });
+      return NextResponse.json({ ok: true });
+    }
+
+    // Default: update notes
     await stripe.customers.update(customerId, {
       metadata: { ...customer.metadata, arweb_notes: notes ?? "" },
     });

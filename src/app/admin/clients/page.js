@@ -22,11 +22,12 @@ async function fetchClients() {
       all.push(...page.data);
     }
 
-    // For paid customers, fetch their subscription's next billing date
+    // For paid subscription customers, fetch their subscription's next billing date
     const clients = await Promise.all(
       all.map(async (c) => {
+        const isEtransfer = c.metadata.arweb_type === "etransfer";
         let nextBilling = null;
-        if (c.metadata.arweb_status === "paid" && c.metadata.arweb_sub_id) {
+        if (!isEtransfer && c.metadata.arweb_status === "paid" && c.metadata.arweb_sub_id) {
           try {
             const sub = await stripe.subscriptions.retrieve(c.metadata.arweb_sub_id);
             nextBilling = sub.current_period_end ?? null;
@@ -38,11 +39,16 @@ async function fetchClients() {
           id:           c.id,
           name:         c.name         ?? "—",
           email:        c.email        ?? "—",
+          type:         c.metadata.arweb_type ?? "subscription",
+          // subscription fields
           setup:        c.metadata.arweb_setup         ?? "0",
           monthly:      c.metadata.arweb_monthly       ?? "0",
           origSetup:    c.metadata.arweb_orig_setup    ?? "",
           origMonthly:  c.metadata.arweb_orig_monthly  ?? "",
           offerLabel:   c.metadata.arweb_offer_label   ?? "",
+          // etransfer field
+          amount:       c.metadata.arweb_amount        ?? "0",
+          // shared
           desc:         c.metadata.arweb_desc          ?? "",
           notes:        c.metadata.arweb_notes         ?? "",
           status:       c.metadata.arweb_status        ?? "pending",
