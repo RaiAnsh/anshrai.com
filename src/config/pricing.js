@@ -5,85 +5,109 @@
 
 export const TIERS = {
   starter: {
-    id: "starter",
-    label: "Starter Website",
+    id:        "starter",
+    label:     "Starter",
     pageRange: "1–3 pages",
-    setup: 299,
-    monthly: 15,
+    setup:     599,
+    monthly:   35,
     includes: [
-      "Custom design",
-      "Mobile-responsive",
+      "Custom design & development",
+      "Mobile-responsive layout",
       "Contact / inquiry form",
-      "External booking link",
-      "Google Maps & location",
-      "Social links",
+      "Google Maps integration",
+      "Social media links",
       "Basic on-page SEO",
-      "Hosting & SSL",
-      "Basic maintenance & support",
+      "Hosting, SSL & domain setup",
+      "Ongoing maintenance & support",
     ],
   },
   standard: {
-    id: "standard",
-    label: "Standard Business Website",
+    id:        "standard",
+    label:     "Standard",
     pageRange: "4–6 pages",
-    setup: 499,
-    monthly: 29,
+    setup:     999,
+    monthly:   55,
     includes: [
       "Everything in Starter",
-      "Gallery / portfolio section",
-      "Testimonials section",
-      "Analytics setup",
+      "Portfolio / gallery section",
+      "Testimonials & reviews",
+      "Analytics integration",
       "Quote request functionality",
-      "Additional integrations",
-      "Ongoing hosting & support",
+      "Extended integrations",
+      "Priority support",
     ],
   },
   advanced: {
-    id: "advanced",
-    label: "Advanced Website",
+    id:        "advanced",
+    label:     "Advanced",
     pageRange: "7+ pages",
-    setup: 599,
-    monthly: 59,
+    setup:     1499,
+    monthly:   79,
     includes: [
       "Everything in Standard",
       "Multiple service categories",
       "Advanced lead capture",
-      "Custom workflows",
-      "Priority support",
+      "Custom page layouts",
+      "Dedicated support channel",
     ],
   },
 };
 
-// Each addon has: setup cost, monthly cost, and optional customTrigger flag
+// ─── Add-ons ───────────────────────────────────────────────────
+// setup: one-time build cost added to tier setup
+// monthly: recurring cost added to tier monthly
+// customTrigger: true → always routes to custom quote
 export const ADDONS = {
-  contactForm:    { label: "Contact / inquiry form",           setup: 0,    monthly: 0,  customTrigger: false },
-  quoteForm:      { label: "Request a quote form",             setup: 0,    monthly: 0,  customTrigger: false },
-  bookingLink:    { label: "Connect existing booking system",  setup: 0,    monthly: 0,  customTrigger: false },
-  customBooking:  { label: "Custom online booking",            setup: 150,  monthly: 0,  customTrigger: false },
-  gallery:        { label: "Project / portfolio gallery",      setup: 0,    monthly: 0,  customTrigger: false },
-  reviews:        { label: "Customer reviews section",         setup: 0,    monthly: 0,  customTrigger: false },
-  googleMaps:     { label: "Google Maps & location",           setup: 0,    monthly: 0,  customTrigger: false },
-  instagramFeed:  { label: "Instagram feed",                   setup: 75,   monthly: 0,  customTrigger: false },
-  analytics:      { label: "Analytics setup",                  setup: 0,    monthly: 0,  customTrigger: false },
-  payments:       { label: "Online payments",                  setup: 200,  monthly: 0,  customTrigger: false },
-  ecommerce:      { label: "Sell products online",             setup: 400,  monthly: 0,  customTrigger: true  },
-  aiChatbot:      { label: "AI chat assistant",                setup: 300,  monthly: 20, customTrigger: false },
-  leadManagement: { label: "Lead management system",           setup: 200,  monthly: 20, customTrigger: false },
-  automations:    { label: "Automated follow-up emails",       setup: 150,  monthly: 20, customTrigger: false },
-  advancedSEO:    { label: "Advanced SEO",                     setup: 100,  monthly: 30, customTrigger: false },
+  // ── Essentials (no charge) ──────────────────────────────
+  contactForm:     { label: "Contact / inquiry form",               setup: 0,    monthly: 0,   customTrigger: false },
+  quoteForm:       { label: "Request-a-quote form",                 setup: 0,    monthly: 0,   customTrigger: false },
+  googleMaps:      { label: "Google Maps & location",               setup: 0,    monthly: 0,   customTrigger: false },
+  reviews:         { label: "Customer reviews section",             setup: 0,    monthly: 0,   customTrigger: false },
+  gallery:         { label: "Project / portfolio gallery",          setup: 0,    monthly: 0,   customTrigger: false },
+  analytics:       { label: "Analytics & conversion tracking",      setup: 0,    monthly: 0,   customTrigger: false },
+
+  // ── Domain ──────────────────────────────────────────────
+  domain:          { label: "Domain registration & management",     setup: 0,    monthly: 10,  customTrigger: false },
+
+  // ── Booking ─────────────────────────────────────────────
+  bookingLink:     { label: "Link to existing booking system",      setup: 0,    monthly: 0,   customTrigger: false },
+  customBooking:   { label: "Custom online booking system",         setup: 300,  monthly: 0,   customTrigger: false },
+
+  // ── Payments & Commerce ──────────────────────────────────
+  payments:        { label: "Payment collection (Stripe / e-transfer)", setup: 400, monthly: 0, customTrigger: false },
+  ecommerceBasic:  { label: "Product store (Shopify or equivalent)", setup: 700,  monthly: 40,  customTrigger: false },
+  ecommerceFull:   { label: "Full custom store (checkout, inventory, CMS)", setup: 1500, monthly: 75, customTrigger: true },
+
+  // ── Backend & Systems ────────────────────────────────────
+  // These represent real backend infrastructure: server, DB, auth
+  loginSystem:     { label: "User login / member accounts",         setup: 500,  monthly: 25,  customTrigger: false },
+  cms:             { label: "Client content management (blog, news, posts)", setup: 500, monthly: 25, customTrigger: false },
+  customBackend:   { label: "Custom database / backend / API",      setup: 800,  monthly: 40,  customTrigger: false },
+
+  // ── Social & Marketing ───────────────────────────────────
+  // Static embed: cached/periodic pull, no live API dependency
+  instagramEmbed:  { label: "Instagram feed (static embed)",        setup: 75,   monthly: 0,   customTrigger: false },
+  // Live feed: real-time API, token refresh, ongoing infra
+  instagramLive:   { label: "Instagram feed (live / real-time)",    setup: 250,  monthly: 20,  customTrigger: false },
+  advancedSEO:     { label: "Advanced SEO (technical + content)",   setup: 200,  monthly: 40,  customTrigger: false },
+
+  // ── Advanced Add-ons ─────────────────────────────────────
+  aiChatbot:       { label: "AI chat assistant",                    setup: 400,  monthly: 25,  customTrigger: false },
+  leadManagement:  { label: "Lead management system",               setup: 250,  monthly: 20,  customTrigger: false },
+  automations:     { label: "Automated follow-up emails",           setup: 200,  monthly: 20,  customTrigger: false },
 };
 
 export const THRESHOLDS = {
-  setupForCustom:   900,  // if total setup exceeds this → custom quote
-  monthlyForCustom: 99,   // if total monthly exceeds this → custom quote
+  setupForCustom:   2500,  // if total setup exceeds this → custom quote
+  monthlyForCustom: 200,   // if total monthly exceeds this → custom quote
 };
 
-// UI copy, edit here, not in components
+// UI copy — edit here, not in components
 export const COPY = {
-  responseTime:  "Most inquiries receive a response within 1 business day.",
-  disclaimer:    "This is an estimate based on your selections. Final pricing is confirmed after a brief project review.",
-  customNote:    "This project has a custom scope. I'll review your requirements and confirm pricing after our initial conversation.",
-  starterNote:   "Websites start at $299 setup + $15/month. The right package depends on your scope, I'll confirm after reviewing your project.",
+  responseTime: "Most inquiries receive a response within 1 business day.",
+  disclaimer:   "This is an estimate based on your selections. Final pricing is confirmed after a brief project review.",
+  customNote:   "Your project scope requires a custom quote. I'll review your requirements and follow up within 1 business day.",
+  starterNote:  "Websites start at $599 setup + $35/month. Final pricing depends on your scope and feature set.",
 };
 
 export const CONTACT = {
@@ -101,8 +125,8 @@ export function calculateQuote(pageSize, features = []) {
   const tier = TIERS[pageSize];
   if (!tier) return { type: "unknown" };
 
-  let setup   = tier.setup;
-  let monthly = tier.monthly;
+  let setup    = tier.setup;
+  let monthly  = tier.monthly;
   let isCustom = false;
   const activeAddons = [];
 
