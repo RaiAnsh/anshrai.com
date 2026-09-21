@@ -6,84 +6,105 @@ import { useRouter } from "next/navigation";
 import { ADDONS, CONTACT, calculateQuote } from "../config/pricing";
 import { track, Events } from "../lib/analytics";
 
-const ease = [0.16, 1, 0.3, 1];
-
 // ─── Step meta ────────────────────────────────────────────────
 const TOTAL_STEPS = 5;
 
-// Step 1: Business type
+// Step 1: Business type — no emojis
 const BUSINESS_TYPES = [
-  { id: "trades",       label: "Trades / Contractor",   icon: "🔨" },
-  { id: "food",         label: "Food & Hospitality",    icon: "🍽️" },
-  { id: "health",       label: "Health & Wellness",     icon: "💆" },
-  { id: "beauty",       label: "Hair / Beauty / Grooming", icon: "✂️" },
-  { id: "retail",       label: "Retail / E-commerce",   icon: "🛍️" },
-  { id: "professional", label: "Professional Services",  icon: "💼" },
-  { id: "nonprofit",    label: "Non-profit / Community", icon: "🤝" },
-  { id: "other",        label: "Other",                  icon: "✦" },
+  { id: "trades",       label: "Trades & Contracting"         },
+  { id: "food",         label: "Food & Hospitality"           },
+  { id: "health",       label: "Health & Wellness"            },
+  { id: "beauty",       label: "Hair, Beauty & Grooming"      },
+  { id: "retail",       label: "Retail & E-commerce"          },
+  { id: "professional", label: "Professional Services"        },
+  { id: "nonprofit",    label: "Non-profit & Community"       },
+  { id: "other",        label: "Other"                        },
 ];
 
 // Step 2: Page size / scope
 const PAGE_SIZES = [
-  { id: "starter",  label: "1–3 pages",  sub: "Small, focused site" },
-  { id: "standard", label: "4–6 pages",  sub: "Standard business site" },
-  { id: "advanced", label: "7+ pages",   sub: "Larger multi-section site" },
-  { id: "unknown",  label: "Not sure",   sub: "Help me figure it out" },
+  { id: "starter",  label: "1–3 pages",  sub: "Small, focused site — home, services, contact" },
+  { id: "standard", label: "4–6 pages",  sub: "Standard business site with dedicated sections" },
+  { id: "advanced", label: "7+ pages",   sub: "Multi-section site with complex structure"      },
+  { id: "unknown",  label: "Not sure",   sub: "I can help scope it out"                        },
 ];
 
-// Step 3: Features
+// Step 3: Features — grouped, with pricing notes
 const FEATURE_GROUPS = [
   {
     group: "Essentials",
+    note:  "Included with every build",
     items: [
-      { id: "contactForm",   label: "Contact / inquiry form" },
-      { id: "quoteForm",     label: "Request-a-quote form" },
-      { id: "googleMaps",    label: "Google Maps & location" },
-      { id: "reviews",       label: "Customer reviews section" },
-      { id: "gallery",       label: "Project / portfolio gallery" },
+      { id: "contactForm",   label: "Contact / inquiry form"              },
+      { id: "quoteForm",     label: "Request-a-quote form"                },
+      { id: "googleMaps",    label: "Google Maps & location"              },
+      { id: "reviews",       label: "Customer reviews section"            },
+      { id: "gallery",       label: "Project / portfolio gallery"         },
+      { id: "analytics",     label: "Analytics & conversion tracking"     },
     ],
   },
   {
-    group: "Booking & Payments",
+    group: "Booking",
     items: [
-      { id: "bookingLink",   label: "Connect existing booking system" },
-      { id: "customBooking", label: "Custom online booking (+$150)" },
-      { id: "payments",      label: "Online payments (+$200)" },
-      { id: "ecommerce",     label: "Sell products online" },
+      { id: "bookingLink",   label: "Link existing booking system",  note: "Included — Calendly, Jane, etc." },
+      { id: "customBooking", label: "Custom booking system",         note: "+$300 setup"                     },
     ],
   },
   {
-    group: "Growth & Marketing",
+    group: "Payments & E-commerce",
     items: [
-      { id: "instagramFeed", label: "Instagram feed (+$75)" },
-      { id: "analytics",     label: "Analytics & tracking" },
-      { id: "advancedSEO",   label: "Advanced SEO (+$100/mo)" },
+      { id: "payments",       label: "Payment collection",            note: "+$400 setup — Stripe / e-transfer"         },
+      { id: "ecommerceBasic", label: "Product store",                 note: "+$700 setup, +$40/mo — Shopify or similar" },
+      { id: "ecommerceFull",  label: "Full custom store",             note: "+$1,500 setup, +$75/mo — custom checkout, inventory, CMS" },
     ],
   },
   {
-    group: "Advanced Systems",
+    group: "Backend & Systems",
+    note:  "Requires server infrastructure, database, and ongoing hosting",
     items: [
-      { id: "aiChatbot",     label: "AI chat assistant (+$300 setup)" },
-      { id: "leadManagement",label: "Lead management system (+$200)" },
-      { id: "automations",   label: "Automated follow-up emails (+$150)" },
+      { id: "loginSystem",   label: "User login / member accounts",  note: "+$500 setup, +$25/mo"             },
+      { id: "cms",           label: "Client content management",     note: "+$500 setup, +$25/mo — edit posts, news, etc." },
+      { id: "customBackend", label: "Custom database / backend / API", note: "+$800 setup, +$40/mo"           },
+    ],
+  },
+  {
+    group: "Social & Marketing",
+    items: [
+      { id: "instagramEmbed", label: "Instagram feed — static",      note: "+$75 setup — periodic refresh"                },
+      { id: "instagramLive",  label: "Instagram feed — live",        note: "+$250 setup, +$20/mo — real-time API"         },
+      { id: "advancedSEO",    label: "Advanced SEO",                 note: "+$200 setup, +$40/mo — technical & content"   },
+    ],
+  },
+  {
+    group: "Advanced",
+    items: [
+      { id: "aiChatbot",      label: "AI chat assistant",            note: "+$400 setup, +$25/mo"             },
+      { id: "leadManagement", label: "Lead management system",       note: "+$250 setup, +$20/mo"             },
+      { id: "automations",    label: "Automated follow-up emails",   note: "+$200 setup, +$20/mo"             },
     ],
   },
 ];
 
-// Step 4: Existing site?
+// Step 4: Existing site + domain
 const EXISTING_OPTIONS = [
-  { id: "none",     label: "No existing site",   sub: "Starting fresh" },
-  { id: "bad",      label: "Site needs a redesign", sub: "Something exists but isn't working" },
-  { id: "migrate",  label: "Migrate from another platform", sub: "Moving from Wix, Squarespace, etc." },
-  { id: "keep",     label: "Keep current site",  sub: "Just adding features" },
+  { id: "none",    label: "No existing site",              sub: "Starting fresh"                              },
+  { id: "bad",     label: "Site needs a full redesign",    sub: "Something exists but it isn't working"      },
+  { id: "migrate", label: "Migrating from another platform", sub: "Moving from Wix, Squarespace, WordPress, etc." },
+  { id: "keep",    label: "Keep the current site",         sub: "Adding features or pages only"              },
+];
+
+const DOMAIN_OPTIONS = [
+  { id: "have",    label: "I have a domain",               sub: "I own it and just need it pointed over"     },
+  { id: "need",    label: "I need a domain registered",    sub: "+$10/month — registration, DNS & renewal"   },
+  { id: "unsure",  label: "Not sure",                      sub: "I'll figure it out with you"                },
 ];
 
 // Step 5: Timeline
 const TIMELINES = [
-  { id: "asap",    label: "ASAP",              sub: "Within 1–2 weeks" },
-  { id: "month",   label: "Within a month",    sub: "No rush but sooner is better" },
-  { id: "quarter", label: "Next few months",   sub: "Planning ahead" },
-  { id: "flexible",label: "Flexible",          sub: "No deadline in mind" },
+  { id: "asap",     label: "As soon as possible",    sub: "Within 1–2 weeks"         },
+  { id: "month",    label: "Within a month",         sub: "No rush, but sooner is better" },
+  { id: "quarter",  label: "Next few months",        sub: "Planning ahead"           },
+  { id: "flexible", label: "No set deadline",        sub: "Whenever it's ready"      },
 ];
 
 // ─── Shared UI ────────────────────────────────────────────────
@@ -95,8 +116,8 @@ function OptionButton({ selected, onClick, children }) {
       className="flex items-center gap-3 w-full text-left px-5 py-4 rounded-xl text-sm font-medium transition-all duration-150"
       style={{
         background: selected ? "rgba(37,99,235,0.12)" : "rgba(255,255,255,0.03)",
-        border: selected ? "1px solid rgba(37,99,235,0.45)" : "1px solid rgba(255,255,255,0.06)",
-        color: selected ? "#ffffff" : "#888",
+        border:     selected ? "1px solid rgba(37,99,235,0.45)" : "1px solid rgba(255,255,255,0.06)",
+        color:      selected ? "#ffffff" : "#888",
       }}
     >
       {children}
@@ -104,25 +125,19 @@ function OptionButton({ selected, onClick, children }) {
   );
 }
 
-function CheckOption({ id, label, checked, onChange }) {
+function CheckOption({ id, label, note, checked, onChange }) {
   return (
     <label
-      className="flex items-center gap-3 px-5 py-3 rounded-xl cursor-pointer transition-all duration-150 text-sm"
+      className="flex items-start gap-3 px-5 py-3.5 rounded-xl cursor-pointer transition-all duration-150"
       style={{
         background: checked ? "rgba(37,99,235,0.08)" : "rgba(255,255,255,0.03)",
-        border: checked ? "1px solid rgba(37,99,235,0.35)" : "1px solid rgba(255,255,255,0.05)",
-        color: checked ? "#ffffff" : "#888",
+        border:     checked ? "1px solid rgba(37,99,235,0.35)" : "1px solid rgba(255,255,255,0.05)",
       }}
     >
-      <input
-        type="checkbox"
-        className="sr-only"
-        checked={checked}
-        onChange={() => onChange(id)}
-      />
+      <input type="checkbox" className="sr-only" checked={checked} onChange={() => onChange(id)} />
       <span
         style={{
-          width: 18, height: 18, borderRadius: 5, flexShrink: 0,
+          width: 18, height: 18, borderRadius: 5, flexShrink: 0, marginTop: 1,
           background: checked ? "#2563eb" : "transparent",
           border: checked ? "none" : "1px solid rgba(255,255,255,0.15)",
           display: "flex", alignItems: "center", justifyContent: "center",
@@ -134,7 +149,10 @@ function CheckOption({ id, label, checked, onChange }) {
           </svg>
         )}
       </span>
-      {label}
+      <div>
+        <span className="text-sm font-medium" style={{ color: checked ? "#fff" : "#aaa" }}>{label}</span>
+        {note && <span className="block text-xs mt-0.5" style={{ color: checked ? "rgba(255,255,255,0.4)" : "#555" }}>{note}</span>}
+      </div>
     </label>
   );
 }
@@ -152,33 +170,42 @@ function ProgressBar({ step }) {
       {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
         <div
           key={i}
-          className="h-1 flex-1 rounded-full transition-all duration-300"
-          style={{
-            background: i < step ? "#2563eb" : "rgba(255,255,255,0.07)",
-          }}
+          className="h-0.5 flex-1 rounded-full transition-all duration-300"
+          style={{ background: i < step ? "#2563eb" : "rgba(255,255,255,0.07)" }}
         />
       ))}
     </div>
   );
 }
 
+const inputStyle = {
+  width: "100%",
+  background: "rgba(255,255,255,0.04)",
+  border: "1px solid rgba(255,255,255,0.08)",
+  borderRadius: 12,
+  padding: "0.9rem 1.1rem",
+  fontSize: 14,
+  color: "#ffffff",
+  outline: "none",
+  fontFamily: "inherit",
+};
+
 // ─── Steps ────────────────────────────────────────────────────
 function Step1({ data, setData }) {
   return (
     <div>
       <h2 className="font-heading font-bold mb-2" style={{ fontSize: "clamp(22px,3vw,32px)", letterSpacing: "-0.03em", color: "#fff" }}>
-        What kind of business are you building for?
+        What type of business is this for?
       </h2>
-      <p className="text-sm mb-8" style={{ color: "#888" }}>Select the one that fits best.</p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <p className="text-sm mb-8" style={{ color: "#666" }}>Select the closest match.</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
         {BUSINESS_TYPES.map((bt) => (
           <OptionButton
             key={bt.id}
             selected={data.businessType === bt.id}
             onClick={() => setData((d) => ({ ...d, businessType: bt.id }))}
           >
-            <span style={{ fontSize: 20 }}>{bt.icon}</span>
-            <span>{bt.label}</span>
+            <span className="font-medium">{bt.label}</span>
           </OptionButton>
         ))}
       </div>
@@ -190,12 +217,12 @@ function Step2({ data, setData }) {
   return (
     <div>
       <h2 className="font-heading font-bold mb-2" style={{ fontSize: "clamp(22px,3vw,32px)", letterSpacing: "-0.03em", color: "#fff" }}>
-        How many pages do you need?
+        How many pages does the site need?
       </h2>
-      <p className="text-sm mb-8" style={{ color: "#888" }}>
-        Each "page" is a distinct section visitors can navigate to (Home, About, Services, Contact, etc.)
+      <p className="text-sm mb-8" style={{ color: "#666" }}>
+        A "page" is a distinct URL visitors navigate to — Home, About, Services, Gallery, Contact, etc.
       </p>
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-2.5">
         {PAGE_SIZES.map((ps) => (
           <OptionButton
             key={ps.id}
@@ -203,8 +230,8 @@ function Step2({ data, setData }) {
             onClick={() => setData((d) => ({ ...d, pageSize: ps.id }))}
           >
             <div>
-              <div className="font-semibold" style={{ color: data.pageSize === ps.id ? "#fff" : "#aaa" }}>{ps.label}</div>
-              <div className="text-xs mt-0.5" style={{ color: "#666" }}>{ps.sub}</div>
+              <div className="font-semibold text-sm" style={{ color: data.pageSize === ps.id ? "#fff" : "#aaa" }}>{ps.label}</div>
+              <div className="text-xs mt-0.5" style={{ color: "#555" }}>{ps.sub}</div>
             </div>
           </OptionButton>
         ))}
@@ -225,21 +252,27 @@ function Step3({ data, setData }) {
   return (
     <div>
       <h2 className="font-heading font-bold mb-2" style={{ fontSize: "clamp(22px,3vw,32px)", letterSpacing: "-0.03em", color: "#fff" }}>
-        What features do you need?
+        What does the site need to do?
       </h2>
-      <p className="text-sm mb-8" style={{ color: "#888" }}>Select everything that applies. Most are included or low-cost.</p>
-      <div className="flex flex-col gap-6">
+      <p className="text-sm mb-8" style={{ color: "#666" }}>Select everything that applies.</p>
+      <div className="flex flex-col gap-7">
         {FEATURE_GROUPS.map((group) => (
           <div key={group.group}>
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] mb-3" style={{ color: "#555" }}>
-              {group.group}
-            </p>
-            <div className="flex flex-col gap-2">
+            <div className="flex items-baseline gap-3 mb-2.5">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em]" style={{ color: "#444" }}>
+                {group.group}
+              </p>
+              {group.note && (
+                <span className="text-xs" style={{ color: "#444" }}>{group.note}</span>
+              )}
+            </div>
+            <div className="flex flex-col gap-1.5">
               {group.items.map((item) => (
                 <CheckOption
                   key={item.id}
                   id={item.id}
                   label={item.label}
+                  note={item.note}
                   checked={data.features.includes(item.id)}
                   onChange={toggle}
                 />
@@ -256,10 +289,14 @@ function Step4({ data, setData }) {
   return (
     <div>
       <h2 className="font-heading font-bold mb-2" style={{ fontSize: "clamp(22px,3vw,32px)", letterSpacing: "-0.03em", color: "#fff" }}>
-        Do you have an existing website?
+        Current site & domain
       </h2>
-      <p className="text-sm mb-8" style={{ color: "#888" }}>This helps us plan the right approach.</p>
-      <div className="flex flex-col gap-3">
+      <p className="text-sm mb-8" style={{ color: "#666" }}>This helps determine what needs to be migrated or set up.</p>
+
+      <p className="text-xs font-semibold uppercase tracking-[0.14em] mb-3" style={{ color: "#444" }}>
+        Existing website
+      </p>
+      <div className="flex flex-col gap-2.5 mb-8">
         {EXISTING_OPTIONS.map((opt) => (
           <OptionButton
             key={opt.id}
@@ -267,12 +304,41 @@ function Step4({ data, setData }) {
             onClick={() => setData((d) => ({ ...d, existing: opt.id }))}
           >
             <div>
-              <div className="font-semibold" style={{ color: data.existing === opt.id ? "#fff" : "#aaa" }}>{opt.label}</div>
-              <div className="text-xs mt-0.5" style={{ color: "#666" }}>{opt.sub}</div>
+              <div className="font-semibold text-sm" style={{ color: data.existing === opt.id ? "#fff" : "#aaa" }}>{opt.label}</div>
+              <div className="text-xs mt-0.5" style={{ color: "#555" }}>{opt.sub}</div>
             </div>
           </OptionButton>
         ))}
       </div>
+
+      <p className="text-xs font-semibold uppercase tracking-[0.14em] mb-3" style={{ color: "#444" }}>
+        Domain name
+      </p>
+      <div className="flex flex-col gap-2.5 mb-6">
+        {DOMAIN_OPTIONS.map((opt) => (
+          <OptionButton
+            key={opt.id}
+            selected={data.domain === opt.id}
+            onClick={() => setData((d) => ({ ...d, domain: opt.id, domainName: opt.id !== "have" ? "" : d.domainName }))}
+          >
+            <div>
+              <div className="font-semibold text-sm" style={{ color: data.domain === opt.id ? "#fff" : "#aaa" }}>{opt.label}</div>
+              <div className="text-xs mt-0.5" style={{ color: "#555" }}>{opt.sub}</div>
+            </div>
+          </OptionButton>
+        ))}
+      </div>
+
+      {/* Domain name field — show when they already have one */}
+      {data.domain === "have" && (
+        <input
+          type="text"
+          placeholder="yourdomain.com"
+          value={data.domainName || ""}
+          onChange={(e) => setData((d) => ({ ...d, domainName: e.target.value }))}
+          style={inputStyle}
+        />
+      )}
     </div>
   );
 }
@@ -281,10 +347,12 @@ function Step5({ data, setData }) {
   return (
     <div>
       <h2 className="font-heading font-bold mb-2" style={{ fontSize: "clamp(22px,3vw,32px)", letterSpacing: "-0.03em", color: "#fff" }}>
-        What's your timeline?
+        Timeline & contact details
       </h2>
-      <p className="text-sm mb-8" style={{ color: "#888" }}>No commitment, just helps me prioritize.</p>
-      <div className="flex flex-col gap-3">
+      <p className="text-sm mb-8" style={{ color: "#666" }}>No commitment — just helps me prioritize and respond properly.</p>
+
+      <p className="text-xs font-semibold uppercase tracking-[0.14em] mb-3" style={{ color: "#444" }}>Timeline</p>
+      <div className="flex flex-col gap-2.5 mb-10">
         {TIMELINES.map((t) => (
           <OptionButton
             key={t.id}
@@ -292,71 +360,56 @@ function Step5({ data, setData }) {
             onClick={() => setData((d) => ({ ...d, timeline: t.id }))}
           >
             <div>
-              <div className="font-semibold" style={{ color: data.timeline === t.id ? "#fff" : "#aaa" }}>{t.label}</div>
-              <div className="text-xs mt-0.5" style={{ color: "#666" }}>{t.sub}</div>
+              <div className="font-semibold text-sm" style={{ color: data.timeline === t.id ? "#fff" : "#aaa" }}>{t.label}</div>
+              <div className="text-xs mt-0.5" style={{ color: "#555" }}>{t.sub}</div>
             </div>
           </OptionButton>
         ))}
       </div>
 
-      {/* Contact info */}
-      <div className="mt-10 flex flex-col gap-4">
-        <p className="text-xs font-semibold uppercase tracking-[0.14em]" style={{ color: "#555" }}>Your contact info</p>
+      <p className="text-xs font-semibold uppercase tracking-[0.14em] mb-4" style={{ color: "#444" }}>Your details</p>
+      <div className="flex flex-col gap-3">
         <input
           type="text"
-          placeholder="Name"
+          placeholder="Your name"
           value={data.name || ""}
           onChange={(e) => setData((d) => ({ ...d, name: e.target.value }))}
-          className="w-full px-5 py-4 rounded-xl text-sm outline-none transition-all"
-          style={{
-            background: "rgba(255,255,255,0.04)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            color: "#ffffff",
-          }}
+          style={inputStyle}
         />
         <input
           type="email"
           placeholder="Email address"
           value={data.email || ""}
           onChange={(e) => setData((d) => ({ ...d, email: e.target.value }))}
-          className="w-full px-5 py-4 rounded-xl text-sm outline-none transition-all"
-          style={{
-            background: "rgba(255,255,255,0.04)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            color: "#ffffff",
-          }}
+          style={inputStyle}
         />
-        <input
-          type="text"
-          placeholder="Business name (optional)"
-          value={data.businessName || ""}
-          onChange={(e) => setData((d) => ({ ...d, businessName: e.target.value }))}
-          className="w-full px-5 py-4 rounded-xl text-sm outline-none transition-all"
-          style={{
-            background: "rgba(255,255,255,0.04)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            color: "#ffffff",
-          }}
-        />
+        <div className="grid grid-cols-2 gap-3">
+          <input
+            type="text"
+            placeholder="Business name (optional)"
+            value={data.businessName || ""}
+            onChange={(e) => setData((d) => ({ ...d, businessName: e.target.value }))}
+            style={inputStyle}
+          />
+          <input
+            type="text"
+            placeholder="Country / Province"
+            value={data.country || ""}
+            onChange={(e) => setData((d) => ({ ...d, country: e.target.value }))}
+            style={inputStyle}
+          />
+        </div>
         <textarea
-          placeholder="Anything else you'd like me to know? (optional)"
+          placeholder="Anything else worth knowing? (optional)"
           value={data.notes || ""}
           onChange={(e) => setData((d) => ({ ...d, notes: e.target.value }))}
           rows={3}
-          className="w-full px-5 py-4 rounded-xl text-sm outline-none resize-none transition-all"
-          style={{
-            background: "rgba(255,255,255,0.04)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            color: "#ffffff",
-          }}
+          style={{ ...inputStyle, resize: "vertical" }}
         />
       </div>
     </div>
   );
 }
-
-// ─── Canary step ─, shows result before submitting ──────────
-// (inline result summary shown on step 5 submission)
 
 // ─── Main component ───────────────────────────────────────────
 const STEP_EVENTS = [
@@ -369,27 +422,30 @@ const STEP_EVENTS = [
 
 export default function QuoteBuilder() {
   const router = useRouter();
-  const [step, setStep]       = useState(1);
+  const [step,    setStep]    = useState(1);
   const [loading, setLoading] = useState(false);
-  const [error, setError]     = useState(null);
+  const [error,   setError]   = useState(null);
 
   const [data, setData] = useState({
     businessType: "",
     pageSize:     "",
     features:     [],
     existing:     "",
+    domain:       "",
+    domainName:   "",
     timeline:     "",
     name:         "",
     email:        "",
     businessName: "",
+    country:      "",
     notes:        "",
   });
 
   const canAdvance = () => {
     if (step === 1) return !!data.businessType;
     if (step === 2) return !!data.pageSize;
-    if (step === 3) return true; // features are optional
-    if (step === 4) return !!data.existing;
+    if (step === 3) return true;
+    if (step === 4) return !!data.existing && !!data.domain;
     if (step === 5) return !!data.email?.trim();
     return false;
   };
@@ -397,46 +453,50 @@ export default function QuoteBuilder() {
   const next = () => {
     if (!canAdvance()) return;
     track(STEP_EVENTS[step - 1]);
-    if (step < TOTAL_STEPS) {
-      setStep((s) => s + 1);
-    }
+    if (step < TOTAL_STEPS) setStep((s) => s + 1);
   };
 
-  const back = () => {
-    if (step > 1) setStep((s) => s - 1);
-  };
+  const back = () => { if (step > 1) setStep((s) => s - 1); };
 
   const submit = async () => {
     if (!canAdvance()) return;
     setLoading(true);
     setError(null);
 
-    const result = calculateQuote(data.pageSize, data.features);
+    // If they need a domain, add it to features for calculation
+    const features = data.domain === "need"
+      ? [...data.features, "domain"]
+      : data.features;
 
-    // Generate order ref
-    const ref = CONTACT.refPrefix + "-" + String(Math.floor(1000 + Math.random() * 9000));
+    const result = calculateQuote(data.pageSize, features);
 
-    // Build the form body for Formspree
+    const ref          = CONTACT.refPrefix + "-" + String(Math.floor(1000 + Math.random() * 9000));
     const featureLabels = data.features.map((id) => ADDONS[id]?.label ?? id).join(", ");
-    const priceInfo =
-      result.type === "unknown"
-        ? "To be determined, page count not specified"
-        : result.type === "custom"
-        ? "Custom pricing required"
-        : `$${result.setup} setup + $${result.monthly}/month`;
+    const priceInfo    =
+      result.type === "unknown" ? "To be determined — page count not specified"
+      : result.type === "custom"  ? "Custom pricing required"
+      : `$${result.setup} setup + $${result.monthly}/month`;
+
+    const domainInfo = data.domain === "have"
+      ? `Has domain${data.domainName ? `: ${data.domainName}` : ""}`
+      : data.domain === "need"
+      ? "Needs domain registered (+$10/mo)"
+      : "Domain — not sure";
 
     const body = new FormData();
-    body.append("_subject", `[arweb] New quote request, ${ref}`);
-    body.append("Reference",      ref);
-    body.append("Name",           data.name || "Not provided");
-    body.append("Email",          data.email);
-    body.append("Business",       data.businessName || "Not provided");
-    body.append("Business Type",  data.businessType);
-    body.append("Page Size",      data.pageSize);
-    body.append("Features",       featureLabels || "None selected");
-    body.append("Existing Site",  data.existing);
-    body.append("Timeline",       data.timeline);
-    body.append("Notes",          data.notes || ",");
+    body.append("_subject",        `[arweb] New quote request — ${ref}`);
+    body.append("Reference",       ref);
+    body.append("Name",            data.name || "Not provided");
+    body.append("Email",           data.email);
+    body.append("Business",        data.businessName || "Not provided");
+    body.append("Country",         data.country || "Not provided");
+    body.append("Business Type",   data.businessType);
+    body.append("Page Size",       data.pageSize);
+    body.append("Features",        featureLabels || "None selected");
+    body.append("Domain",          domainInfo);
+    body.append("Existing Site",   data.existing);
+    body.append("Timeline",        data.timeline);
+    body.append("Notes",           data.notes || "—");
     body.append("Estimated Price", priceInfo);
 
     try {
@@ -450,10 +510,9 @@ export default function QuoteBuilder() {
 
       track(Events.QUOTE_SUBMITTED, { ref, result_type: result.type });
 
-      // Build confirmation URL
       const params = new URLSearchParams({ ref });
       if (result.type === "standard") {
-        params.set("setup", String(result.setup));
+        params.set("setup",   String(result.setup));
         params.set("monthly", String(result.monthly));
       } else if (result.type === "custom") {
         params.set("custom", "1");
@@ -462,7 +521,7 @@ export default function QuoteBuilder() {
       }
 
       router.push(`/quote/confirmation?${params.toString()}`);
-    } catch (err) {
+    } catch {
       setError("Something went wrong. Please try again or email ansh@anshrai.com directly.");
       setLoading(false);
     }
@@ -475,43 +534,39 @@ export default function QuoteBuilder() {
     <div className="w-full max-w-2xl mx-auto">
       <ProgressBar step={step} />
 
-      {/* Step label */}
       <p
         aria-live="polite"
         aria-atomic="true"
         className="text-xs font-semibold tracking-[0.14em] uppercase mb-6"
-        style={{ color: "#555" }}
+        style={{ color: "#444" }}
       >
         Step {step} of {TOTAL_STEPS}
       </p>
 
-      {/* Step content with slide animation */}
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={step}
-          initial={{ opacity: 0, x: 24 }}
+          initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -24 }}
-          transition={{ duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
+          exit={{ opacity: 0, x: -20 }}
+          transition={{ duration: 0.24, ease: [0.4, 0, 0.2, 1] }}
         >
           <CurrentStep data={data} setData={setData} />
         </motion.div>
       </AnimatePresence>
 
-      {/* Error */}
       {error && (
         <p role="alert" aria-live="assertive" className="mt-6 text-sm" style={{ color: "#ef4444" }}>
           {error}
         </p>
       )}
 
-      {/* Nav buttons */}
       <div className="flex items-center justify-between mt-10">
         <button
           type="button"
           onClick={back}
           className="text-sm transition-colors"
-          style={{ color: step === 1 ? "transparent" : "#666", pointerEvents: step === 1 ? "none" : "auto" }}
+          style={{ color: step === 1 ? "transparent" : "#555", pointerEvents: step === 1 ? "none" : "auto" }}
         >
           ← Back
         </button>
@@ -521,7 +576,7 @@ export default function QuoteBuilder() {
             type="button"
             onClick={next}
             disabled={!canAdvance()}
-            className="px-7 py-3.5 rounded-full font-semibold text-sm transition-all hover:brightness-110 hover:-translate-y-px disabled:opacity-40 disabled:cursor-not-allowed"
+            className="px-7 py-3.5 rounded-full font-semibold text-sm transition-all hover:brightness-110 disabled:opacity-30 disabled:cursor-not-allowed"
             style={{ background: "#2563eb", color: "#ffffff" }}
           >
             Continue →
@@ -531,17 +586,16 @@ export default function QuoteBuilder() {
             type="button"
             onClick={submit}
             disabled={!canAdvance() || loading}
-            className="px-7 py-3.5 rounded-full font-semibold text-sm transition-all hover:brightness-110 hover:-translate-y-px disabled:opacity-40 disabled:cursor-not-allowed"
+            className="px-7 py-3.5 rounded-full font-semibold text-sm transition-all hover:brightness-110 disabled:opacity-30 disabled:cursor-not-allowed"
             style={{ background: "#2563eb", color: "#ffffff" }}
           >
-            {loading ? "Sending…" : "Get My Quote →"}
+            {loading ? "Sending…" : "Submit request →"}
           </button>
         )}
       </div>
 
-      {/* Disclaimer */}
-      <p className="mt-8 text-xs text-center" style={{ color: "#444" }}>
-        No commitment. No spam. Most inquiries receive a response within 1 business day.
+      <p className="mt-8 text-xs text-center" style={{ color: "#383838" }}>
+        No commitment. No spam. Response within 1 business day.
       </p>
     </div>
   );
