@@ -23,10 +23,11 @@ const BUSINESS_TYPES = [
 
 // Step 2: Page size / scope
 const PAGE_SIZES = [
-  { id: "starter",  label: "1–3 pages",  sub: "Small, focused site — home, services, contact" },
-  { id: "standard", label: "4–6 pages",  sub: "Standard business site with dedicated sections" },
-  { id: "advanced", label: "7+ pages",   sub: "Multi-section site with complex structure"      },
-  { id: "unknown",  label: "Not sure",   sub: "I can help scope it out"                        },
+  { id: "static",   label: "Brochure / landing page", sub: "1–2 pages, purely informational — no forms, no backend, no logins" },
+  { id: "starter",  label: "1–3 pages",               sub: "Small business site — home, services, contact form"               },
+  { id: "standard", label: "4–6 pages",               sub: "Standard business site with dedicated sections"                   },
+  { id: "advanced", label: "7+ pages",                sub: "Multi-section site with complex structure"                        },
+  { id: "unknown",  label: "Not sure",                sub: "I can help scope it out"                                          },
 ];
 
 // Step 3: Features — grouped, with pricing notes
