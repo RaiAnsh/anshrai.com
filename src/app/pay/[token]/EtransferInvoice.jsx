@@ -215,6 +215,31 @@ export default function EtransferInvoice({ quote }) {
           </div>
         )}
 
+        {/* Download PDF */}
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: "1.5rem" }}>
+          <a
+            href={`/api/invoice-pdf/${quote.token}`}
+            download
+            style={{
+              display:        "inline-flex",
+              alignItems:     "center",
+              gap:            "0.5rem",
+              padding:        "0.65rem 1.25rem",
+              borderRadius:   9999,
+              border:         "1px solid rgba(255,255,255,0.1)",
+              background:     "rgba(255,255,255,0.05)",
+              color:          "rgba(255,255,255,0.5)",
+              fontFamily:     "var(--font-ui, system-ui)",
+              fontSize:       13,
+              fontWeight:     500,
+              textDecoration: "none",
+              transition:     "all 180ms ease",
+            }}
+          >
+            ↓ Download PDF receipt
+          </a>
+        </div>
+
         {/* Fine print */}
         <p style={{ fontFamily: "var(--font-ui, system-ui)", fontSize: 11, color: "rgba(255,255,255,0.2)", textAlign: "center", lineHeight: 1.6 }}>
           Issued by arweb &middot; Questions?{" "}
