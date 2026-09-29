@@ -70,10 +70,10 @@ export default async function QuoteConfirmationPage({ searchParams }) {
                 Your estimate
               </p>
               <p className="font-heading font-bold mb-2" style={{ fontSize: "clamp(22px, 3vw, 30px)", color: "#fff", letterSpacing: "-0.03em" }}>
-                Starting from $599
+                Starting from $199
               </p>
               <p className="text-xs leading-relaxed" style={{ color: "#666" }}>
-                A detailed quote will be emailed to you within 1 business day. Websites typically start at $599 setup + $35/month — final pricing depends on your scope and feature set.
+                A detailed quote will be emailed to you within 1 business day. Sites start at $199 setup + $15/month — final pricing depends on your scope and features.
               </p>
             </>
           ) : isCustom ? (

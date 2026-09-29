@@ -4,12 +4,27 @@
 // ─────────────────────────────────────────────────────────────
 
 export const TIERS = {
+  static: {
+    id:        "static",
+    label:     "Brochure / Landing Page",
+    pageRange: "1–2 pages",
+    setup:     199,
+    monthly:   15,
+    includes: [
+      "Custom design & development",
+      "Mobile-responsive layout",
+      "Social media links",
+      "Basic on-page SEO",
+      "Hosting & SSL",
+      "Ongoing maintenance",
+    ],
+  },
   starter: {
     id:        "starter",
     label:     "Starter",
     pageRange: "1–3 pages",
-    setup:     599,
-    monthly:   35,
+    setup:     399,
+    monthly:   25,
     includes: [
       "Custom design & development",
       "Mobile-responsive layout",
@@ -25,8 +40,8 @@ export const TIERS = {
     id:        "standard",
     label:     "Standard",
     pageRange: "4–6 pages",
-    setup:     999,
-    monthly:   55,
+    setup:     749,
+    monthly:   45,
     includes: [
       "Everything in Starter",
       "Portfolio / gallery section",
@@ -41,8 +56,8 @@ export const TIERS = {
     id:        "advanced",
     label:     "Advanced",
     pageRange: "7+ pages",
-    setup:     1499,
-    monthly:   79,
+    setup:     1199,
+    monthly:   65,
     includes: [
       "Everything in Standard",
       "Multiple service categories",
@@ -107,7 +122,7 @@ export const COPY = {
   responseTime: "Most inquiries receive a response within 1 business day.",
   disclaimer:   "This is an estimate based on your selections. Final pricing is confirmed after a brief project review.",
   customNote:   "Your project scope requires a custom quote. I'll review your requirements and follow up within 1 business day.",
-  starterNote:  "Websites start at $599 setup + $35/month. Final pricing depends on your scope and feature set.",
+  starterNote:  "Simple sites start at $199 setup + $15/month. Final pricing depends on your scope and features.",
 };
 
 export const CONTACT = {

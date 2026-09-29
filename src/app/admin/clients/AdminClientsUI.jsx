@@ -175,6 +175,13 @@ function ClientRow({ client: initial, onDelete }) {
                         style={{ marginTop: "0.75rem", fontSize: 12, fontWeight: 600, padding: "0.45rem 1rem", borderRadius: 8, border: "none", background: "#22c55e", color: "#000", cursor: marking ? "not-allowed" : "pointer", opacity: marking ? 0.6 : 1 }}
                       >{marking ? "Marking…" : "✓ Mark as paid"}</button>
                     )}
+                    {/* Download PDF */}
+                    <a
+                      href={`/api/invoice-pdf/${client.id}`}
+                      download
+                      onClick={(e) => e.stopPropagation()}
+                      style={{ display: "inline-block", marginTop: "0.5rem", marginLeft: client.status !== "paid" ? "0.5rem" : 0, fontSize: 12, fontWeight: 500, padding: "0.45rem 0.9rem", borderRadius: 8, border: "1px solid rgba(255,255,255,0.12)", background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.6)", textDecoration: "none", cursor: "pointer" }}
+                    >↓ PDF receipt</a>
                   </div>
                 ) : (
                   client.status === "paid" && (
