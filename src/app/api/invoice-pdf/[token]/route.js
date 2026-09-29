@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
-import { renderToBuffer, Document, Page, Text, View, Image, StyleSheet, Font } from "@react-pdf/renderer";
-import fs from "fs";
-import path from "path";
+import { renderToBuffer, Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
 import React from "react";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -24,7 +22,8 @@ const s = StyleSheet.create({
     alignItems: "flex-start",
     marginBottom: 10,
   },
-  logo: { width: 110, height: "auto" },
+  logoName: { fontSize: 20, fontFamily: "Helvetica-Bold", color: "#5b21b6", letterSpacing: 1 },
+  logoSub:  { fontSize: 7.5, color: "#888", letterSpacing: 2, textTransform: "uppercase", marginTop: 2 },
   invoiceTitle: {
     fontSize: 34,
     fontFamily: "Helvetica-Bold",
@@ -119,13 +118,6 @@ function fmtCAD(n) {
 }
 
 function InvoicePDF({ invoice }) {
-  const logoPath = path.join(process.cwd(), "public/arweb-logo.png");
-  let logoSrc = null;
-  try {
-    const logoData = fs.readFileSync(logoPath);
-    logoSrc = `data:image/png;base64,${logoData.toString("base64")}`;
-  } catch {}
-
   const isPaid = invoice.status === "paid";
 
   return (
@@ -134,10 +126,10 @@ function InvoicePDF({ invoice }) {
 
         {/* Header */}
         <View style={s.header}>
-          {logoSrc
-            ? <Image src={logoSrc} style={s.logo} />
-            : <View><Text style={{ fontSize: 18, fontFamily: "Helvetica-Bold", color: "#6c4fcf" }}>arweb</Text><Text style={{ fontSize: 8, color: "#888" }}>WEB SOLUTIONS</Text></View>
-          }
+          <View>
+            <Text style={s.logoName}>arweb</Text>
+            <Text style={s.logoSub}>Web Solutions</Text>
+          </View>
           <Text style={s.invoiceTitle}>INVOICE</Text>
         </View>
 

@@ -45,7 +45,7 @@ function CopyEmailButton({ email }) {
   );
 }
 
-export default function EtransferInvoice({ quote }) {
+export default function EtransferInvoice({ quote, token }) {
   const invoiceRef = quote.etransferEmail ? `INV-${Date.now().toString(36).toUpperCase().slice(-6)}` : "INV";
   const today = new Date().toLocaleDateString("en-CA", {
     year: "numeric", month: "long", day: "numeric",
@@ -218,7 +218,7 @@ export default function EtransferInvoice({ quote }) {
         {/* Download PDF */}
         <div style={{ display: "flex", justifyContent: "center", marginBottom: "1.5rem" }}>
           <a
-            href={`/api/invoice-pdf/${quote.token}`}
+            href={`/api/invoice-pdf/${token}`}
             download
             style={{
               display:        "inline-flex",
