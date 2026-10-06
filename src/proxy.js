@@ -1,13 +1,15 @@
 import { NextResponse } from "next/server";
 import { verifyJobsCookie } from "./lib/jobs/auth";
+import { verifyAdminCookie } from "./lib/admin/auth";
 
 export async function proxy(req) {
   const { pathname } = req.nextUrl;
 
-  // ── Admin: simple cookie check (existing behaviour) ──────────
+  // ── Admin: HMAC-signed + expiring cookie ─────────────────────
   if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
-    const authed = req.cookies.get("admin_auth")?.value;
-    if (authed !== "1") {
+    const cookie = req.cookies.get("admin_auth")?.value;
+    const valid  = await verifyAdminCookie(cookie);
+    if (!valid) {
       const url = req.nextUrl.clone();
       url.pathname = "/admin/login";
       return NextResponse.redirect(url);
