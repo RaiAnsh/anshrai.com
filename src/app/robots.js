@@ -4,7 +4,7 @@ export default function robots() {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin/", "/admin/login"],
+        disallow: ["/admin/", "/admin/login", "/jobs", "/jobs/"],
       },
     ],
     sitemap: "https://anshrai.com/sitemap.xml",
