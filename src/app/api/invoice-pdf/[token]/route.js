@@ -3,8 +3,6 @@ import Stripe from "stripe";
 import { renderToBuffer, Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
 import React from "react";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-
 // ─── Styles ───────────────────────────────────────────────────
 const s = StyleSheet.create({
   page: {
@@ -215,6 +213,8 @@ function InvoicePDF({ invoice }) {
 export async function GET(request, { params }) {
   const { token } = await params;
   if (!token) return NextResponse.json({ error: "Missing token" }, { status: 400 });
+
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
   let customer;
   try {
