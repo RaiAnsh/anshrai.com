@@ -58,10 +58,8 @@ function detectTitles(text) {
 }
 
 async function extractPdf(file) {
-  const { getDocument, GlobalWorkerOptions } = await import("pdfjs-dist");
-  // Use the bundled worker
-  const workerSrc = (await import("pdfjs-dist/build/pdf.worker.min.mjs?url")).default;
-  GlobalWorkerOptions.workerSrc = workerSrc;
+  const { getDocument, GlobalWorkerOptions, version } = await import("pdfjs-dist");
+  GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${version}/pdf.worker.min.mjs`;
 
   const arrayBuffer = await file.arrayBuffer();
   const pdf = await getDocument({ data: arrayBuffer }).promise;
