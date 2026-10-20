@@ -1,14 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { track, Events } from "../lib/analytics";
 
 const NAV_LINKS = [
-  { label: "Work",      href: "/#work" },
-  { label: "Services",  href: "/#services" },
-  { label: "About",     href: "/#about" },
-  { label: "Pricing",   href: "/quote" },
-  { label: "Technical", href: "/technical" },
+  { label: "Projects",   href: "/projects" },
+  { label: "Experience", href: "/experience" },
+  { label: "Skills",     href: "/skills" },
+  { label: "About",      href: "/about" },
+  { label: "Contact",    href: "/contact" },
 ];
 
 export default function Nav() {
@@ -73,18 +72,16 @@ export default function Nav() {
               flexShrink:     0,
             }}
           >
-            {/* arweb logo — mix-blend-mode:screen makes the black bg transparent */}
-            <img
-              src="/arweb-logo.png"
-              alt="arweb"
-              width={scrolled ? 110 : 130}
-              style={{
-                height:     "auto",
-                transition: "width 300ms",
-                flexShrink: 0,
-                display:    "block",
-              }}
-            />
+            <span style={{
+              fontFamily:    "var(--font-ui)",
+              fontSize:      scrolled ? 15 : 17,
+              fontWeight:    600,
+              color:         "#ffffff",
+              letterSpacing: "-0.01em",
+              transition:    "font-size 300ms",
+            }}>
+              Ansh Rai
+            </span>
           </a>
 
           {/* Desktop links */}
@@ -112,8 +109,7 @@ export default function Nav() {
               </a>
             ))}
             <a
-              href="/quote"
-              onClick={() => track(Events.NAV_QUOTE_CLICKED)}
+              href="/contact"
               style={{
                 display:       "inline-flex",
                 alignItems:    "center",
@@ -132,7 +128,7 @@ export default function Nav() {
               onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")}
               onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
             >
-              Start a Project
+              Get in Touch
             </a>
           </div>
 
@@ -187,12 +183,12 @@ export default function Nav() {
             </a>
           ))}
           <a
-            href="/quote"
+            href="/contact"
             onClick={close}
             className="btn-primary"
             style={{ alignSelf: "flex-start", marginTop: "1.5rem", fontSize: 14 }}
           >
-            Start a Project
+            Get in Touch
           </a>
         </div>
       </div>

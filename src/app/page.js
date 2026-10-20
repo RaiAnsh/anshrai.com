@@ -1,59 +1,27 @@
-import Nav              from "../components/Nav";
-import MobileCTA        from "../components/MobileCTA";
-
-import Hero             from "../components/sections/Hero";
-import LogosMarquee     from "../components/sections/LogosMarquee";
-import HomeCaseStudies  from "../components/sections/HomeCaseStudies";
-import TextTicker       from "../components/sections/TextTicker";
-import Services         from "../components/sections/Services";
-import TrustBar         from "../components/sections/TrustBar";
-import Testimonials     from "../components/sections/Testimonials";
-import WhoIAm           from "../components/sections/WhoIAm";
+import SpaceHero        from "../components/sections/SpaceHero";
+import SkillsMarquee    from "../components/sections/SkillsMarquee";
+import FeaturedProjects from "../components/sections/FeaturedProjects";
 import RecruiterSection from "../components/sections/RecruiterSection";
-import FAQ              from "../components/sections/FAQ";
-import FinalCTA         from "../components/sections/FinalCTA";
-import Footer           from "../components/sections/Footer";
+import Skills           from "../components/sections/Skills";
+import About            from "../components/sections/About";
+import Contact          from "../components/sections/Contact";
+
+export const metadata = {
+  title: "Ansh Rai — Developer & CS Student",
+  description:
+    "Ansh Rai is a CS student at Toronto Metropolitan University targeting database developer and data analyst roles. Full-stack developer with experience in React, Next.js, PostgreSQL, and Python.",
+};
 
 export default function Home() {
   return (
-    <>
-      <Nav />
-      <main>
-        {/* 1 — Video hero */}
-        <Hero />
-
-        {/* 2 — Trusted-by brand strip */}
-        <LogosMarquee />
-
-        {/* 3 — Featured case study cards */}
-        <HomeCaseStudies />
-
-        {/* 4 — Scrolling text ticker */}
-        <TextTicker />
-
-        {/* 5 — Services numbered hover list */}
-        <Services />
-
-        {/* 6 — Trust numbers */}
-        <TrustBar />
-
-        {/* 7 — Client testimonials */}
-        <Testimonials />
-
-        {/* 8 — About / who I am */}
-        <WhoIAm />
-
-        {/* 9 — For tech recruiters */}
-        <RecruiterSection />
-
-        {/* 10 — FAQ */}
-        <FAQ />
-
-        {/* 11 — Final CTA */}
-        <FinalCTA />
-      </main>
-      <Footer />
-      <MobileCTA />
-    </>
+    <main>
+      <SpaceHero />
+      <SkillsMarquee />
+      <FeaturedProjects />
+      <RecruiterSection />
+      <Skills />
+      <About />
+      <Contact />
+    </main>
   );
 }

@@ -22,8 +22,8 @@ const links = [
     primary: false,
   },
   {
-    label: "arweb.co ↗",
-    href: "/arweb",
+    label: "arweb Solutions ↗",
+    href: "https://arwebsolutions.ca",
     primary: false,
   },
 ];
