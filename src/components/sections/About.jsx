@@ -89,7 +89,7 @@ export default function About() {
             transition={{ duration: 0.7, delay: 0.2, ease }}
           >
             <p className="leading-relaxed mb-5" style={{ color: "#888888" }}>
-              I'm a Computer Science student at TMU and the founder of arweb — a web and database development business helping local businesses build their online presence and make data-driven decisions.
+              I'm a Computer Science student at Toronto Metropolitan University targeting database developer and data analyst roles. I also run arweb Solutions — a web development studio for local businesses.
             </p>
             <p className="leading-relaxed mb-5" style={{ color: "#888888" }}>
               I got into tech because I saw local businesses losing customers to competitors with better websites — and realized I could fix that. Now I build the kind of digital experiences that actually move the needle.

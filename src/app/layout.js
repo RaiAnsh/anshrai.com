@@ -47,9 +47,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Web Designer Toronto | arweb",
+    title: "Ansh Rai — Developer & CS Student",
     description:
-      "Custom websites for Toronto small businesses. Quote in minutes.",
+      "CS student at TMU. Full-stack developer targeting database developer and data analyst roles.",
   },
   alternates: {
     canonical: "https://anshrai.com",
@@ -65,102 +65,28 @@ export const metadata = {
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Person",
-      "@id": "https://anshrai.com/#person",
-      name: "Ansh Rai",
-      url: "https://anshrai.com",
-      sameAs: [
-        "https://www.linkedin.com/in/raiansh/",
-        "https://github.com/RaiAnsh",
-      ],
-      jobTitle: "Web Designer & Developer",
-      worksFor: { "@id": "https://anshrai.com/#organization" },
-      knowsAbout: [
-        "Web Design",
-        "Web Development",
-        "Search Engine Optimization",
-        "Next.js",
-        "React",
-        "Small Business Websites",
-      ],
-    },
-    {
-      "@type": "LocalBusiness",
-      "@id": "https://anshrai.com/#organization",
-      name: "arweb",
-      url: "https://anshrai.com",
-      email: "ansh@anshrai.com",
-      description:
-        "Toronto web designer and developer building custom websites and digital systems for small businesses across Canada. You work directly with the developer from first call to launch.",
-      founder: { "@id": "https://anshrai.com/#person" },
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Toronto",
-        addressRegion: "ON",
-        addressCountry: "CA",
-        postalCode: "M5V",
-      },
-      geo: {
-        "@type": "GeoCoordinates",
-        latitude: 43.6532,
-        longitude: -79.3832,
-      },
-      areaServed: [
-        {
-          "@type": "City",
-          name: "Toronto",
-        },
-        {
-          "@type": "State",
-          name: "Ontario",
-        },
-        {
-          "@type": "Country",
-          name: "Canada",
-        },
-      ],
-      priceRange: "$$",
-      serviceType: [
-        "Web Design",
-        "Web Development",
-        "Custom Website Design",
-        "Small Business Websites",
-        "SEO",
-        "Website Maintenance",
-      ],
-      hasOfferCatalog: {
-        "@type": "OfferCatalog",
-        name: "Web Design Services",
-        itemListElement: [
-          {
-            "@type": "Offer",
-            itemOffered: {
-              "@type": "Service",
-              name: "Starter Website",
-              description: "Professional website for small businesses",
-            },
-          },
-          {
-            "@type": "Offer",
-            itemOffered: {
-              "@type": "Service",
-              name: "Growth Website",
-              description: "Lead generation website with full SEO setup",
-            },
-          },
-          {
-            "@type": "Offer",
-            itemOffered: {
-              "@type": "Service",
-              name: "Full-Stack Web App",
-              description: "Custom web application with backend",
-            },
-          },
-        ],
-      },
-    },
+  "@type": "Person",
+  "@id": "https://anshrai.com/#person",
+  name: "Ansh Rai",
+  url: "https://anshrai.com",
+  sameAs: [
+    "https://www.linkedin.com/in/raiansh/",
+    "https://github.com/RaiAnsh",
+  ],
+  jobTitle: "Software Developer",
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "Toronto Metropolitan University",
+  },
+  knowsAbout: [
+    "Database Development",
+    "Data Analysis",
+    "Full-Stack Development",
+    "Next.js",
+    "React",
+    "PostgreSQL",
+    "Python",
+    "SQL",
   ],
 };
 

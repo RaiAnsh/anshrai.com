@@ -421,9 +421,9 @@ export default function SpaceHero() {
               textShadow: "0 2px 40px rgba(0,0,0,0.8)",
             }}
           >
-            Websites<br />
-            <span style={{ color: "#d4c8b8" }}>businesses</span><br />
-            <span style={{ color: "#d4a84b" }}>love.</span>
+            Ansh Rai —<br />
+            <span style={{ color: "#d4c8b8" }}>developer &</span><br />
+            <span style={{ color: "#d4a84b" }}>builder.</span>
           </h1>
 
           <p style={{
@@ -431,7 +431,7 @@ export default function SpaceHero() {
             fontStyle: "italic",
             textShadow: "0 1px 12px rgba(0,0,0,0.9)",
           }}>
-            Web design · Database development · Data analytics
+            CS student at TMU · Full-stack · Data & databases
           </p>
         </div>
 
@@ -445,7 +445,7 @@ export default function SpaceHero() {
           }}
         >
           <div style={{ display: "flex", gap: 12 }}>
-            <a href="#work" style={{
+            <a href="/projects" style={{
               padding: "11px 26px", borderRadius: 100,
               fontSize: 13, fontWeight: 600,
               background: "#d4a84b", color: "#0a0909",
@@ -454,7 +454,7 @@ export default function SpaceHero() {
             }}>
               See my work →
             </a>
-            <a href="#contact" style={{
+            <a href="/contact" style={{
               padding: "11px 26px", borderRadius: 100,
               fontSize: 13, fontWeight: 600,
               border: "1px solid rgba(240,237,229,0.2)",

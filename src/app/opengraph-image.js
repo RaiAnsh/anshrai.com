@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "arweb — Websites built to turn visitors into customers.";
+export const alt = "Ansh Rai — Developer & CS Student";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -115,7 +115,7 @@ export default function OGImage() {
               marginTop: 4,
             }}
           >
-            arweb · anshrai.com
+            Ansh Rai · anshrai.com
           </div>
         </div>
       </div>
